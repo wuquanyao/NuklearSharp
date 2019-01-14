@@ -264,48 +264,9 @@ namespace NuklearSharp
 			CRuntime.free(ptr);
 		}
 
-		public static float nk_font_text_width(nk_font font, float height, char* text, int len)
+		public static float nk_font_text_width(SpriteFont font, string text)
 		{
-			char unicode;
-			int text_len = (int) (0);
-			float text_width = (float) (0);
-			int glyph_len = (int) (0);
-			float scale = (float) (0);
-
-			if (((font == null) || (text == null)) || (len == 0)) return (float) (0);
-			scale = (float) (height/font.info.height);
-			glyph_len = (int) (text_len = (int) (nk_utf_decode(text, &unicode, (int) (len))));
-			if (glyph_len == 0) return (float) (0);
-			while ((text_len <= len) && ((glyph_len) != 0))
-			{
-				nk_font_glyph* g;
-				if ((unicode) == (0xFFFD)) break;
-				g = nk_font_find_glyph(font, unicode);
-				text_width += (float) (g->xadvance*scale);
-				glyph_len = (int) (nk_utf_decode(text + text_len, &unicode, (int) (len - text_len)));
-				text_len += (int) (glyph_len);
-			}
-			return (float) (text_width);
-		}
-
-		public static void nk_font_query_font_glyph(nk_font font, float height, nk_user_font_glyph* glyph, char codepoint,
-			char next_codepoint)
-		{
-			float scale;
-			nk_font_glyph* g;
-
-
-			if ((font == null) || (glyph == null)) return;
-			scale = (float) (height/font.info.height);
-			g = nk_font_find_glyph(font, codepoint);
-			glyph->width = (float) ((g->x1 - g->x0)*scale);
-			glyph->height = (float) ((g->y1 - g->y0)*scale);
-			glyph->offset = (nk_vec2) (nk_vec2_((float) (g->x0*scale), (float) (g->y0*scale)));
-			glyph->xadvance = (float) (g->xadvance*scale);
-			glyph->uv_x[0] = g->u0;
-			glyph->uv_y[0] = g->v0;
-			glyph->uv_x[1] = g->u1;
-			glyph->uv_y[1] = g->v1;
+			return font.MeasureString(text).X;
 		}
 
 		public static nk_style_item nk_style_item_image(nk_image img)

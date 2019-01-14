@@ -56,7 +56,7 @@ namespace NuklearSharp
 			public int num_chars;
 		}
 
-		public static float nk_textedit_get_width(nk_text_edit edit, int line_start, int char_id, nk_user_font font)
+		public static float nk_textedit_get_width(nk_text_edit edit, int line_start, int char_id, SpriteFont font)
 		{
 			fixed (char* str2 = edit._string_.str)
 			{
@@ -66,7 +66,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_textedit_layout_row(nk_text_edit_row* r, nk_text_edit edit, int line_start_id, float row_height,
-			nk_user_font font)
+			SpriteFont font)
 		{
 			int glyphs = (int) (0);
 			char* remaining;
@@ -89,7 +89,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public static int nk_textedit_locate_coord(nk_text_edit edit, float x, float y, nk_user_font font, float row_height)
+		public static int nk_textedit_locate_coord(nk_text_edit edit, float x, float y, SpriteFont font, float row_height)
 		{
 			nk_text_edit_row r = new nk_text_edit_row();
 			int n = (int) (edit._string_.len);
@@ -131,7 +131,7 @@ namespace NuklearSharp
 			else return (int) (i + r.num_chars);
 		}
 
-		public static void nk_textedit_click(nk_text_edit state, float x, float y, nk_user_font font, float row_height)
+		public static void nk_textedit_click(nk_text_edit state, float x, float y, SpriteFont font, float row_height)
 		{
 			state.cursor = (int) (nk_textedit_locate_coord(state, (float) (x), (float) (y), font, (float) (row_height)));
 			state.select_start = (int) (state.cursor);
@@ -139,7 +139,7 @@ namespace NuklearSharp
 			state.has_preferred_x = (byte) (0);
 		}
 
-		public static void nk_textedit_drag(nk_text_edit state, float x, float y, nk_user_font font, float row_height)
+		public static void nk_textedit_drag(nk_text_edit state, float x, float y, SpriteFont font, float row_height)
 		{
 			int p = (int) (nk_textedit_locate_coord(state, (float) (x), (float) (y), font, (float) (row_height)));
 			if ((state.select_start) == (state.select_end)) state.select_start = (int) (state.cursor);
@@ -147,7 +147,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_textedit_find_charpos(nk_text_find* find, nk_text_edit state, int n, int single_line,
-			nk_user_font font, float row_height)
+			SpriteFont font, float row_height)
 		{
 			nk_text_edit_row r = new nk_text_edit_row();
 			int prev_start = (int) (0);
@@ -396,7 +396,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public static void nk_textedit_key(nk_text_edit state, int key, int shift_mod, nk_user_font font, float row_height)
+		public static void nk_textedit_key(nk_text_edit state, int key, int shift_mod, SpriteFont font, float row_height)
 		{
 			retry:
 			;

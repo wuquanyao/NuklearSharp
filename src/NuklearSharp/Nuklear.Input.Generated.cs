@@ -21,54 +21,49 @@ namespace NuklearSharp
 
 		public static int nk_input_has_mouse_click(nk_input i, int id)
 		{
-			nk_mouse_button* btn;
 			if (i == null) return (int) (nk_false);
-			btn = (nk_mouse_button*) i.mouse.buttons + id;
-			return (int) ((((btn->clicked) != 0) && ((btn->down) == (nk_false))) ? nk_true : nk_false);
+			var btn = i.mouse.buttons[id];
+			return (int) ((((btn.clicked) != 0) && ((btn.down) == (nk_false))) ? nk_true : nk_false);
 		}
 
 		public static int nk_input_has_mouse_click_in_rect(nk_input i, int id, nk_rect b)
 		{
-			nk_mouse_button* btn;
 			if (i == null) return (int) (nk_false);
-			btn = (nk_mouse_button*) i.mouse.buttons + id;
+			var btn = i.mouse.buttons[id];
 			if (
-				!((((b.x) <= (btn->clicked_pos.x)) && ((btn->clicked_pos.x) < (b.x + b.w))) &&
-				  (((b.y) <= (btn->clicked_pos.y)) && ((btn->clicked_pos.y) < (b.y + b.h))))) return (int) (nk_false);
+				!((((b.x) <= (btn.clicked_pos.x)) && ((btn.clicked_pos.x) < (b.x + b.w))) &&
+				  (((b.y) <= (btn.clicked_pos.y)) && ((btn.clicked_pos.y) < (b.y + b.h))))) return (int) (nk_false);
 			return (int) (nk_true);
 		}
 
 		public static int nk_input_has_mouse_click_down_in_rect(nk_input i, int id, nk_rect b, int down)
 		{
-			nk_mouse_button* btn;
 			if (i == null) return (int) (nk_false);
-			btn = (nk_mouse_button*) i.mouse.buttons + id;
+			var btn = i.mouse.buttons[id];
 			return
-				(int) (((nk_input_has_mouse_click_in_rect(i, (int) (id), (nk_rect) (b))) != 0) && ((btn->down) == (down)) ? 1 : 0);
+				(int) (((nk_input_has_mouse_click_in_rect(i, (int) (id), (nk_rect) (b))) != 0) && ((btn.down) == (down)) ? 1 : 0);
 		}
 
 		public static int nk_input_is_mouse_click_in_rect(nk_input i, int id, nk_rect b)
 		{
-			nk_mouse_button* btn;
 			if (i == null) return (int) (nk_false);
-			btn = (nk_mouse_button*) i.mouse.buttons + id;
+			var btn = i.mouse.buttons[id];
 			return
 				(int)
 					((((nk_input_has_mouse_click_down_in_rect(i, (int) (id), (nk_rect) (b), (int) (nk_false))) != 0) &&
-					  ((btn->clicked) != 0))
+					  ((btn.clicked) != 0))
 						? nk_true
 						: nk_false);
 		}
 
 		public static int nk_input_is_mouse_click_down_in_rect(nk_input i, int id, nk_rect b, int down)
 		{
-			nk_mouse_button* btn;
 			if (i == null) return (int) (nk_false);
-			btn = (nk_mouse_button*) i.mouse.buttons + id;
+			var btn = i.mouse.buttons[id];
 			return
 				(int)
 					((((nk_input_has_mouse_click_down_in_rect(i, (int) (id), (nk_rect) (b), (int) (down))) != 0) &&
-					  ((btn->clicked) != 0))
+					  ((btn.clicked) != 0))
 						? nk_true
 						: nk_false);
 		}
@@ -117,10 +112,9 @@ namespace NuklearSharp
 
 		public static int nk_input_is_mouse_pressed(nk_input i, int id)
 		{
-			nk_mouse_button* b;
 			if (i == null) return (int) (nk_false);
-			b = (nk_mouse_button*) i.mouse.buttons + id;
-			if (((b->down) != 0) && ((b->clicked) != 0)) return (int) (nk_true);
+			var b = i.mouse.buttons[id];
+			if (((b.down) != 0) && ((b.clicked) != 0)) return (int) (nk_true);
 			return (int) (nk_false);
 		}
 
@@ -132,28 +126,25 @@ namespace NuklearSharp
 
 		public static int nk_input_is_key_pressed(nk_input i, int key)
 		{
-			nk_key* k;
 			if (i == null) return (int) (nk_false);
-			k = (nk_key*) i.keyboard.keys + key;
-			if ((((k->down) != 0) && ((k->clicked) != 0)) || ((k->down == 0) && ((k->clicked) >= (2)))) return (int) (nk_true);
+			var k = i.keyboard.keys[key];
+			if ((((k.down) != 0) && ((k.clicked) != 0)) || ((k.down == 0) && ((k.clicked) >= (2)))) return (int) (nk_true);
 			return (int) (nk_false);
 		}
 
 		public static int nk_input_is_key_released(nk_input i, int key)
 		{
-			nk_key* k;
 			if (i == null) return (int) (nk_false);
-			k = (nk_key*) i.keyboard.keys + key;
-			if (((k->down == 0) && ((k->clicked) != 0)) || (((k->down) != 0) && ((k->clicked) >= (2)))) return (int) (nk_true);
+			var k = i.keyboard.keys[key];
+			if (((k.down == 0) && ((k.clicked) != 0)) || (((k.down) != 0) && ((k.clicked) >= (2)))) return (int) (nk_true);
 			return (int) (nk_false);
 		}
 
 		public static int nk_input_is_key_down(nk_input i, int key)
 		{
-			nk_key* k;
 			if (i == null) return (int) (nk_false);
-			k = (nk_key*) i.keyboard.keys + key;
-			if ((k->down) != 0) return (int) (nk_true);
+			var k = i.keyboard.keys[key];
+			if ((k.down) != 0) return (int) (nk_true);
 			return (int) (nk_false);
 		}
 

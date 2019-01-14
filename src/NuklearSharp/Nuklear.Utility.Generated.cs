@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Runtime.InteropServices;
 
@@ -1190,7 +1191,7 @@ namespace NuklearSharp
 			return (nk_image) (s);
 		}
 
-		public static int nk_text_clamp(nk_user_font font, char* text, int text_len, float space, int* glyphs,
+		public static int nk_text_clamp(SpriteFont font, string text, float space, int* glyphs,
 			float* text_width, uint* sep_list, int sep_count)
 		{
 			int i = (int) (0);
@@ -1205,11 +1206,11 @@ namespace NuklearSharp
 			int sep_g = (int) (0);
 			float sep_width = (float) (0);
 			sep_count = (int) ((sep_count) < (0) ? (0) : (sep_count));
-			glyph_len = (int) (nk_utf_decode(text, &unicode, (int) (text_len)));
-			while ((((glyph_len) != 0) && ((width) < (space))) && ((len) < (text_len)))
+			glyph_len = (int) (nk_utf_decode(text, &unicode, (int) (text.Length)));
+			while ((((glyph_len) != 0) && ((width) < (space))) && ((len) < (text.Length)))
 			{
 				len += (int) (glyph_len);
-				s = (float) (font.width((nk_handle) (font.userdata), (float) (font.height), text, (int) (len)));
+				s = font.width(text);
 				for (i = (int) (0); (i) < (sep_count); ++i)
 				{
 					if (unicode != sep_list[i]) continue;
@@ -1224,10 +1225,10 @@ namespace NuklearSharp
 					sep_g = (int) (g + 1);
 				}
 				width = (float) (s);
-				glyph_len = (int) (nk_utf_decode(text + len, &unicode, (int) (text_len - len)));
+				glyph_len = (int) (nk_utf_decode(text + len, &unicode, (int) (text.Length - len)));
 				g++;
 			}
-			if ((len) >= (text_len))
+			if ((len) >= (text.Length))
 			{
 				*glyphs = (int) (g);
 				*text_width = (float) (last_width);
@@ -1242,7 +1243,7 @@ namespace NuklearSharp
 
 		}
 
-		public static nk_vec2 nk_text_calculate_text_bounds(nk_user_font font, char* begin, int byte_len, float row_height,
+		public static nk_vec2 nk_text_calculate_text_bounds(SpriteFont font, char* begin, int byte_len, float row_height,
 			char** remaining, nk_vec2* out_offset, int* glyphs, int op)
 		{
 			float line_height = (float) (row_height);
@@ -1256,7 +1257,7 @@ namespace NuklearSharp
 				return (nk_vec2) (nk_vec2_((float) (0), (float) (row_height)));
 			glyph_len = (int) (nk_utf_decode(begin, &unicode, (int) (byte_len)));
 			if (glyph_len == 0) return (nk_vec2) (text_size);
-			glyph_width = (float) (font.width((nk_handle) (font.userdata), (float) (font.height), begin, (int) (glyph_len)));
+			glyph_width = (float) (font.width((nk_handle) (font.userdata), (float) (font.height()), begin, (int) (glyph_len)));
 			*glyphs = (int) (0);
 			while (((text_len) < (byte_len)) && ((glyph_len) != 0))
 			{
@@ -1283,7 +1284,7 @@ namespace NuklearSharp
 				line_width += (float) (glyph_width);
 				glyph_len = (int) (nk_utf_decode(begin + text_len, &unicode, (int) (byte_len - text_len)));
 				glyph_width =
-					(float) (font.width((nk_handle) (font.userdata), (float) (font.height), begin + text_len, (int) (glyph_len)));
+					(float) (font.width((nk_handle) (font.userdata), (float) (font.height()), begin + text_len, (int) (glyph_len)));
 				continue;
 			}
 			if ((text_size.x) < (line_width)) text_size.x = (float) (line_width);
@@ -1544,22 +1545,6 @@ namespace NuklearSharp
 				}
 			}
 			return result;
-		}
-
-		public static int nk_rect_height_compare(void* a, void* b)
-		{
-			nk_rp_rect* p = (nk_rp_rect*) (a);
-			nk_rp_rect* q = (nk_rp_rect*) (b);
-			if ((p->h) > (q->h)) return (int) (-1);
-			if ((p->h) < (q->h)) return (int) (1);
-			return (int) (((p->w) > (q->w)) ? -1 : ((p->w) < (q->w)) ? 1 : 0);
-		}
-
-		public static int nk_rect_original_order(void* a, void* b)
-		{
-			nk_rp_rect* p = (nk_rp_rect*) (a);
-			nk_rp_rect* q = (nk_rp_rect*) (b);
-			return (int) (((p->was_packed) < (q->was_packed)) ? -1 : ((p->was_packed) > (q->was_packed)) ? 1 : 0);
 		}
 
 		public static ushort nk_ttUSHORT(byte* p)
@@ -1944,102 +1929,6 @@ namespace NuklearSharp
 			return (int) (total_glyphs);
 		}
 
-		public static void nk_font_baker_memory(ulong* temp, ref int glyph_count, nk_font_config config_list, int count)
-		{
-			int range_count = (int) (0);
-			int total_range_count = (int) (0);
-			nk_font_config iter;
-			nk_font_config i;
-			if (config_list == null)
-			{
-				*temp = (ulong) (0);
-				glyph_count = (int) (0);
-				return;
-			}
-
-			glyph_count = (int) (0);
-			for (iter = config_list; iter != null; iter = iter.next)
-			{
-				i = iter;
-				do
-				{
-					if (i.range == null) iter.range = nk_font_default_glyph_ranges();
-					range_count = (int) (nk_range_count(i.range));
-					total_range_count += (int) (range_count);
-					glyph_count += (int) (nk_range_glyph_count(i.range, (int) (range_count)));
-				} while ((i = i.n) != iter);
-			}
-			*temp = (ulong) ((ulong) (glyph_count)*(ulong) sizeof (nk_rp_rect));
-			*temp += (ulong) ((ulong) (total_range_count)*(ulong) sizeof (nk_tt_pack_range));
-			*temp += (ulong) ((ulong) (glyph_count)*(ulong) sizeof (nk_tt_packedchar));
-			*temp += (ulong) ((ulong) (count)*(ulong) sizeof (nk_font_bake_data));
-			*temp += (ulong) (sizeof (nk_font_baker));
-			*temp += (ulong) (nk_rect_align + nk_range_align + nk_char_align);
-			*temp += (ulong) (nk_build_align + nk_baker_align);
-		}
-
-		public static nk_font_baker* nk_font_baker_(void* memory, int glyph_count, int count)
-		{
-			nk_font_baker* baker;
-			if (memory == null) return null;
-			baker =
-				(nk_font_baker*)
-					((void*) ((long) (((ulong) ((long) ((byte*) (memory) + (nk_baker_align - 1)))) & ~(nk_baker_align - 1))));
-			baker->build =
-				(nk_font_bake_data*)
-					((void*) ((long) (((ulong) ((long) ((byte*) (baker + 1) + (nk_build_align - 1)))) & ~(nk_build_align - 1))));
-			baker->packed_chars =
-				(nk_tt_packedchar*)
-					((void*)
-						((long) (((ulong) ((long) ((byte*) (baker->build + count) + (nk_char_align - 1)))) & ~(nk_char_align - 1))));
-			baker->rects =
-				(nk_rp_rect*)
-					((void*)
-						((long)
-							(((ulong) ((long) ((byte*) (baker->packed_chars + glyph_count) + (nk_rect_align - 1)))) & ~(nk_rect_align - 1))));
-			baker->ranges =
-				(nk_tt_pack_range*)
-					((void*)
-						((long) (((ulong) ((long) ((byte*) (baker->rects + glyph_count) + (nk_range_align - 1)))) & ~(nk_range_align - 1))));
-
-			return baker;
-		}
-
-		public static void nk_font_bake_custom_data(void* img_memory, int img_width, int img_height, nk_recti img_dst,
-			byte* texture_data_mask, int tex_width, int tex_height, char white, char black)
-		{
-			byte* pixels;
-			int y = (int) (0);
-			int x = (int) (0);
-			int n = (int) (0);
-			if ((((img_memory == null) || (img_width == 0)) || (img_height == 0)) || (texture_data_mask == null)) return;
-			pixels = (byte*) (img_memory);
-			for (y = (int) (0) , n = (int) (0); (y) < (tex_height); ++y)
-			{
-				for (x = (int) (0); (x) < (tex_width); ++x , ++n)
-				{
-					int off0 = (int) ((img_dst.x + x) + (img_dst.y + y)*img_width);
-					int off1 = (int) (off0 + 1 + tex_width);
-					pixels[off0] = (byte) (((texture_data_mask[n]) == (white)) ? 0xFF : 0x00);
-					pixels[off1] = (byte) (((texture_data_mask[n]) == (black)) ? 0xFF : 0x00);
-				}
-			}
-		}
-
-		public static void nk_font_bake_convert(void* out_memory, int img_width, int img_height, void* in_memory)
-		{
-			int n = (int) (0);
-			uint* dst;
-			byte* src;
-			if ((((out_memory == null) || (in_memory == null)) || (img_height == 0)) || (img_width == 0)) return;
-			dst = (uint*) (out_memory);
-			src = (byte*) (in_memory);
-			for (n = (int) (img_width*img_height); (n) > (0); n--)
-			{
-				*dst++ = (uint) (((uint) (*src++) << 24) | 0x00FFFFFF);
-			}
-		}
-
 		public static uint nk_decompress_length(byte* input)
 		{
 			return (uint) ((input[8] << 24) + (input[9] << 16) + (input[10] << 8) + input[11]);
@@ -2249,27 +2138,6 @@ namespace NuklearSharp
 			}
 		}
 
-		public static nk_font_config nk_font_config_(float pixel_height)
-		{
-			nk_font_config cfg = new nk_font_config();
-
-			cfg.ttf_blob = null;
-			cfg.ttf_size = (ulong) (0);
-			cfg.ttf_data_owned_by_atlas = (byte) (0);
-			cfg.size = (float) (pixel_height);
-			cfg.oversample_h = (byte) (3);
-			cfg.oversample_v = (byte) (1);
-			cfg.pixel_snap = (byte) (0);
-			cfg.coord_type = (int) (NK_COORD_UV);
-			cfg.spacing = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
-			cfg.range = nk_font_default_glyph_ranges();
-			cfg.merge_mode = (byte) (0);
-			cfg.fallback_glyph = '?';
-			cfg.font = null;
-			cfg.n = null;
-			return (nk_font_config) (cfg);
-		}
-
 		public static int nk_button_behavior(ref uint state, nk_rect r, nk_input i, int behavior)
 		{
 			int ret = (int) (0);
@@ -2314,7 +2182,7 @@ namespace NuklearSharp
 		}
 
 		public static int nk_do_button_text(ref uint state, nk_command_buffer _out_, nk_rect bounds, char* _string_, int len,
-			uint align, int behavior, nk_style_button style, nk_input _in_, nk_user_font font)
+			uint align, int behavior, nk_style_button style, nk_input _in_, SpriteFont font)
 		{
 			nk_rect content = new nk_rect();
 			int ret = (int) (nk_false);
@@ -2327,7 +2195,7 @@ namespace NuklearSharp
 		}
 
 		public static int nk_do_button_symbol(ref uint state, nk_command_buffer _out_, nk_rect bounds, int symbol,
-			int behavior, nk_style_button style, nk_input _in_, nk_user_font font)
+			int behavior, nk_style_button style, nk_input _in_, SpriteFont font)
 		{
 			int ret;
 			nk_rect content = new nk_rect();
@@ -2357,16 +2225,16 @@ namespace NuklearSharp
 		}
 
 		public static int nk_do_button_text_symbol(ref uint state, nk_command_buffer _out_, nk_rect bounds, int symbol,
-			char* str, int len, uint align, int behavior, nk_style_button style, nk_user_font font, nk_input _in_)
+			char* str, int len, uint align, int behavior, nk_style_button style, SpriteFont font, nk_input _in_)
 		{
 			int ret;
 			nk_rect tri = new nk_rect();
 			nk_rect content = new nk_rect();
 			if (((_out_ == null) || (style == null)) || (font == null)) return (int) (nk_false);
 			ret = (int) (nk_do_button(ref state, _out_, (nk_rect) (bounds), style, _in_, (int) (behavior), &content));
-			tri.y = (float) (content.y + (content.h/2) - font.height/2);
-			tri.w = (float) (font.height);
-			tri.h = (float) (font.height);
+			tri.y = (float) (content.y + (content.h/2) - font.height()/2);
+			tri.w = (float) (font.height());
+			tri.h = (float) (font.height());
 			if ((align & NK_TEXT_ALIGN_LEFT) != 0)
 			{
 				tri.x = (float) ((content.x + content.w) - (2*style.padding.x + tri.w));
@@ -2382,7 +2250,7 @@ namespace NuklearSharp
 		}
 
 		public static int nk_do_button_text_image(ref uint state, nk_command_buffer _out_, nk_rect bounds, nk_image img,
-			char* str, int len, uint align, int behavior, nk_style_button style, nk_user_font font, nk_input _in_)
+			char* str, int len, uint align, int behavior, nk_style_button style, SpriteFont font, nk_input _in_)
 		{
 			int ret;
 			nk_rect icon = new nk_rect();
@@ -2408,7 +2276,7 @@ namespace NuklearSharp
 		}
 
 		public static int nk_do_toggle(ref uint state, nk_command_buffer _out_, nk_rect r, int* active, char* str, int len,
-			int type, nk_style_toggle style, nk_input _in_, nk_user_font font)
+			int type, nk_style_toggle style, nk_input _in_, SpriteFont font)
 		{
 			int was_active;
 			nk_rect bounds = new nk_rect();
@@ -2416,13 +2284,13 @@ namespace NuklearSharp
 			nk_rect cursor = new nk_rect();
 			nk_rect label = new nk_rect();
 			if ((((_out_ == null) || (style == null)) || (font == null)) || (active == null)) return (int) (0);
-			r.w = (float) ((r.w) < (font.height + 2*style.padding.x) ? (font.height + 2*style.padding.x) : (r.w));
-			r.h = (float) ((r.h) < (font.height + 2*style.padding.y) ? (font.height + 2*style.padding.y) : (r.h));
+			r.w = (float) ((r.w) < (font.height() + 2*style.padding.x) ? (font.height() + 2*style.padding.x) : (r.w));
+			r.h = (float) ((r.h) < (font.height() + 2*style.padding.y) ? (font.height() + 2*style.padding.y) : (r.h));
 			bounds.x = (float) (r.x - style.touch_padding.x);
 			bounds.y = (float) (r.y - style.touch_padding.y);
 			bounds.w = (float) (r.w + 2*style.touch_padding.x);
 			bounds.h = (float) (r.h + 2*style.touch_padding.y);
-			select.w = (float) (font.height);
+			select.w = (float) (font.height());
 			select.h = (float) (select.w);
 			select.y = (float) (r.y + r.h/2.0f - select.h/2.0f);
 			select.x = (float) (r.x);
@@ -2451,7 +2319,7 @@ namespace NuklearSharp
 		}
 
 		public static int nk_do_selectable(ref uint state, nk_command_buffer _out_, nk_rect bounds, char* str, int len,
-			uint align, ref int value, nk_style_selectable style, nk_input _in_, nk_user_font font)
+			uint align, ref int value, nk_style_selectable style, nk_input _in_, SpriteFont font)
 		{
 			int old_value;
 			nk_rect touch = new nk_rect();
@@ -2472,7 +2340,7 @@ namespace NuklearSharp
 		}
 
 		public static int nk_do_selectable_image(ref uint state, nk_command_buffer _out_, nk_rect bounds, char* str, int len,
-			uint align, ref int value, nk_image img, nk_style_selectable style, nk_input _in_, nk_user_font font)
+			uint align, ref int value, nk_image img, nk_style_selectable style, nk_input _in_, SpriteFont font)
 		{
 			int old_value;
 			nk_rect touch = new nk_rect();
@@ -2551,7 +2419,7 @@ namespace NuklearSharp
 		}
 
 		public static float nk_do_slider(ref uint state, nk_command_buffer _out_, nk_rect bounds, float min, float val,
-			float max, float step, nk_style_slider style, nk_input _in_, nk_user_font font)
+			float max, float step, nk_style_slider style, nk_input _in_, SpriteFont font)
 		{
 			float slider_range;
 			float slider_min;
@@ -2793,7 +2661,7 @@ namespace NuklearSharp
 
 		public static float nk_do_scrollbarv(ref uint state, nk_command_buffer _out_, nk_rect scroll, int has_scrolling,
 			float offset, float target, float step, float button_pixel_inc, nk_style_scrollbar style, nk_input _in_,
-			nk_user_font font)
+			SpriteFont font)
 		{
 			nk_rect empty_north = new nk_rect();
 			nk_rect empty_south = new nk_rect();
@@ -2868,7 +2736,7 @@ namespace NuklearSharp
 
 		public static float nk_do_scrollbarh(ref uint state, nk_command_buffer _out_, nk_rect scroll, int has_scrolling,
 			float offset, float target, float step, float button_pixel_inc, nk_style_scrollbar style, nk_input _in_,
-			nk_user_font font)
+			SpriteFont font)
 		{
 			nk_rect cursor = new nk_rect();
 			nk_rect empty_west = new nk_rect();
@@ -2936,7 +2804,7 @@ namespace NuklearSharp
 		}
 
 		public static uint nk_do_edit(ref uint state, nk_command_buffer _out_, nk_rect bounds, uint flags,
-			NkPluginFilter filter, nk_text_edit edit, nk_style_edit style, nk_input _in_, nk_user_font font)
+			NkPluginFilter filter, nk_text_edit edit, nk_style_edit style, nk_input _in_, SpriteFont font)
 		{
 			nk_rect area = new nk_rect();
 			uint ret = (uint) (0);
@@ -2954,7 +2822,7 @@ namespace NuklearSharp
 			area.h = (float) (bounds.h - (2.0f*style.padding.y + 2*style.border));
 			if ((flags & NK_EDIT_MULTILINE) != 0)
 				area.w = (float) ((0) < (area.w - style.scrollbar_size.x) ? (area.w - style.scrollbar_size.x) : (0));
-			row_height = (float) ((flags & NK_EDIT_MULTILINE) != 0 ? font.height + style.row_padding : area.h);
+			row_height = (float) ((flags & NK_EDIT_MULTILINE) != 0 ? font.height() + style.row_padding : area.h);
 			old_clip = (nk_rect) (_out_.clip);
 			nk_unify(ref clip, ref old_clip, (float) (area.x), (float) (area.y), (float) (area.x + area.w),
 				(float) (area.y + area.h));
@@ -3131,7 +2999,7 @@ namespace NuklearSharp
 							int glyphs = (int) (0);
 							int row_begin = (int) (0);
 							glyph_len = (int) (nk_utf_decode(text, &unicode, (int) (len)));
-							glyph_width = (float) (font.width((nk_handle) (font.userdata), (float) (font.height), text, (int) (glyph_len)));
+							glyph_width = (float) (font.width((nk_handle) (font.userdata), (float) (font.height()), text, (int) (glyph_len)));
 							line_width = (float) (0);
 							while (((text_len) < (len)) && ((glyph_len) != 0))
 							{
@@ -3187,7 +3055,7 @@ namespace NuklearSharp
 									row_begin = (int) (text_len);
 									glyph_len = (int) (nk_utf_decode(text + text_len, &unicode, (int) (len - text_len)));
 									glyph_width =
-										(float) (font.width((nk_handle) (font.userdata), (float) (font.height), text + text_len, (int) (glyph_len)));
+										(float) (font.width((nk_handle) (font.userdata), (float) (font.height()), text + text_len, (int) (glyph_len)));
 									continue;
 								}
 								glyphs++;
@@ -3195,7 +3063,7 @@ namespace NuklearSharp
 								line_width += (float) (glyph_width);
 								glyph_len = (int) (nk_utf_decode(text + text_len, &unicode, (int) (len - text_len)));
 								glyph_width =
-									(float) (font.width((nk_handle) (font.userdata), (float) (font.height), text + text_len, (int) (glyph_len)));
+									(float) (font.width((nk_handle) (font.userdata), (float) (font.height()), text + text_len, (int) (glyph_len)));
 								continue;
 							}
 							text_size.y = (float) ((float) (total_lines)*row_height);
@@ -3336,7 +3204,7 @@ namespace NuklearSharp
 								{
 									nk_rect cursor = new nk_rect();
 									cursor.w = (float) (style.cursor_size);
-									cursor.h = (float) (font.height);
+									cursor.h = (float) (font.height());
 									cursor.x = (float) (area.x + cursor_pos.x - edit.scrollbar.x);
 									cursor.y = (float) (area.y + cursor_pos.y + row_height/2.0f - cursor.h/2.0f);
 									cursor.y -= (float) (edit.scrollbar.y);
@@ -3352,7 +3220,7 @@ namespace NuklearSharp
 									label.x = (float) (area.x + cursor_pos.x - edit.scrollbar.x);
 									label.y = (float) (area.y + cursor_pos.y - edit.scrollbar.y);
 									label.w =
-										(float) (font.width((nk_handle) (font.userdata), (float) (font.height), cursor_ptr, (int) (glyph_len)));
+										(float) (font.width((nk_handle) (font.userdata), (float) (font.height()), cursor_ptr, (int) (glyph_len)));
 									label.h = (float) (row_height);
 									txt.padding = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
 									txt.background = (nk_color) (cursor_color);
@@ -3487,7 +3355,7 @@ namespace NuklearSharp
 
 		public static void nk_do_property(ref uint ws, nk_command_buffer _out_, nk_rect property, char* name,
 			nk_property_variant* variant, float inc_per_pixel, ref string buffer, ref int state, ref int cursor,
-			ref int select_begin, ref int select_end, nk_style_property style, int filter, nk_input _in_, nk_user_font font,
+			ref int select_begin, ref int select_end, nk_style_property style, int filter, nk_input _in_, SpriteFont font,
 			nk_text_edit text_edit, int behavior)
 		{
 			NkPluginFilter[] filters = new NkPluginFilter[2];
@@ -3504,12 +3372,12 @@ namespace NuklearSharp
 			nk_rect label = new nk_rect();
 			nk_rect edit = new nk_rect();
 			nk_rect empty = new nk_rect();
-			left.h = (float) (font.height/2);
+			left.h = (float) (font.height()/2);
 			left.w = (float) (left.h);
 			left.x = (float) (property.x + style.border + style.padding.x);
 			left.y = (float) (property.y + style.border + property.h/2.0f - left.h/2);
 			name_len = (int) (nk_strlen(name));
-			size = (float) (font.width((nk_handle) (font.userdata), (float) (font.height), name, (int) (name_len)));
+			size = (float) (font.width((nk_handle) (font.userdata), (float) (font.height()), name, (int) (name_len)));
 			label.x = (float) (left.x + left.w + style.padding.x);
 			label.w = (float) (size + 2*style.padding.x);
 			label.y = (float) (property.y + style.border + style.padding.y);
@@ -3522,7 +3390,7 @@ namespace NuklearSharp
 			{
 				fixed (char* ptr = buffer)
 				{
-					size = (float) (font.width((nk_handle) (font.userdata), (float) (font.height), ptr, buffer.Length));
+					size = (float) (font.width((nk_handle) (font.userdata), (float) (font.height()), ptr, buffer.Length));
 				}
 				size += (float) (style.edit.cursor_size);
 				dst = buffer;
@@ -3548,7 +3416,7 @@ namespace NuklearSharp
 						num_len = (int) (nk_string_float_limit(_string_, (int) (2)));
 						break;
 				}
-				size = (float) (font.width((nk_handle) (font.userdata), (float) (font.height), _string_, (int) (num_len)));
+				size = (float) (font.width((nk_handle) (font.userdata), (float) (font.height()), _string_, (int) (num_len)));
 				dst = new string(_string_);
 
 				if (dst.Length > num_len)
@@ -3828,7 +3696,7 @@ namespace NuklearSharp
 		}
 
 		public static int nk_do_color_picker(ref uint state, nk_command_buffer _out_, nk_colorf* col, int fmt, nk_rect bounds,
-			nk_vec2 padding, nk_input _in_, nk_user_font font)
+			nk_vec2 padding, nk_input _in_, SpriteFont font)
 		{
 			int ret = (int) (0);
 			nk_rect matrix = new nk_rect();
@@ -3836,7 +3704,7 @@ namespace NuklearSharp
 			nk_rect alpha_bar = new nk_rect();
 			float bar_w;
 			if ((((_out_ == null) || (col == null))) || (font == null)) return (int) (ret);
-			bar_w = (float) (font.height);
+			bar_w = (float) (font.height());
 			bounds.x += (float) (padding.x);
 			bounds.y += (float) (padding.x);
 			bounds.w -= (float) (2*padding.x);

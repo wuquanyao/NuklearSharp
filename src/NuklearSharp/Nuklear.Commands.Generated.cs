@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Runtime.InteropServices;
 
@@ -266,12 +267,12 @@ namespace NuklearSharp
 			cmd.col = (nk_color) (col);
 		}
 
-		public static void nk_draw_text(nk_command_buffer b, nk_rect r, char* _string_, int length, nk_user_font font,
+		public static void nk_draw_text(nk_command_buffer b, nk_rect r, string _string_, SpriteFont font,
 			nk_color bg, nk_color fg)
 		{
 			float text_width = (float) (0);
 			nk_command_text cmd;
-			if ((((b == null) || (_string_ == null)) || (length == 0)) || (((bg.a) == (0)) && ((fg.a) == (0)))) return;
+			if ((((b == null) || (_string_ == null)) || (((bg.a) == (0)) && ((fg.a) == (0)))) return;
 			if ((b.use_clipping) != 0)
 			{
 				if ((((b.clip.w) == (0)) || ((b.clip.h) == (0))) ||
@@ -280,7 +281,9 @@ namespace NuklearSharp
 			}
 
 			text_width =
-				(float) (font.width((nk_handle) (font.userdata), (float) (font.height), _string_, (int) (length)));
+				(float) (font.width(_string_));
+
+			var length = _string_.Length;
 			if ((text_width) > (r.w))
 			{
 				int glyphs = (int) (0);
@@ -309,7 +312,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_widget_text(nk_command_buffer o, nk_rect b, char* _string_, int len, nk_text* t, uint a,
-			nk_user_font f)
+			SpriteFont f)
 		{
 			nk_rect label = new nk_rect();
 			float text_width;
@@ -318,8 +321,8 @@ namespace NuklearSharp
 			label.x = (float) (0);
 			label.w = (float) (0);
 			label.y = (float) (b.y + t->padding.y);
-			label.h = (float) ((f.height) < (b.h - 2*t->padding.y) ? (f.height) : (b.h - 2*t->padding.y));
-			text_width = (float) (f.width((nk_handle) (f.userdata), (float) (f.height), _string_, (int) (len)));
+			label.h = (float) ((f.height()) < (b.h - 2*t->padding.y) ? (f.height()) : (b.h - 2*t->padding.y));
+			text_width = (float) (f.width((nk_handle) (f.userdata), (float) (f.height()), _string_, (int) (len)));
 			text_width += (float) (2.0f*t->padding.x);
 			if ((a & NK_TEXT_ALIGN_LEFT) != 0)
 			{
@@ -346,17 +349,17 @@ namespace NuklearSharp
 			else return;
 			if ((a & NK_TEXT_ALIGN_MIDDLE) != 0)
 			{
-				label.y = (float) (b.y + b.h/2.0f - f.height/2.0f);
+				label.y = (float) (b.y + b.h/2.0f - f.height()/2.0f);
 				label.h =
 					(float)
-						((b.h/2.0f) < (b.h - (b.h/2.0f + f.height/2.0f))
-							? (b.h - (b.h/2.0f + f.height/2.0f))
+						((b.h/2.0f) < (b.h - (b.h/2.0f + f.height()/2.0f))
+							? (b.h - (b.h/2.0f + f.height()/2.0f))
 							: (b.h/2.0f));
 			}
 			else if ((a & NK_TEXT_ALIGN_BOTTOM) != 0)
 			{
-				label.y = (float) (b.y + b.h - f.height);
-				label.h = (float) (f.height);
+				label.y = (float) (b.y + b.h - f.height());
+				label.h = (float) (f.height());
 			}
 
 			nk_draw_text(o, (nk_rect) (label), _string_, (int) (len), f, (nk_color) (t->background),
@@ -364,7 +367,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_widget_text_wrap(nk_command_buffer o, nk_rect b, char* _string_, int len, nk_text* t,
-			nk_user_font f)
+			SpriteFont f)
 		{
 			float width;
 			int glyphs = (int) (0);
@@ -385,14 +388,14 @@ namespace NuklearSharp
 			line.x = (float) (b.x + t->padding.x);
 			line.y = (float) (b.y + t->padding.y);
 			line.w = (float) (b.w - 2*t->padding.x);
-			line.h = (float) (2*t->padding.y + f.height);
+			line.h = (float) (2*t->padding.y + f.height());
 			fitting = (int) (nk_text_clamp(f, _string_, (int) (len), (float) (line.w), &glyphs, &width, seperator, 1));
 			while ((done) < (len))
 			{
 				if ((fitting == 0) || ((line.y + line.h) >= (b.y + b.h))) break;
 				nk_widget_text(o, (nk_rect) (line), &_string_[done], (int) (fitting), &text, (uint) (NK_TEXT_LEFT), f);
 				done += (int) (fitting);
-				line.y += (float) (f.height + 2*t->padding.y);
+				line.y += (float) (f.height() + 2*t->padding.y);
 				fitting =
 					(int)
 						(nk_text_clamp(f, &_string_[done], (int) (len - done), (float) (line.w), &glyphs, &width,
@@ -401,7 +404,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_draw_symbol(nk_command_buffer _out_, int type, nk_rect content, nk_color background,
-			nk_color foreground, float border_width, nk_user_font font)
+			nk_color foreground, float border_width, SpriteFont font)
 		{
 			switch (type)
 			{
@@ -490,7 +493,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_draw_button_text(nk_command_buffer _out_, nk_rect* bounds, nk_rect* content, uint state,
-			nk_style_button style, char* txt, int len, uint text_alignment, nk_user_font font)
+			nk_style_button style, char* txt, int len, uint text_alignment, SpriteFont font)
 		{
 			nk_text text = new nk_text();
 			nk_style_item background;
@@ -505,7 +508,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_draw_button_symbol(nk_command_buffer _out_, nk_rect* bounds, nk_rect* content, uint state,
-			nk_style_button style, int type, nk_user_font font)
+			nk_style_button style, int type, SpriteFont font)
 		{
 			nk_color sym = new nk_color();
 			nk_color bg = new nk_color();
@@ -528,7 +531,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_draw_button_text_symbol(nk_command_buffer _out_, nk_rect* bounds, nk_rect* label,
-			nk_rect* symbol, uint state, nk_style_button style, char* str, int len, int type, nk_user_font font)
+			nk_rect* symbol, uint state, nk_style_button style, char* str, int len, int type, SpriteFont font)
 		{
 			nk_color sym = new nk_color();
 			nk_text text = new nk_text();
@@ -559,7 +562,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_draw_button_text_image(nk_command_buffer _out_, nk_rect* bounds, nk_rect* label,
-			nk_rect* image, uint state, nk_style_button style, char* str, int len, nk_user_font font, nk_image img)
+			nk_rect* image, uint state, nk_style_button style, char* str, int len, SpriteFont font, nk_image img)
 		{
 			nk_text text = new nk_text();
 			nk_style_item background;
@@ -575,7 +578,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_draw_checkbox(nk_command_buffer _out_, uint state, nk_style_toggle style, int active,
-			nk_rect* label, nk_rect* selector, nk_rect* cursors, char* _string_, int len, nk_user_font font)
+			nk_rect* label, nk_rect* selector, nk_rect* cursors, char* _string_, int len, SpriteFont font)
 		{
 			nk_style_item background;
 			nk_style_item cursor;
@@ -620,7 +623,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_draw_option(nk_command_buffer _out_, uint state, nk_style_toggle style, int active,
-			nk_rect* label, nk_rect* selector, nk_rect* cursors, char* _string_, int len, nk_user_font font)
+			nk_rect* label, nk_rect* selector, nk_rect* cursors, char* _string_, int len, SpriteFont font)
 		{
 			nk_style_item background;
 			nk_style_item cursor;
@@ -665,7 +668,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_draw_selectable(nk_command_buffer _out_, uint state, nk_style_selectable style, int active,
-			nk_rect* bounds, nk_rect* icon, nk_image img, char* _string_, int len, uint align, nk_user_font font)
+			nk_rect* bounds, nk_rect* icon, nk_image img, char* _string_, int len, uint align, SpriteFont font)
 		{
 			nk_style_item background;
 			nk_text text = new nk_text();
@@ -855,7 +858,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_edit_draw_text(nk_command_buffer _out_, nk_style_edit style, float pos_x, float pos_y,
-			float x_offset, char* text, int byte_len, float row_height, nk_user_font font, nk_color background,
+			float x_offset, char* text, int byte_len, float row_height, SpriteFont font, nk_color background,
 			nk_color foreground, int is_selected)
 		{
 			if ((((text == null) || (byte_len == 0)) || (_out_ == null)) || (style == null)) return;
@@ -929,7 +932,7 @@ namespace NuklearSharp
 		}
 
 		public static void nk_draw_property(nk_command_buffer _out_, nk_style_property style, nk_rect* bounds,
-			nk_rect* label, uint state, char* name, int len, nk_user_font font)
+			nk_rect* label, uint state, char* name, int len, SpriteFont font)
 		{
 			nk_text text = new nk_text();
 			nk_style_item background;

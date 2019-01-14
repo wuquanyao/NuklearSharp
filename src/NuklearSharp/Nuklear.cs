@@ -5,14 +5,6 @@ namespace NuklearSharp
 {
 	public static unsafe partial class Nuklear
 	{
-		public delegate float NkTextWidthDelegate(nk_handle handle, float height, char* text, int length);
-
-		public delegate void NkQueryFontGlyphDelegate(nk_handle handle,
-			float height, nk_user_font_glyph* glyph, char codepoint, char next_codepoint);
-
-		public delegate void NkCommandCustomCallback(
-			nk_draw_list list, short x, short y, ushort w, ushort h, nk_handle callback_data);
-
 		public delegate void NkPluginPaste(nk_handle handle, nk_text_edit text_edit);
 
 		public delegate void NkPluginCopy(nk_handle handle, char* text, int length);
@@ -33,40 +25,6 @@ namespace NuklearSharp
 			[FieldOffset(0)] public void* ptr;
 
 			[FieldOffset(0)] public int id;
-		}
-
-		public class nk_user_font
-		{
-			public nk_handle userdata;
-			public float height;
-			public nk_handle texture;
-
-			public NkTextWidthDelegate width;
-			public NkQueryFontGlyphDelegate query;
-		}
-
-		public class nk_font
-		{
-			public nk_font next;
-			public nk_user_font handle = new nk_user_font();
-			public nk_baked_font info = new nk_baked_font();
-			public float scale;
-			public nk_font_glyph* glyphs;
-			public nk_font_glyph* fallback;
-			public char fallback_codepoint;
-			public nk_handle texture = new nk_handle();
-			public nk_font_config config;
-
-			public float text_width(nk_handle h, float height, char* s, int length)
-			{
-				return nk_font_text_width(this, height, s, length);
-			}
-
-			public void query_font_glyph(nk_handle h, float height, nk_user_font_glyph* glyph, char codepoint,
-				char next_codepoint)
-			{
-				nk_font_query_font_glyph(this, height, glyph, codepoint, next_codepoint);
-			}
 		}
 
 		public class nk_clipboard
@@ -226,8 +184,8 @@ namespace NuklearSharp
 			public nk_cursor[] cursors = new nk_cursor[NK_CURSOR_COUNT];
 			public int glyph_count;
 			public nk_font_glyph* glyphs;
-			public nk_font default_font;
-			public nk_font fonts;
+			public SpriteFont default_font;
+			public SpriteFont fonts;
 			public nk_font_config config;
 			public int font_num;
 
@@ -272,7 +230,7 @@ namespace NuklearSharp
 
 		public class nk_style
 		{
-			public nk_user_font font;
+			public SpriteFont font;
 			public nk_cursor[] cursors = new nk_cursor[NK_CURSOR_COUNT];
 			public nk_cursor cursor_active;
 			public nk_cursor cursor_last;
@@ -436,7 +394,7 @@ namespace NuklearSharp
 
 		public class nk_command_text : nk_command_base
 		{
-			public nk_user_font font;
+			public SpriteFont font;
 			public nk_color background;
 			public nk_color foreground;
 			public short x;
@@ -484,18 +442,6 @@ namespace NuklearSharp
 			public ulong vertex_size;
 			public ulong vertex_alignment;
 		}
-
-		[StructLayout(LayoutKind.Sequential)]
-		public struct nk_user_font_glyph
-		{
-			public fixed float uv_x [2];
-			public fixed float uv_y [2];
-			public nk_vec2 offset;
-			public float width;
-			public float height;
-			public float xadvance;
-		}
-
 
 		private static readonly Func<object>[] _commandCreators =
 		{
@@ -694,14 +640,14 @@ namespace NuklearSharp
 			return nk_color_names[c];
 		}
 
-		public static int nk_init_fixed(nk_context ctx, void* memory, ulong size, nk_user_font font)
+		public static int nk_init_fixed(nk_context ctx, void* memory, ulong size, SpriteFont font)
 		{
 			if (memory == null) return 0;
 			nk_setup(ctx, font);
 			return 1;
 		}
 
-		public static int nk_init(nk_context ctx, nk_user_font font)
+		public static int nk_init(nk_context ctx, SpriteFont font)
 		{
 			nk_setup(ctx, font);
 			return 1;
@@ -773,12 +719,12 @@ namespace NuklearSharp
 			}
 		}
 
-		public static int nk_init_default(nk_context ctx, nk_user_font font)
+		public static int nk_init_default(nk_context ctx, SpriteFont font)
 		{
 			return nk_init(ctx, font);
 		}
 
-		public static nk_font nk_font_atlas_add_default(nk_font_atlas atlas, float pixel_height, nk_font_config config)
+		public static SpriteFont nk_font_atlas_add_default(nk_font_atlas atlas, float pixel_height, nk_font_config config)
 		{
 			fixed (byte* ptr = nk_proggy_clean_ttf_compressed_data_base85)
 			{
