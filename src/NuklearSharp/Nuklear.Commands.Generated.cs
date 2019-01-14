@@ -32,7 +32,7 @@ namespace NuklearSharp
 			public float filled;
 			public nk_rect item = new nk_rect();
 			public int tree_depth;
-			public PinnedArray<float> templates = new PinnedArray<float>(16);
+			public float[] templates = new float[16];
 		}
 
 		public unsafe partial class nk_menu_state
@@ -91,8 +91,8 @@ namespace NuklearSharp
 		{
 			public uint seq;
 			public uint size;
-			public PinnedArray<uint> keys = new PinnedArray<uint>(51);
-			public PinnedArray<uint> values = new PinnedArray<uint>(51);
+			public uint[] keys = new uint[51];
+			public uint[] values = new uint[51];
 			public nk_table next;
 			public nk_table prev;
 		}
@@ -126,25 +126,6 @@ namespace NuklearSharp
 			cmd.end.x = ((short) (x1));
 			cmd.end.y = ((short) (y1));
 			cmd.color = (nk_color) (c);
-		}
-
-		public static void nk_stroke_curve(nk_command_buffer b, float ax, float ay, float ctrl0x, float ctrl0y,
-			float ctrl1x, float ctrl1y, float bx, float by, float line_thickness, nk_color col)
-		{
-			nk_command_curve cmd;
-			if (((b == null) || ((col.a) == (0))) || (line_thickness <= 0)) return;
-			cmd = (nk_command_curve) (nk_command_buffer_push(b, (int) (NK_COMMAND_CURVE)));
-			if (cmd == null) return;
-			cmd.line_thickness = ((ushort) (line_thickness));
-			cmd.begin.x = ((short) (ax));
-			cmd.begin.y = ((short) (ay));
-			cmd.ctrl_0.x = ((short) (ctrl0x));
-			cmd.ctrl_0.y = ((short) (ctrl0y));
-			cmd.ctrl_1.x = ((short) (ctrl1x));
-			cmd.ctrl_1.y = ((short) (ctrl1y));
-			cmd.end.x = ((short) (bx));
-			cmd.end.y = ((short) (by));
-			cmd.color = (nk_color) (col);
 		}
 
 		public static void nk_stroke_rect(nk_command_buffer b, nk_rect rect, float rounding, float line_thickness,
@@ -216,27 +197,6 @@ namespace NuklearSharp
 			cmd.bottom = (nk_color) (bottom);
 		}
 
-		public static void nk_stroke_circle(nk_command_buffer b, nk_rect r, float line_thickness, nk_color c)
-		{
-			nk_command_circle cmd;
-			if ((((b == null) || ((r.w) == (0))) || ((r.h) == (0))) || (line_thickness <= 0)) return;
-			if ((b.use_clipping) != 0)
-			{
-				if (
-					!(!(((((b.clip.x) > (r.x + r.w)) || ((b.clip.x + b.clip.w) < (r.x))) || ((b.clip.y) > (r.y + r.h))) ||
-					    ((b.clip.y + b.clip.h) < (r.y))))) return;
-			}
-
-			cmd = (nk_command_circle) (nk_command_buffer_push(b, (int) (NK_COMMAND_CIRCLE)));
-			if (cmd == null) return;
-			cmd.line_thickness = ((ushort) (line_thickness));
-			cmd.x = ((short) (r.x));
-			cmd.y = ((short) (r.y));
-			cmd.w = ((ushort) ((r.w) < (0) ? (0) : (r.w)));
-			cmd.h = ((ushort) ((r.h) < (0) ? (0) : (r.h)));
-			cmd.color = (nk_color) (c);
-		}
-
 		public static void nk_fill_circle(nk_command_buffer b, nk_rect r, nk_color c)
 		{
 			nk_command_circle_filled cmd;
@@ -254,65 +214,6 @@ namespace NuklearSharp
 			cmd.y = ((short) (r.y));
 			cmd.w = ((ushort) ((r.w) < (0) ? (0) : (r.w)));
 			cmd.h = ((ushort) ((r.h) < (0) ? (0) : (r.h)));
-			cmd.color = (nk_color) (c);
-		}
-
-		public static void nk_stroke_arc(nk_command_buffer b, float cx, float cy, float radius, float a_min, float a_max,
-			float line_thickness, nk_color c)
-		{
-			nk_command_arc cmd;
-			if (((b == null) || ((c.a) == (0))) || (line_thickness <= 0)) return;
-			cmd = (nk_command_arc) (nk_command_buffer_push(b, (int) (NK_COMMAND_ARC)));
-			if (cmd == null) return;
-			cmd.line_thickness = ((ushort) (line_thickness));
-			cmd.cx = ((short) (cx));
-			cmd.cy = ((short) (cy));
-			cmd.r = ((ushort) (radius));
-			cmd.a[0] = (float) (a_min);
-			cmd.a[1] = (float) (a_max);
-			cmd.color = (nk_color) (c);
-		}
-
-		public static void nk_fill_arc(nk_command_buffer b, float cx, float cy, float radius, float a_min, float a_max,
-			nk_color c)
-		{
-			nk_command_arc_filled cmd;
-			if ((b == null) || ((c.a) == (0))) return;
-			cmd = (nk_command_arc_filled) (nk_command_buffer_push(b, (int) (NK_COMMAND_ARC_FILLED)));
-			if (cmd == null) return;
-			cmd.cx = ((short) (cx));
-			cmd.cy = ((short) (cy));
-			cmd.r = ((ushort) (radius));
-			cmd.a[0] = (float) (a_min);
-			cmd.a[1] = (float) (a_max);
-			cmd.color = (nk_color) (c);
-		}
-
-		public static void nk_stroke_triangle(nk_command_buffer b, float x0, float y0, float x1, float y1, float x2,
-			float y2, float line_thickness, nk_color c)
-		{
-			nk_command_triangle cmd;
-			if (((b == null) || ((c.a) == (0))) || (line_thickness <= 0)) return;
-			if ((b.use_clipping) != 0)
-			{
-				if (
-					((!((((b.clip.x) <= (x0)) && ((x0) < (b.clip.x + b.clip.w))) &&
-					    (((b.clip.y) <= (y0)) && ((y0) < (b.clip.y + b.clip.h))))) &&
-					 (!((((b.clip.x) <= (x1)) && ((x1) < (b.clip.x + b.clip.w))) &&
-					    (((b.clip.y) <= (y1)) && ((y1) < (b.clip.y + b.clip.h)))))) &&
-					(!((((b.clip.x) <= (x2)) && ((x2) < (b.clip.x + b.clip.w))) &&
-					   (((b.clip.y) <= (y2)) && ((y2) < (b.clip.y + b.clip.h)))))) return;
-			}
-
-			cmd = (nk_command_triangle) (nk_command_buffer_push(b, (int) (NK_COMMAND_TRIANGLE)));
-			if (cmd == null) return;
-			cmd.line_thickness = ((ushort) (line_thickness));
-			cmd.a.x = ((short) (x0));
-			cmd.a.y = ((short) (y0));
-			cmd.b.x = ((short) (x1));
-			cmd.b.y = ((short) (y1));
-			cmd.c.x = ((short) (x2));
-			cmd.c.y = ((short) (y2));
 			cmd.color = (nk_color) (c);
 		}
 
@@ -365,27 +266,6 @@ namespace NuklearSharp
 			cmd.col = (nk_color) (col);
 		}
 
-		public static void nk_push_custom(nk_command_buffer b, nk_rect r, NkCommandCustomCallback cb, nk_handle usr)
-		{
-			nk_command_custom cmd;
-			if (b == null) return;
-			if ((b.use_clipping) != 0)
-			{
-				if ((((b.clip.w) == (0)) || ((b.clip.h) == (0))) ||
-				    (!(!(((((b.clip.x) > (r.x + r.w)) || ((b.clip.x + b.clip.w) < (r.x))) || ((b.clip.y) > (r.y + r.h))) ||
-				         ((b.clip.y + b.clip.h) < (r.y)))))) return;
-			}
-
-			cmd = (nk_command_custom) (nk_command_buffer_push(b, (int) (NK_COMMAND_CUSTOM)));
-			if (cmd == null) return;
-			cmd.x = ((short) (r.x));
-			cmd.y = ((short) (r.y));
-			cmd.w = ((ushort) ((0) < (r.w) ? (r.w) : (0)));
-			cmd.h = ((ushort) ((0) < (r.h) ? (r.h) : (0)));
-			cmd.callback_data = (nk_handle) (usr);
-			cmd.callback = cb;
-		}
-
 		public static void nk_draw_text(nk_command_buffer b, nk_rect r, char* _string_, int length, nk_user_font font,
 			nk_color bg, nk_color fg)
 		{
@@ -423,7 +303,7 @@ namespace NuklearSharp
 			cmd.font = font;
 			cmd.length = (int) (length);
 			cmd.height = (float) (font.height);
-			cmd._string_ = new PinnedArray<char>(length);
+			cmd._string_ = (char*)CRuntime.malloc(length);
 			CRuntime.memcpy((void*) cmd._string_, _string_, length*sizeof (char));
 			cmd._string_[length] = ('\0');
 		}

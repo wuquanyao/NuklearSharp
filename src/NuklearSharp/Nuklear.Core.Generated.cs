@@ -60,7 +60,7 @@ namespace NuklearSharp
 			public nk_handle handle = new nk_handle();
 			public ushort w;
 			public ushort h;
-			public PinnedArray<ushort> region = new PinnedArray<ushort>(4);
+			public ushort[] region = new ushort[4];
 		}
 
 		public unsafe partial class nk_cursor

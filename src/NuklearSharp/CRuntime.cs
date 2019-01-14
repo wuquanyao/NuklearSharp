@@ -1,7 +1,32 @@
 ﻿using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace NuklearSharp
 {
+	public unsafe static class Memory
+	{
+		private static int _allocations;
+
+		public static int Allocations
+		{
+			get
+			{
+				return _allocations;
+			}
+		}
+
+		internal static void Allocated()
+		{
+			Interlocked.Increment(ref _allocations);
+		}
+
+		internal static void Freed()
+		{
+			Interlocked.Decrement(ref _allocations);
+		}
+	}
+
 	internal static unsafe class CRuntime
 	{
 		public const long DBL_EXP_MASK = 0x7ff0000000000000L;
@@ -12,12 +37,26 @@ namespace NuklearSharp
 
 		public static void* malloc(ulong size)
 		{
-			return Operations.Malloc((long) size);
+			return malloc((long)size);
+		}
+
+		public static void* malloc(long size)
+		{
+			var ptr = Marshal.AllocHGlobal((int)size);
+
+			Memory.Allocated();
+
+			return ptr.ToPointer();
 		}
 
 		public static void memcpy(void* a, void* b, long size)
 		{
-			Operations.Memcpy(a, b, size);
+			var ap = (byte*)a;
+			var bp = (byte*)b;
+			for (long i = 0; i < size; ++i)
+			{
+				*ap++ = *bp++;
+			}
 		}
 
 		public static void memcpy(void* a, void* b, ulong size)
@@ -27,7 +66,22 @@ namespace NuklearSharp
 
 		public static void memmove(void* a, void* b, long size)
 		{
-			Operations.MemMove(a, b, size);
+			void* temp = null;
+
+			try
+			{
+				temp = malloc(size);
+				memcpy(temp, b, size);
+				memcpy(a, temp, size);
+			}
+
+			finally
+			{
+				if (temp != null)
+				{
+					free(temp);
+				}
+			}
 		}
 
 		public static void memmove(void* a, void* b, ulong size)
@@ -37,7 +91,21 @@ namespace NuklearSharp
 
 		public static int memcmp(void* a, void* b, long size)
 		{
-			return Operations.Memcmp(a, b, size);
+			var result = 0;
+			var ap = (byte*)a;
+			var bp = (byte*)b;
+			for (long i = 0; i < size; ++i)
+			{
+				if (*ap != *bp)
+				{
+					result += 1;
+				}
+
+				ap++;
+				bp++;
+			}
+
+			return result;
 		}
 
 		public static int memcmp(void* a, void* b, ulong size)
@@ -47,7 +115,14 @@ namespace NuklearSharp
 
 		public static void free(void* a)
 		{
-			Operations.Free(a);
+			if (a == null)
+			{
+				return;
+			}
+
+			var ptr = new IntPtr(a);
+			Marshal.FreeHGlobal(ptr);
+			Memory.Freed();
 		}
 
 		public static void memset(void* ptr, int value, long size)
@@ -70,9 +145,17 @@ namespace NuklearSharp
 			return (x << y) | (x >> (32 - y));
 		}
 
-		public static void* realloc(void* ptr, long newSize)
+		public static void* realloc(void* a, long newSize)
 		{
-			return Operations.Realloc(ptr, newSize);
+			if (a == null)
+			{
+				return malloc(newSize);
+			}
+
+			var ptr = new IntPtr(a);
+			var result = Marshal.ReAllocHGlobal(ptr, new IntPtr(newSize));
+
+			return result.ToPointer();
 		}
 
 		public static void* realloc(void* ptr, ulong newSize)
@@ -162,14 +245,6 @@ namespace NuklearSharp
 		public static double sin(double value)
 		{
 			return Math.Sin(value);
-		}
-
-		public static int memcmp(byte* a, byte[] b, ulong size)
-		{
-			fixed (void* bptr = b)
-			{
-				return Operations.Memcmp(a, bptr, (long) size);
-			}
 		}
 
 		public static double ldexp(double number, int exponent)

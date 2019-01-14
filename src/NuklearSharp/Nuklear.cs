@@ -78,14 +78,14 @@ namespace NuklearSharp
 
 		public class nk_keyboard
 		{
-			public PinnedArray<nk_key> keys = new PinnedArray<nk_key>(new nk_key[NK_KEY_MAX]);
-			public PinnedArray<char> text = new PinnedArray<char>(new char[16]);
+			public nk_key[] keys = new nk_key[NK_KEY_MAX];
+			public char[] text = new char[16];
 			public int text_len;
 		}
 
 		public class nk_mouse
 		{
-			public PinnedArray<nk_mouse_button> buttons = new PinnedArray<nk_mouse_button>(new nk_mouse_button[NK_BUTTON_MAX]);
+			public nk_mouse_button[] buttons = new nk_mouse_button[NK_BUTTON_MAX];
 			public nk_vec2 pos;
 			public nk_vec2 prev;
 			public nk_vec2 delta;
@@ -142,7 +142,7 @@ namespace NuklearSharp
 		{
 			public uint seq;
 			public uint name;
-			public PinnedArray<char> name_string = new PinnedArray<char>(64);
+			public string name_string;
 			public uint flags;
 			public nk_rect bounds = new nk_rect();
 			public nk_scroll scrollbar = new nk_scroll();
@@ -242,8 +242,8 @@ namespace NuklearSharp
 
 		public class nk_text_undo_state
 		{
-			public PinnedArray<nk_text_undo_record> undo_rec = new PinnedArray<nk_text_undo_record>(new nk_text_undo_record[99]);
-			public PinnedArray<uint> undo_char = new PinnedArray<uint>(new uint[999]);
+			public nk_text_undo_record[] undo_rec = new nk_text_undo_record[99];
+			public uint[] undo_char = new uint[999];
 			public short undo_point;
 			public short redo_point;
 			public short undo_char_point;
@@ -351,16 +351,6 @@ namespace NuklearSharp
 			public nk_color color = new nk_color();
 		}
 
-		public class nk_command_curve : nk_command_base
-		{
-			public ushort line_thickness;
-			public nk_vec2i begin = new nk_vec2i();
-			public nk_vec2i end = new nk_vec2i();
-			public nk_vec2i ctrl_0 = new nk_vec2i();
-			public nk_vec2i ctrl_1 = new nk_vec2i();
-			public nk_color color = new nk_color();
-		}
-
 		public class nk_command_rect : nk_command_base
 		{
 			public ushort rounding;
@@ -394,30 +384,11 @@ namespace NuklearSharp
 			public nk_color right = new nk_color();
 		}
 
-		public class nk_command_triangle : nk_command_base
-		{
-			public ushort line_thickness;
-			public nk_vec2i a = new nk_vec2i();
-			public nk_vec2i b = new nk_vec2i();
-			public nk_vec2i c = new nk_vec2i();
-			public nk_color color = new nk_color();
-		}
-
 		public class nk_command_triangle_filled : nk_command_base
 		{
 			public nk_vec2i a = new nk_vec2i();
 			public nk_vec2i b = new nk_vec2i();
 			public nk_vec2i c = new nk_vec2i();
-			public nk_color color = new nk_color();
-		}
-
-		public class nk_command_circle : nk_command_base
-		{
-			public short x;
-			public short y;
-			public ushort line_thickness;
-			public ushort w;
-			public ushort h;
 			public nk_color color = new nk_color();
 		}
 
@@ -427,25 +398,6 @@ namespace NuklearSharp
 			public short y;
 			public ushort w;
 			public ushort h;
-			public nk_color color = new nk_color();
-		}
-
-		public class nk_command_arc : nk_command_base
-		{
-			public short cx;
-			public short cy;
-			public ushort r;
-			public ushort line_thickness;
-			public PinnedArray<float> a = new PinnedArray<float>(2);
-			public nk_color color = new nk_color();
-		}
-
-		public class nk_command_arc_filled : nk_command_base
-		{
-			public short cx;
-			public short cy;
-			public ushort r;
-			public PinnedArray<float> a = new PinnedArray<float>(2);
 			public nk_color color = new nk_color();
 		}
 
@@ -494,16 +446,6 @@ namespace NuklearSharp
 			public float height;
 			public char* _string_;
 			public int length;
-		}
-
-		public class nk_command_custom : nk_command_base
-		{
-			public short x;
-			public short y;
-			public ushort w;
-			public ushort h;
-			public nk_handle callback_data;
-			public NkCommandCustomCallback callback;
 		}
 
 		public class nk_command_buffer
@@ -560,22 +502,16 @@ namespace NuklearSharp
 			null,
 			() => nk_create_command<nk_command_scissor>(),
 			() => nk_create_command<nk_command_line>(),
-			() => nk_create_command<nk_command_curve>(),
 			() => nk_create_command<nk_command_rect>(),
 			() => nk_create_command<nk_command_rect_filled>(),
 			() => nk_create_command<nk_command_rect_multi_color>(),
-			() => nk_create_command<nk_command_circle>(),
 			() => nk_create_command<nk_command_circle_filled>(),
-			() => nk_create_command<nk_command_arc>(),
-			() => nk_create_command<nk_command_arc_filled>(),
-			() => nk_create_command<nk_command_triangle>(),
 			() => nk_create_command<nk_command_triangle_filled>(),
 			() => nk_create_command<nk_command_polygon>(),
 			() => nk_create_command<nk_command_polygon_filled>(),
 			() => nk_create_command<nk_command_polyline>(),
 			() => nk_create_command<nk_command_text>(),
-			() => nk_create_command<nk_command_image>(),
-			() => nk_create_command<nk_command_custom>()
+			() => nk_create_command<nk_command_image>()
 		};
 
 		private static object nk_create_command<T>() where T : new()
@@ -1023,22 +959,22 @@ namespace NuklearSharp
 		}
 
 
-		public static uint* nk_font_default_glyph_ranges()
+		public static uint[] nk_font_default_glyph_ranges()
 		{
 			return default_ranges;
 		}
 
-		public static uint* nk_font_chinese_glyph_ranges()
+		public static uint[] nk_font_chinese_glyph_ranges()
 		{
 			return chinese_ranges;
 		}
 
-		public static uint* nk_font_cyrillic_glyph_ranges()
+		public static uint[] nk_font_cyrillic_glyph_ranges()
 		{
 			return cyrillic_ranges;
 		}
 
-		public static uint* nk_font_korean_glyph_ranges()
+		public static uint[] nk_font_korean_glyph_ranges()
 		{
 			return korean_ranges;
 		}

@@ -85,16 +85,15 @@ namespace NuklearSharp
 		public static ulong nk_char_align = 4;
 		public static ulong nk_build_align = 8;
 		public static ulong nk_baker_align = 8;
-		public static PinnedArray<uint> default_ranges = new PinnedArray<uint>(new uint[] {0x0020, 0x00FF, 0});
+		public static uint[] default_ranges = new uint[] { 0x0020, 0x00FF, 0 };
 
-		public static PinnedArray<uint> chinese_ranges =
-			new PinnedArray<uint>(new uint[] {0x0020, 0x00FF, 0x3000, 0x30FF, 0x31F0, 0x31FF, 0xFF00, 0xFFEF, 0x4e00, 0x9FAF, 0});
+		public static uint[] chinese_ranges =
+			new uint[] { 0x0020, 0x00FF, 0x3000, 0x30FF, 0x31F0, 0x31FF, 0xFF00, 0xFFEF, 0x4e00, 0x9FAF, 0 };
 
-		public static PinnedArray<uint> cyrillic_ranges =
-			new PinnedArray<uint>(new uint[] {0x0020, 0x00FF, 0x0400, 0x052F, 0x2DE0, 0x2DFF, 0xA640, 0xA69F, 0});
+		public static uint[] cyrillic_ranges =
+			new uint[] { 0x0020, 0x00FF, 0x0400, 0x052F, 0x2DE0, 0x2DFF, 0xA640, 0xA69F, 0 };
 
-		public static PinnedArray<uint> korean_ranges =
-			new PinnedArray<uint>(new uint[] {0x0020, 0x00FF, 0x3131, 0x3163, 0xAC00, 0xD79D, 0});
+		public static uint[] korean_ranges = new uint[] { 0x0020, 0x00FF, 0x3131, 0x3163, 0xAC00, 0xD79D, 0 };
 
 		public static byte[] nk_proggy_clean_ttf_compressed_data_base85 =
 		{

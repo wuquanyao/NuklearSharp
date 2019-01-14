@@ -650,7 +650,6 @@ namespace NuklearSharp
 					cy = (float) (new_cy);
 				}
 			}
-
 		}
 
 		public static void nk_draw_list_path_rect_to(nk_draw_list list, nk_vec2 a, nk_vec2 b, float rounding)
@@ -685,30 +684,6 @@ namespace NuklearSharp
 					(int) (0), (int) (3));
 				nk_draw_list_path_arc_to_fast(list, (nk_vec2) (nk_vec2_((float) (a.x + r), (float) (b.y - r))), (float) (r),
 					(int) (3), (int) (6));
-			}
-
-		}
-
-		public static void nk_draw_list_path_curve_to(nk_draw_list list, nk_vec2 p2, nk_vec2 p3, nk_vec2 p4, uint num_segments)
-		{
-			float t_step;
-			uint i_step;
-			nk_vec2 p1 = new nk_vec2();
-			if ((list == null) || (list.points.Count == 0)) return;
-			num_segments = (uint) ((num_segments) < (1) ? (1) : (num_segments));
-			p1 = (nk_vec2) (nk_draw_list_path_last(list));
-			t_step = (float) (1.0f/(float) (num_segments));
-			for (i_step = (uint) (1); i_step <= num_segments; ++i_step)
-			{
-				float t = (float) (t_step*(float) (i_step));
-				float u = (float) (1.0f - t);
-				float w1 = (float) (u*u*u);
-				float w2 = (float) (3*u*u*t);
-				float w3 = (float) (3*u*t*t);
-				float w4 = (float) (t*t*t);
-				float x = (float) (w1*p1.x + w2*p2.x + w3*p3.x + w4*p4.x);
-				float y = (float) (w1*p1.y + w2*p2.y + w3*p3.y + w4*p4.y);
-				nk_draw_list_path_line_to(list, (nk_vec2) (nk_vec2_((float) (x), (float) (y))));
 			}
 		}
 
@@ -839,16 +814,6 @@ namespace NuklearSharp
 			nk_draw_list_path_fill(list, (nk_color) (col));
 		}
 
-		public static void nk_draw_list_stroke_triangle(nk_draw_list list, nk_vec2 a, nk_vec2 b, nk_vec2 c, nk_color col,
-			float thickness)
-		{
-			if ((list == null) || (col.a == 0)) return;
-			nk_draw_list_path_line_to(list, (nk_vec2) (a));
-			nk_draw_list_path_line_to(list, (nk_vec2) (b));
-			nk_draw_list_path_line_to(list, (nk_vec2) (c));
-			nk_draw_list_path_stroke(list, (nk_color) (col), (int) (NK_STROKE_CLOSED), (float) (thickness));
-		}
-
 		public static void nk_draw_list_fill_circle(nk_draw_list list, nk_vec2 center, float radius, nk_color col, uint segs)
 		{
 			float a_max;
@@ -856,25 +821,6 @@ namespace NuklearSharp
 			a_max = (float) (3.141592654f*2.0f*((float) (segs) - 1.0f)/(float) (segs));
 			nk_draw_list_path_arc_to(list, (nk_vec2) (center), (float) (radius), (float) (0.0f), (float) (a_max), (uint) (segs));
 			nk_draw_list_path_fill(list, (nk_color) (col));
-		}
-
-		public static void nk_draw_list_stroke_circle(nk_draw_list list, nk_vec2 center, float radius, nk_color col, uint segs,
-			float thickness)
-		{
-			float a_max;
-			if ((list == null) || (col.a == 0)) return;
-			a_max = (float) (3.141592654f*2.0f*((float) (segs) - 1.0f)/(float) (segs));
-			nk_draw_list_path_arc_to(list, (nk_vec2) (center), (float) (radius), (float) (0.0f), (float) (a_max), (uint) (segs));
-			nk_draw_list_path_stroke(list, (nk_color) (col), (int) (NK_STROKE_CLOSED), (float) (thickness));
-		}
-
-		public static void nk_draw_list_stroke_curve(nk_draw_list list, nk_vec2 p0, nk_vec2 cp0, nk_vec2 cp1, nk_vec2 p1,
-			nk_color col, uint segments, float thickness)
-		{
-			if ((list == null) || (col.a == 0)) return;
-			nk_draw_list_path_line_to(list, (nk_vec2) (p0));
-			nk_draw_list_path_curve_to(list, (nk_vec2) (cp0), (nk_vec2) (cp1), (nk_vec2) (p1), (uint) (segments));
-			nk_draw_list_path_stroke(list, (nk_color) (col), (int) (NK_STROKE_OPEN), (float) (thickness));
 		}
 
 		public static void nk_draw_list_push_rect_uv(nk_draw_list list, nk_vec2 a, nk_vec2 c, nk_vec2 uva, nk_vec2 uvc,

@@ -2514,7 +2514,7 @@ namespace NuklearSharp
 				(state) = (uint) (NK_WIDGET_STATE_INACTIVE | NK_WIDGET_STATE_MODIFIED);
 			else (state) = (uint) (NK_WIDGET_STATE_INACTIVE);
 			left_mouse_down =
-				(int) (((_in_) != null) && ((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down) != 0) ? 1 : 0);
+				(int) (((_in_) != null) && ((_in_.mouse.buttons[NK_BUTTON_LEFT].down) != 0) ? 1 : 0);
 			left_mouse_click_in_cursor =
 				(int)
 					(((_in_) != null) &&
@@ -2539,7 +2539,7 @@ namespace NuklearSharp
 								: ((slider_value) < (slider_max) ? (slider_value) : (slider_max)));
 					ratio = (float) ((slider_value - slider_min)/slider_step);
 					logical_cursor->x = (float) (bounds.x + (logical_cursor->w*ratio));
-					((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked_pos.x = (float) (logical_cursor->x);
+					_in_.mouse.buttons[NK_BUTTON_LEFT].clicked_pos.x = (float) (logical_cursor->x);
 				}
 			}
 
@@ -2631,7 +2631,7 @@ namespace NuklearSharp
 			else (state) = (uint) (NK_WIDGET_STATE_INACTIVE);
 			if ((_in_ == null) || (modifiable == 0)) return (ulong) (value);
 			left_mouse_down =
-				(int) (((_in_) != null) && ((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down) != 0) ? 1 : 0);
+				(int) (((_in_) != null) && ((_in_.mouse.buttons[NK_BUTTON_LEFT].down) != 0) ? 1 : 0);
 			left_mouse_click_in_cursor =
 				(int)
 					(((_in_) != null) &&
@@ -2649,7 +2649,7 @@ namespace NuklearSharp
 							((((float) (max)*ratio) < ((float) (max)) ? ((float) (max)*ratio) : ((float) (max))) < (0)
 								? (0)
 								: (((float) (max)*ratio) < ((float) (max)) ? ((float) (max)*ratio) : ((float) (max)))));
-					((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked_pos.x = (float) (cursor.x + cursor.w/2.0f);
+					_in_.mouse.buttons[NK_BUTTON_LEFT].clicked_pos.x = (float) (cursor.x + cursor.w/2.0f);
 					state |= (uint) (NK_WIDGET_STATE_ACTIVE);
 				}
 			}
@@ -2699,7 +2699,7 @@ namespace NuklearSharp
 				(state) = (uint) (NK_WIDGET_STATE_INACTIVE | NK_WIDGET_STATE_MODIFIED);
 			else (state) = (uint) (NK_WIDGET_STATE_INACTIVE);
 			if (_in_ == null) return (float) (scroll_offset);
-			left_mouse_down = (int) (((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down);
+			left_mouse_down = (int) (_in_.mouse.buttons[NK_BUTTON_LEFT].down);
 			left_mouse_click_in_cursor =
 				(int) (nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (nk_rect) (cursor), (int) (nk_true)));
 			if ((nk_input_is_mouse_hovering_rect(_in_, (nk_rect) (*scroll))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
@@ -2720,7 +2720,7 @@ namespace NuklearSharp
 								? (0)
 								: ((scroll_offset + delta) < (target - scroll->h) ? (scroll_offset + delta) : (target - scroll->h)));
 					cursor_y = (float) (scroll->y + ((scroll_offset/target)*scroll->h));
-					((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked_pos.y = (float) (cursor_y + cursor.h/2.0f);
+					_in_.mouse.buttons[NK_BUTTON_LEFT].clicked_pos.y = (float) (cursor_y + cursor.h/2.0f);
 				}
 				else
 				{
@@ -2733,7 +2733,7 @@ namespace NuklearSharp
 								? (0)
 								: ((scroll_offset + delta) < (target - scroll->w) ? (scroll_offset + delta) : (target - scroll->w)));
 					cursor_x = (float) (scroll->x + ((scroll_offset/target)*scroll->w));
-					((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked_pos.x = (float) (cursor_x + cursor.w/2.0f);
+					_in_.mouse.buttons[NK_BUTTON_LEFT].clicked_pos.x = (float) (cursor_x + cursor.w/2.0f);
 				}
 			}
 			else if (((((nk_input_is_key_pressed(_in_, (int) (NK_KEY_SCROLL_UP))) != 0) && ((o) == (NK_VERTICAL))) &&
@@ -2960,8 +2960,8 @@ namespace NuklearSharp
 				(float) (area.y + area.h));
 			prev_state = ((sbyte) (edit.active));
 			is_hovered = ((sbyte) (nk_input_is_mouse_hovering_rect(_in_, (nk_rect) (bounds))));
-			if ((((_in_) != null) && ((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked) != 0)) &&
-			    ((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down) != 0))
+			if ((((_in_) != null) && (_in_.mouse.buttons[NK_BUTTON_LEFT].clicked != 0)) &&
+			    ((_in_.mouse.buttons[NK_BUTTON_LEFT].down) != 0))
 			{
 				edit.active =
 					(byte)
@@ -2997,12 +2997,12 @@ namespace NuklearSharp
 				{
 					nk_textedit_select_all(edit);
 				}
-				else if ((((is_hovered) != 0) && ((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down) != 0)) &&
-				         ((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked) != 0))
+				else if ((((is_hovered) != 0) && ((_in_.mouse.buttons[NK_BUTTON_LEFT].down) != 0)) &&
+				         ((_in_.mouse.buttons[NK_BUTTON_LEFT].clicked) != 0))
 				{
 					nk_textedit_click(edit, (float) (mouse_x), (float) (mouse_y), font, (float) (row_height));
 				}
-				else if ((((is_hovered) != 0) && ((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down) != 0)) &&
+				else if ((((is_hovered) != 0) && ((_in_.mouse.buttons[NK_BUTTON_LEFT].down) != 0)) &&
 				         ((_in_.mouse.delta.x != 0.0f) || (_in_.mouse.delta.y != 0.0f)))
 				{
 					nk_textedit_drag(edit, (float) (mouse_x), (float) (mouse_y), font, (float) (row_height));
@@ -3407,7 +3407,7 @@ namespace NuklearSharp
 			float inc_per_pixel)
 		{
 			int left_mouse_down =
-				(int) (((_in_) != null) && ((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down) != 0) ? 1 : 0);
+				(int) (((_in_) != null) && ((_in_.mouse.buttons[NK_BUTTON_LEFT].down) != 0) ? 1 : 0);
 			int left_mouse_click_in_cursor =
 				(int)
 					(((_in_) != null) &&

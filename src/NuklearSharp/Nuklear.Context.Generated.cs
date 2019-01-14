@@ -36,16 +36,7 @@ namespace NuklearSharp
 							(nk_vec2) (nk_vec2_((float) (l.end.x), (float) (l.end.y))), (nk_color) (l.color), (float) (l.line_thickness));
 					}
 						break;
-					case NK_COMMAND_CURVE:
-					{
-						nk_command_curve q = (nk_command_curve) (cmd);
-						nk_draw_list_stroke_curve(ctx.draw_list, (nk_vec2) (nk_vec2_((float) (q.begin.x), (float) (q.begin.y))),
-							(nk_vec2) (nk_vec2_((float) (q.ctrl_0.x), (float) (q.ctrl_0.y))),
-							(nk_vec2) (nk_vec2_((float) (q.ctrl_1.x), (float) (q.ctrl_1.y))),
-							(nk_vec2) (nk_vec2_((float) (q.end.x), (float) (q.end.y))), (nk_color) (q.color),
-							(uint) (config.curve_segment_count), (float) (q.line_thickness));
-					}
-						break;
+
 					case NK_COMMAND_RECT:
 					{
 						nk_command_rect r = (nk_command_rect) (cmd);
@@ -70,14 +61,7 @@ namespace NuklearSharp
 							(nk_color) (r.top), (nk_color) (r.right), (nk_color) (r.bottom));
 					}
 						break;
-					case NK_COMMAND_CIRCLE:
-					{
-						nk_command_circle c = (nk_command_circle) (cmd);
-						nk_draw_list_stroke_circle(ctx.draw_list,
-							(nk_vec2) (nk_vec2_((float) ((float) (c.x) + (float) (c.w)/2), (float) ((float) (c.y) + (float) (c.h)/2))),
-							(float) ((float) (c.w)/2), (nk_color) (c.color), (uint) (config.circle_segment_count), (float) (c.line_thickness));
-					}
-						break;
+
 					case NK_COMMAND_CIRCLE_FILLED:
 					{
 						nk_command_circle_filled c = (nk_command_circle_filled) (cmd);
@@ -86,32 +70,7 @@ namespace NuklearSharp
 							(float) ((float) (c.w)/2), (nk_color) (c.color), (uint) (config.circle_segment_count));
 					}
 						break;
-					case NK_COMMAND_ARC:
-					{
-						nk_command_arc c = (nk_command_arc) (cmd);
-						nk_draw_list_path_line_to(ctx.draw_list, (nk_vec2) (nk_vec2_((float) (c.cx), (float) (c.cy))));
-						nk_draw_list_path_arc_to(ctx.draw_list, (nk_vec2) (nk_vec2_((float) (c.cx), (float) (c.cy))), (float) (c.r),
-							(float) (c.a[0]), (float) (c.a[1]), (uint) (config.arc_segment_count));
-						nk_draw_list_path_stroke(ctx.draw_list, (nk_color) (c.color), (int) (NK_STROKE_CLOSED), (float) (c.line_thickness));
-					}
-						break;
-					case NK_COMMAND_ARC_FILLED:
-					{
-						nk_command_arc_filled c = (nk_command_arc_filled) (cmd);
-						nk_draw_list_path_line_to(ctx.draw_list, (nk_vec2) (nk_vec2_((float) (c.cx), (float) (c.cy))));
-						nk_draw_list_path_arc_to(ctx.draw_list, (nk_vec2) (nk_vec2_((float) (c.cx), (float) (c.cy))), (float) (c.r),
-							(float) (c.a[0]), (float) (c.a[1]), (uint) (config.arc_segment_count));
-						nk_draw_list_path_fill(ctx.draw_list, (nk_color) (c.color));
-					}
-						break;
-					case NK_COMMAND_TRIANGLE:
-					{
-						nk_command_triangle t = (nk_command_triangle) (cmd);
-						nk_draw_list_stroke_triangle(ctx.draw_list, (nk_vec2) (nk_vec2_((float) (t.a.x), (float) (t.a.y))),
-							(nk_vec2) (nk_vec2_((float) (t.b.x), (float) (t.b.y))), (nk_vec2) (nk_vec2_((float) (t.c.x), (float) (t.c.y))),
-							(nk_color) (t.color), (float) (t.line_thickness));
-					}
-						break;
+
 					case NK_COMMAND_TRIANGLE_FILLED:
 					{
 						nk_command_triangle_filled t = (nk_command_triangle_filled) (cmd);
@@ -171,13 +130,7 @@ namespace NuklearSharp
 							(nk_rect) (nk_rect_((float) (i.x), (float) (i.y), (float) (i.w), (float) (i.h))), (nk_color) (i.col));
 					}
 						break;
-					case NK_COMMAND_CUSTOM:
-					{
-						nk_command_custom c = (nk_command_custom) (cmd);
-						c.callback(ctx.draw_list, (short) (c.x), (short) (c.y), (ushort) (c.w), (ushort) (c.h),
-							(nk_handle) (c.callback_data));
-					}
-						break;
+
 					default:
 						break;
 				}
@@ -195,7 +148,7 @@ namespace NuklearSharp
 			_in_ = ctx.input;
 			for (i = (int) (0); (i) < (NK_BUTTON_MAX); ++i)
 			{
-				((nk_mouse_button*) _in_.mouse.buttons + i)->clicked = (uint) (0);
+				_in_.mouse.buttons[i].clicked = (uint) (0);
 			}
 			_in_.keyboard.text_len = (int) (0);
 			_in_.mouse.scroll_delta = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
@@ -205,7 +158,7 @@ namespace NuklearSharp
 			_in_.mouse.delta.y = (float) (0);
 			for (i = (int) (0); (i) < (NK_KEY_MAX); i++)
 			{
-				((nk_key*) _in_.keyboard.keys + i)->clicked = (uint) (0);
+				_in_.keyboard.keys[i].clicked = (uint) (0);
 			}
 		}
 
@@ -240,22 +193,23 @@ namespace NuklearSharp
 			nk_input _in_;
 			if (ctx == null) return;
 			_in_ = ctx.input;
-			if (((nk_key*) _in_.keyboard.keys + key)->down != down) ((nk_key*) _in_.keyboard.keys + key)->clicked++;
-			((nk_key*) _in_.keyboard.keys + key)->down = (int) (down);
+			if (_in_.keyboard.keys[key].down != down) _in_.keyboard.keys[key].clicked++;
+			_in_.keyboard.keys[key].down = (int) (down);
 		}
 
 		public static void nk_input_button(nk_context ctx, int id, int x, int y, int down)
 		{
-			nk_mouse_button* btn;
 			nk_input _in_;
 			if (ctx == null) return;
 			_in_ = ctx.input;
 			if ((_in_.mouse.buttons[id].down) == (down)) return;
-			btn = (nk_mouse_button*) _in_.mouse.buttons + id;
-			btn->clicked_pos.x = ((float) (x));
-			btn->clicked_pos.y = ((float) (y));
-			btn->down = (int) (down);
-			btn->clicked++;
+			fixed (nk_mouse_button* btn = &_in_.mouse.buttons[id])
+			{
+				btn->clicked_pos.x = ((float)(x));
+				btn->clicked_pos.y = ((float)(y));
+				btn->down = (int)(down);
+				btn->clicked++;
+			}
 		}
 
 		public static void nk_input_scroll(nk_context ctx, nk_vec2 val)
@@ -1102,8 +1056,6 @@ namespace NuklearSharp
 		public static void nk_finish(nk_context ctx, nk_window win)
 		{
 			if ((ctx == null) || (win == null) || win.popup.active == 0) return;
-
-
 		}
 
 		public static int nk_panel_begin(nk_context ctx, char* title, int panel_type)
@@ -1146,15 +1098,15 @@ namespace NuklearSharp
 					header.h += (float) (2.0f*style.window.header.label_padding.y);
 				}
 				else header.h = (float) (panel_padding.y);
-				left_mouse_down = (int) (((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down);
+				left_mouse_down = (int) (_in_.mouse.buttons[NK_BUTTON_LEFT].down);
 				left_mouse_click_in_cursor =
 					(int) (nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (nk_rect) (header), (int) (nk_true)));
 				if (((left_mouse_down) != 0) && ((left_mouse_click_in_cursor) != 0))
 				{
 					win.bounds.x = (float) (win.bounds.x + _in_.mouse.delta.x);
 					win.bounds.y = (float) (win.bounds.y + _in_.mouse.delta.y);
-					((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked_pos.x += (float) (_in_.mouse.delta.x);
-					((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked_pos.y += (float) (_in_.mouse.delta.y);
+					_in_.mouse.buttons[NK_BUTTON_LEFT].clicked_pos.x += (float) (_in_.mouse.delta.x);
+					_in_.mouse.buttons[NK_BUTTON_LEFT].clicked_pos.y += (float) (_in_.mouse.delta.y);
 					ctx.style.cursor_active = ctx.style.cursors[NK_CURSOR_MOVE];
 				}
 			}
@@ -1527,7 +1479,7 @@ namespace NuklearSharp
 				if ((window.flags & NK_WINDOW_ROM) == 0)
 				{
 					nk_vec2 window_size = (nk_vec2) (style.window.min_size);
-					int left_mouse_down = (int) (((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down);
+					int left_mouse_down = (int) (_in_.mouse.buttons[NK_BUTTON_LEFT].down);
 					int left_mouse_click_in_scaler =
 						(int) (nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (nk_rect) (scaler), (int) (nk_true)));
 					if (((left_mouse_down) != 0) && ((left_mouse_click_in_scaler) != 0))
@@ -1558,8 +1510,8 @@ namespace NuklearSharp
 							}
 						}
 						ctx.style.cursor_active = ctx.style.cursors[NK_CURSOR_RESIZE_TOP_RIGHT_DOWN_LEFT];
-						((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked_pos.x = (float) (scaler.x + scaler.w/2.0f);
-						((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked_pos.y = (float) (scaler.y + scaler.h/2.0f);
+						_in_.mouse.buttons[NK_BUTTON_LEFT].clicked_pos.x = (float) (scaler.x + scaler.w/2.0f);
+						_in_.mouse.buttons[NK_BUTTON_LEFT].clicked_pos.y = (float) (scaler.y + scaler.h/2.0f);
 					}
 				}
 			}
@@ -1751,8 +1703,7 @@ namespace NuklearSharp
 				win.bounds = (nk_rect) (bounds);
 				win.name = (uint) (title_hash);
 				name_length = (ulong) ((name_length) < (64 - 1) ? (name_length) : (64 - 1));
-				nk_memcopy(win.name_string, name, (ulong) (name_length));
-				win.name_string[name_length] = (char) (0);
+				win.name_string = name;
 				win.popup.win = null;
 				if (ctx.active == null) ctx.active = win;
 			}
@@ -2479,9 +2430,8 @@ namespace NuklearSharp
 						(float) (((space - total_fixed_width) < (0) ? (0) : (space - total_fixed_width))/(float) (min_variable_count));
 				for (i = (int) (0); (i) < (layout.row.columns); ++i)
 				{
-					float* width = (float*) layout.row.templates + i;
-					*width =
-						(float) (((*width) >= (0.0f)) ? *width : (((*width) < (-1.0f)) && (enough_space == 0)) ? -(*width) : var_width);
+					var width = layout.row.templates[i];
+					layout.row.templates[i] = (float) (((width) >= (0.0f)) ? width : (((width) < (-1.0f)) && (enough_space == 0)) ? -(width) : var_width);
 				}
 			}
 
@@ -3897,8 +3847,8 @@ namespace NuklearSharp
 				ret = (uint) (NK_CHART_HOVERING);
 				ret |=
 					(uint)
-						(((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->down == 0) &&
-						  ((((nk_mouse_button*) _in_.mouse.buttons + NK_BUTTON_LEFT)->clicked) != 0))
+						(((_in_.mouse.buttons[NK_BUTTON_LEFT].down == 0) &&
+						  ((_in_.mouse.buttons[NK_BUTTON_LEFT].clicked) != 0))
 							? NK_CHART_CLICKED
 							: 0);
 				color = (nk_color) (chart.slots[slot].highlight);
