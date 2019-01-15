@@ -40,7 +40,7 @@
 			};
 		}
 
-		public void SetFont(Nuklear.SpriteFont font)
+		public void SetFont(Nuklear.nk_font font)
 		{
 			Nuklear.nk_style_set_font(_ctx, font.handle);
 		}

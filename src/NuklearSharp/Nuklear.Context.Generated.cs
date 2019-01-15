@@ -742,7 +742,7 @@ namespace NuklearSharp
 			win.tooltip_padding = (nk_vec2) (nk_vec2_((float) (4), (float) (4)));
 		}
 
-		public static void nk_style_set_font(nk_context ctx, SpriteFont font)
+		public static void nk_style_set_font(nk_context ctx, nk_user_font font)
 		{
 			nk_style style;
 			if (ctx == null) return;
@@ -752,7 +752,7 @@ namespace NuklearSharp
 			if ((ctx.current) != null) nk_layout_reset_min_row_height(ctx);
 		}
 
-		public static int nk_style_push_font(nk_context ctx, SpriteFont font)
+		public static int nk_style_push_font(nk_context ctx, nk_user_font font)
 		{
 			nk_config_stack_user_font font_stack;
 			nk_config_stack_user_font_element element;
@@ -953,7 +953,7 @@ namespace NuklearSharp
 			style.cursor_visible = (int) (nk_true);
 		}
 
-		public static void nk_setup(nk_context ctx, SpriteFont font)
+		public static void nk_setup(nk_context ctx, nk_user_font font)
 		{
 			if (ctx == null) return;
 
@@ -1065,7 +1065,7 @@ namespace NuklearSharp
 			nk_panel layout;
 			nk_command_buffer _out_;
 			nk_style style;
-			SpriteFont font;
+			nk_user_font font;
 			nk_vec2 scrollbar_size = new nk_vec2();
 			nk_vec2 panel_padding = new nk_vec2();
 			if (((ctx == null) || (ctx.current == null)) || (ctx.current.layout == null)) return (int) (0);

@@ -37,8 +37,8 @@ namespace NuklearSharp
 
 		public unsafe partial class nk_config_stack_user_font_element
 		{
-			public SpriteFont address;
-			public SpriteFont old_value;
+			public nk_user_font address;
+			public nk_user_font old_value;
 		}
 
 		public unsafe partial class nk_config_stack_style_item

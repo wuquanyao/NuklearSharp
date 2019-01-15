@@ -886,7 +886,7 @@ namespace NuklearSharp
 					(nk_color) (color));
 		}
 
-		public static void nk_draw_list_add_text(nk_draw_list list, SpriteFont font, nk_rect rect, char* text, int len,
+		public static void nk_draw_list_add_text(nk_draw_list list, nk_user_font font, nk_rect rect, char* text, int len,
 			float font_height, nk_color fg)
 		{
 			float x = (float) (0);
@@ -895,7 +895,7 @@ namespace NuklearSharp
 			char next = (char) (0);
 			int glyph_len = (int) (0);
 			int next_glyph_len = (int) (0);
-			SpriteFont_glyph g = new SpriteFont_glyph();
+			nk_user_font_glyph g = new nk_user_font_glyph();
 			if (((list == null) || (len == 0)) || (text == null)) return;
 			if (
 				!(!(((((list.clip_rect.x) > (rect.x + rect.w)) || ((list.clip_rect.x + list.clip_rect.w) < (rect.x))) ||
