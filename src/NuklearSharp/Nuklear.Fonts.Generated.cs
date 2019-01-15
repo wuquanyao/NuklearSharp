@@ -15,10 +15,10 @@ namespace NuklearSharp
 			public byte pixel_snap;
 			public byte oversample_v;
 			public byte oversample_h;
-			public PinnedArray<byte> padding = new PinnedArray<byte>(3);
+			public byte[] padding = new byte[3];
 			public float size;
 			public int coord_type;
-			public nk_vec2 spacing = new nk_vec2();
+			public Vector2 spacing = new Vector2();
 			public uint* range;
 			public nk_baked_font font;
 			public char fallback_glyph;
@@ -1366,7 +1366,7 @@ namespace NuklearSharp
 		}
 
 		public static int nk_font_bake_pack(nk_font_baker* baker, ulong* image_memory, ref int width, ref int height,
-			ref nk_recti custom, nk_font_config config_list, int count)
+			ref Rectanglei custom, nk_font_config config_list, int count)
 		{
 			ulong max_height = (ulong) (1024*32);
 			nk_font_config config_iter;
@@ -1784,7 +1784,7 @@ namespace NuklearSharp
 				(int) (atlas.font_num));
 			fixed (byte* ptr = nk_custom_cursor_data)
 			{
-				nk_font_bake_custom_data(atlas.pixel, (int) (width), (int) (height), (nk_recti) (atlas.custom), ptr, (int) (90),
+				nk_font_bake_custom_data(atlas.pixel, (int) (width), (int) (height), (Rectanglei) (atlas.custom), ptr, (int) (90),
 					(int) (27), ('.'), ('X'));
 			}
 			if ((fmt) == (NK_FONT_ATLAS_RGBA32))
@@ -1814,8 +1814,8 @@ namespace NuklearSharp
 				cursor.img.region[1] = ((ushort) (atlas.custom.y + nk_cursor_data[i, 0].y));
 				cursor.img.region[2] = ((ushort) (nk_cursor_data[i, 1].x));
 				cursor.img.region[3] = ((ushort) (nk_cursor_data[i, 1].y));
-				cursor.size = (nk_vec2) (nk_cursor_data[i, 1]);
-				cursor.offset = (nk_vec2) (nk_cursor_data[i, 2]);
+				cursor.size = (Vector2) (nk_cursor_data[i, 1]);
+				cursor.offset = (Vector2) (nk_cursor_data[i, 2]);
 			}
 			CRuntime.free(tmp);
 			return atlas.pixel;
@@ -1845,7 +1845,7 @@ namespace NuklearSharp
 			{
 				if (_null_ == null) return;
 				_null_->texture = (nk_handle) (texture);
-				_null_->uv = (nk_vec2) (nk_vec2_((float) (0.5f), (float) (0.5f)));
+				_null_->uv = (Vector2) (Vector2_((float) (0.5f), (float) (0.5f)));
 			}
 
 			if ((_null_) != null)

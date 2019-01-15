@@ -6,13 +6,6 @@ namespace NuklearSharp
 {
 	unsafe partial class BaseContext
 	{
-		public uint Convert(NkBuffer<Nuklear.nk_draw_command> cmds, NkBuffer<byte> vertices,
-			NkBuffer<ushort> elements,
-			Nuklear.nk_convert_config config)
-		{
-			return Nuklear.nk_convert(_ctx, cmds, vertices, elements, config);
-		}
-
 		public void InputBegin()
 		{
 			Nuklear.nk_input_begin(_ctx);
@@ -38,7 +31,7 @@ namespace NuklearSharp
 			Nuklear.nk_input_button(_ctx, id, x, y, down?1:0);
 		}
 
-		public void InputScroll(Nuklear.nk_vec2 val)
+		public void InputScroll(Nuklear.Vector2 val)
 		{
 			Nuklear.nk_input_scroll(_ctx, val);
 		}
@@ -61,7 +54,7 @@ namespace NuklearSharp
 			Nuklear.nk_style_default(_ctx);
 		}
 
-		public void StyleFromTable(Nuklear.nk_color[] table)
+		public void StyleFromTable(Color[] table)
 		{
 			Nuklear.nk_style_from_table(_ctx, table);
 		}
@@ -91,7 +84,7 @@ namespace NuklearSharp
 			return Nuklear.nk_style_push_float(_ctx, address, value) != 0;
 		}
 
-		public bool StylePushVec2(Nuklear.nk_vec2* address, Nuklear.nk_vec2 value)
+		public bool StylePushVec2(Nuklear.Vector2* address, Nuklear.Vector2 value)
 		{
 			return Nuklear.nk_style_push_vec2(_ctx, address, value) != 0;
 		}
@@ -101,7 +94,7 @@ namespace NuklearSharp
 			return Nuklear.nk_style_push_flags(_ctx, address, value) != 0;
 		}
 
-		public bool StylePushColor(Nuklear.nk_color* address, Nuklear.nk_color value)
+		public bool StylePushColor(Color* address, Color value)
 		{
 			return Nuklear.nk_style_push_color(_ctx, address, value) != 0;
 		}
@@ -212,7 +205,7 @@ namespace NuklearSharp
 			Nuklear.nk_remove_window(_ctx, win);
 		}
 
-		public bool Begin(string title, Nuklear.nk_rect bounds, uint flags)
+		public bool Begin(string title, Nuklear.Rectangle bounds, uint flags)
 		{
 			fixed (char* title_ptr = title)
 			{
@@ -220,7 +213,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool BeginTitled(string name, string title, Nuklear.nk_rect bounds, uint flags)
+		public bool BeginTitled(string name, string title, Nuklear.Rectangle bounds, uint flags)
 		{
 			fixed (char* name_ptr = name)
 			{
@@ -236,17 +229,17 @@ namespace NuklearSharp
 			Nuklear.nk_end(_ctx);
 		}
 
-		public Nuklear.nk_rect WindowGetBounds()
+		public Nuklear.Rectangle WindowGetBounds()
 		{
 			return Nuklear.nk_window_get_bounds(_ctx);
 		}
 
-		public Nuklear.nk_vec2 WindowGetPosition()
+		public Nuklear.Vector2 WindowGetPosition()
 		{
 			return Nuklear.nk_window_get_position(_ctx);
 		}
 
-		public Nuklear.nk_vec2 WindowGetSize()
+		public Nuklear.Vector2 WindowGetSize()
 		{
 			return Nuklear.nk_window_get_size(_ctx);
 		}
@@ -261,22 +254,22 @@ namespace NuklearSharp
 			return Nuklear.nk_window_get_height(_ctx);
 		}
 
-		public Nuklear.nk_rect WindowGetContentRegion()
+		public Nuklear.Rectangle WindowGetContentRegion()
 		{
 			return Nuklear.nk_window_get_content_region(_ctx);
 		}
 
-		public Nuklear.nk_vec2 WindowGetContentRegionMin()
+		public Nuklear.Vector2 WindowGetContentRegionMin()
 		{
 			return Nuklear.nk_window_get_content_region_min(_ctx);
 		}
 
-		public Nuklear.nk_vec2 WindowGetContentRegionMax()
+		public Nuklear.Vector2 WindowGetContentRegionMax()
 		{
 			return Nuklear.nk_window_get_content_region_max(_ctx);
 		}
 
-		public Nuklear.nk_vec2 WindowGetContentRegionSize()
+		public Nuklear.Vector2 WindowGetContentRegionSize()
 		{
 			return Nuklear.nk_window_get_content_region_size(_ctx);
 		}
@@ -359,7 +352,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public void WindowSetBounds(string name, Nuklear.nk_rect bounds)
+		public void WindowSetBounds(string name, Nuklear.Rectangle bounds)
 		{
 			fixed (char* name_ptr = name)
 			{
@@ -367,7 +360,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public void WindowSetPosition(string name, Nuklear.nk_vec2 pos)
+		public void WindowSetPosition(string name, Nuklear.Vector2 pos)
 		{
 			fixed (char* name_ptr = name)
 			{
@@ -375,7 +368,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public void WindowSetSize(string name, Nuklear.nk_vec2 size)
+		public void WindowSetSize(string name, Nuklear.Vector2 size)
 		{
 			fixed (char* name_ptr = name)
 			{
@@ -526,37 +519,37 @@ namespace NuklearSharp
 			Nuklear.nk_layout_space_end(_ctx);
 		}
 
-		public void LayoutSpacePush(Nuklear.nk_rect rect)
+		public void LayoutSpacePush(Nuklear.Rectangle rect)
 		{
 			Nuklear.nk_layout_space_push(_ctx, rect);
 		}
 
-		public Nuklear.nk_rect LayoutSpaceBounds()
+		public Nuklear.Rectangle LayoutSpaceBounds()
 		{
 			return Nuklear.nk_layout_space_bounds(_ctx);
 		}
 
-		public Nuklear.nk_rect LayoutWidgetBounds()
+		public Nuklear.Rectangle LayoutWidgetBounds()
 		{
 			return Nuklear.nk_layout_widget_bounds(_ctx);
 		}
 
-		public Nuklear.nk_vec2 LayoutSpaceToScreen(Nuklear.nk_vec2 ret)
+		public Nuklear.Vector2 LayoutSpaceToScreen(Nuklear.Vector2 ret)
 		{
 			return Nuklear.nk_layout_space_to_screen(_ctx, ret);
 		}
 
-		public Nuklear.nk_vec2 LayoutSpaceToLocal(Nuklear.nk_vec2 ret)
+		public Nuklear.Vector2 LayoutSpaceToLocal(Nuklear.Vector2 ret)
 		{
 			return Nuklear.nk_layout_space_to_local(_ctx, ret);
 		}
 
-		public Nuklear.nk_rect LayoutSpaceRectToScreen(Nuklear.nk_rect ret)
+		public Nuklear.Rectangle LayoutSpaceRectToScreen(Nuklear.Rectangle ret)
 		{
 			return Nuklear.nk_layout_space_rect_to_screen(_ctx, ret);
 		}
 
-		public Nuklear.nk_rect LayoutSpaceRectToLocal(Nuklear.nk_rect ret)
+		public Nuklear.Rectangle LayoutSpaceRectToLocal(Nuklear.Rectangle ret)
 		{
 			return Nuklear.nk_layout_space_rect_to_local(_ctx, ret);
 		}
@@ -610,17 +603,17 @@ namespace NuklearSharp
 			Nuklear.nk_tree_pop(_ctx);
 		}
 
-		public Nuklear.nk_rect WidgetBounds()
+		public Nuklear.Rectangle WidgetBounds()
 		{
 			return Nuklear.nk_widget_bounds(_ctx);
 		}
 
-		public Nuklear.nk_vec2 WidgetPosition()
+		public Nuklear.Vector2 WidgetPosition()
 		{
 			return Nuklear.nk_widget_position(_ctx);
 		}
 
-		public Nuklear.nk_vec2 WidgetSize()
+		public Nuklear.Vector2 WidgetSize()
 		{
 			return Nuklear.nk_widget_size(_ctx);
 		}
@@ -655,7 +648,7 @@ namespace NuklearSharp
 			Nuklear.nk_spacing(_ctx, cols);
 		}
 
-		public void TextColored(string str, uint alignment, Nuklear.nk_color color)
+		public void TextColored(string str, uint alignment, Color color)
 		{
 			fixed (char* str_ptr = str)
 			{
@@ -663,7 +656,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public void TextWrapColored(string str, Nuklear.nk_color color)
+		public void TextWrapColored(string str, Color color)
 		{
 			fixed (char* str_ptr = str)
 			{
@@ -695,7 +688,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public void LabelColored(string str, uint align, Nuklear.nk_color color)
+		public void LabelColored(string str, uint align, Color color)
 		{
 			fixed (char* str_ptr = str)
 			{
@@ -711,7 +704,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public void LabelColoredWrap(string str, Nuklear.nk_color color)
+		public void LabelColoredWrap(string str, Color color)
 		{
 			fixed (char* str_ptr = str)
 			{
@@ -771,7 +764,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool ButtonColor(Nuklear.nk_color color)
+		public bool ButtonColor(Color color)
 		{
 			return Nuklear.nk_button_color(_ctx, color) != 0;
 		}
@@ -1147,17 +1140,17 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool ColorPick(Nuklear.nk_colorf color, int fmt)
+		public bool ColorPick(Colorf color, int fmt)
 		{
-			return Nuklear.nk_color_pick(_ctx, &color, fmt) != 0;
+			return Color_pick(_ctx, &color, fmt) != 0;
 		}
 
-		public Nuklear.nk_colorf ColorPicker(Nuklear.nk_colorf color, int fmt)
+		public Colorf ColorPicker(Colorf color, int fmt)
 		{
-			return Nuklear.nk_color_picker(_ctx, color, fmt);
+			return Color_picker(_ctx, color, fmt);
 		}
 
-		public bool ChartBeginColored(int type, Nuklear.nk_color color, Nuklear.nk_color highlight, int count, float min_value,
+		public bool ChartBeginColored(int type, Color color, Color highlight, int count, float min_value,
 			float max_value)
 		{
 			return Nuklear.nk_chart_begin_colored(_ctx, type, color, highlight, count, min_value, max_value) != 0;
@@ -1168,7 +1161,7 @@ namespace NuklearSharp
 			return Nuklear.nk_chart_begin(_ctx, type, count, min_value, max_value) != 0;
 		}
 
-		public void ChartAddSlotColored(int type, Nuklear.nk_color color, Nuklear.nk_color highlight, int count,
+		public void ChartAddSlotColored(int type, Color color, Color highlight, int count,
 			float min_value, float max_value)
 		{
 			Nuklear.nk_chart_add_slot_colored(_ctx, type, color, highlight, count, min_value, max_value);
@@ -1262,7 +1255,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool PopupBegin(int type, string title, uint flags, Nuklear.nk_rect rect)
+		public bool PopupBegin(int type, string title, uint flags, Nuklear.Rectangle rect)
 		{
 			fixed (char* title_ptr = title)
 			{
@@ -1270,7 +1263,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool NonblockBegin(uint flags, Nuklear.nk_rect body, Nuklear.nk_rect header, int panel_type)
+		public bool NonblockBegin(uint flags, Nuklear.Rectangle body, Nuklear.Rectangle header, int panel_type)
 		{
 			return Nuklear.nk_nonblock_begin(_ctx, flags, body, header, panel_type) != 0;
 		}
@@ -1303,7 +1296,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool ContextualBegin(uint flags, Nuklear.nk_vec2 size, Nuklear.nk_rect trigger_bounds)
+		public bool ContextualBegin(uint flags, Nuklear.Vector2 size, Nuklear.Rectangle trigger_bounds)
 		{
 			return Nuklear.nk_contextual_begin(_ctx, flags, size, trigger_bounds) != 0;
 		}
@@ -1366,12 +1359,12 @@ namespace NuklearSharp
 			Nuklear.nk_contextual_end(_ctx);
 		}
 
-		public bool ComboBegin(Nuklear.nk_window win, Nuklear.nk_vec2 size, int is_clicked, Nuklear.nk_rect header)
+		public bool ComboBegin(Nuklear.nk_window win, Nuklear.Vector2 size, int is_clicked, Nuklear.Rectangle header)
 		{
 			return Nuklear.nk_combo_begin(_ctx, win, size, is_clicked, header) != 0;
 		}
 
-		public bool ComboBeginText(string selected, Nuklear.nk_vec2 size)
+		public bool ComboBeginText(string selected, Nuklear.Vector2 size)
 		{
 			fixed (char* selected_ptr = selected)
 			{
@@ -1379,7 +1372,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool ComboBeginLabel(string selected, Nuklear.nk_vec2 size)
+		public bool ComboBeginLabel(string selected, Nuklear.Vector2 size)
 		{
 			fixed (char* selected_ptr = selected)
 			{
@@ -1387,17 +1380,17 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool ComboBeginColor(Nuklear.nk_color color, Nuklear.nk_vec2 size)
+		public bool ComboBeginColor(Color color, Nuklear.Vector2 size)
 		{
 			return Nuklear.nk_combo_begin_color(_ctx, color, size) != 0;
 		}
 
-		public bool ComboBeginSymbol(int symbol, Nuklear.nk_vec2 size)
+		public bool ComboBeginSymbol(int symbol, Nuklear.Vector2 size)
 		{
 			return Nuklear.nk_combo_begin_symbol(_ctx, symbol, size) != 0;
 		}
 
-		public bool ComboBeginSymbolText(string selected, int symbol, Nuklear.nk_vec2 size)
+		public bool ComboBeginSymbolText(string selected, int symbol, Nuklear.Vector2 size)
 		{
 			fixed (char* selected_ptr = selected)
 			{
@@ -1405,12 +1398,12 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool ComboBeginImage(Nuklear.nk_image img, Nuklear.nk_vec2 size)
+		public bool ComboBeginImage(Nuklear.nk_image img, Nuklear.Vector2 size)
 		{
 			return Nuklear.nk_combo_begin_image(_ctx, img, size) != 0;
 		}
 
-		public bool ComboBeginImageText(string selected, Nuklear.nk_image img, Nuklear.nk_vec2 size)
+		public bool ComboBeginImageText(string selected, Nuklear.nk_image img, Nuklear.Vector2 size)
 		{
 			fixed (char* selected_ptr = selected)
 			{
@@ -1418,7 +1411,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool ComboBeginSymbolLabel(string selected, int type, Nuklear.nk_vec2 size)
+		public bool ComboBeginSymbolLabel(string selected, int type, Nuklear.Vector2 size)
 		{
 			fixed (char* selected_ptr = selected)
 			{
@@ -1426,7 +1419,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool ComboBeginImageLabel(string selected, Nuklear.nk_image img, Nuklear.nk_vec2 size)
+		public bool ComboBeginImageLabel(string selected, Nuklear.nk_image img, Nuklear.Vector2 size)
 		{
 			fixed (char* selected_ptr = selected)
 			{
@@ -1493,7 +1486,7 @@ namespace NuklearSharp
 		}
 
 		public bool ComboSeparator(string items_separated_by_separator, int separator, int selected, int count,
-			int item_height, Nuklear.nk_vec2 size)
+			int item_height, Nuklear.Vector2 size)
 		{
 			fixed (char* items_separated_by_separator_ptr = items_separated_by_separator)
 			{
@@ -1504,7 +1497,7 @@ namespace NuklearSharp
 		}
 
 		public bool ComboString(string items_separated_by_zeros, int selected, int count, int item_height,
-			Nuklear.nk_vec2 size)
+			Nuklear.Vector2 size)
 		{
 			fixed (char* items_separated_by_zeros_ptr = items_separated_by_zeros)
 			{
@@ -1513,13 +1506,13 @@ namespace NuklearSharp
 		}
 
 		public bool ComboCallback(Nuklear.NkComboCallback item_getter, IntPtr userdata, int selected, int count,
-			int item_height, Nuklear.nk_vec2 size)
+			int item_height, Nuklear.Vector2 size)
 		{
 			return Nuklear.nk_combo_callback(_ctx, item_getter, userdata.ToPointer(), selected, count, item_height, size) != 0;
 		}
 
 		public void ComboboxString(string items_separated_by_zeros, ref int selected, int count, int item_height,
-			Nuklear.nk_vec2 size)
+			Nuklear.Vector2 size)
 		{
 			fixed (char* items_separated_by_zeros_ptr = items_separated_by_zeros)
 			{
@@ -1530,7 +1523,7 @@ namespace NuklearSharp
 		}
 
 		public void ComboboxSeparator(string items_separated_by_separator, int separator, ref int selected, int count,
-			int item_height, Nuklear.nk_vec2 size)
+			int item_height, Nuklear.Vector2 size)
 		{
 			fixed (char* items_separated_by_separator_ptr = items_separated_by_separator)
 			{
@@ -1541,14 +1534,14 @@ namespace NuklearSharp
 		}
 
 		public void ComboboxCallback(Nuklear.NkComboCallback item_getter, IntPtr userdata, ref int selected, int count,
-			int item_height, Nuklear.nk_vec2 size)
+			int item_height, Nuklear.Vector2 size)
 		{
 			int s = selected;
 			Nuklear.nk_combobox_callback(_ctx, item_getter, userdata.ToPointer(), &s, count, item_height, size);
 			selected = s;
 		}
 
-		public bool MenuBegin(Nuklear.nk_window win, string id, int is_clicked, Nuklear.nk_rect header, Nuklear.nk_vec2 size)
+		public bool MenuBegin(Nuklear.nk_window win, string id, int is_clicked, Nuklear.Rectangle header, Nuklear.Vector2 size)
 		{
 			fixed (char* id_ptr = id)
 			{
@@ -1556,7 +1549,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool MenuBeginText(string title, uint align, Nuklear.nk_vec2 size)
+		public bool MenuBeginText(string title, uint align, Nuklear.Vector2 size)
 		{
 			fixed (char* title_ptr = title)
 			{
@@ -1564,7 +1557,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool MenuBeginLabel(string text, uint align, Nuklear.nk_vec2 size)
+		public bool MenuBeginLabel(string text, uint align, Nuklear.Vector2 size)
 		{
 			fixed (char* text_ptr = text)
 			{
@@ -1572,7 +1565,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool MenuBeginImage(string id, Nuklear.nk_image img, Nuklear.nk_vec2 size)
+		public bool MenuBeginImage(string id, Nuklear.nk_image img, Nuklear.Vector2 size)
 		{
 			fixed (char* id_ptr = id)
 			{
@@ -1580,7 +1573,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool MenuBeginSymbol(string id, int sym, Nuklear.nk_vec2 size)
+		public bool MenuBeginSymbol(string id, int sym, Nuklear.Vector2 size)
 		{
 			fixed (char* id_ptr = id)
 			{
@@ -1588,7 +1581,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool MenuBeginImageText(string title, uint align, Nuklear.nk_image img, Nuklear.nk_vec2 size)
+		public bool MenuBeginImageText(string title, uint align, Nuklear.nk_image img, Nuklear.Vector2 size)
 		{
 			fixed (char* title_ptr = title)
 			{
@@ -1596,7 +1589,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool MenuBeginImageLabel(string title, uint align, Nuklear.nk_image img, Nuklear.nk_vec2 size)
+		public bool MenuBeginImageLabel(string title, uint align, Nuklear.nk_image img, Nuklear.Vector2 size)
 		{
 			fixed (char* title_ptr = title)
 			{
@@ -1604,7 +1597,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool MenuBeginSymbolText(string title, uint align, int sym, Nuklear.nk_vec2 size)
+		public bool MenuBeginSymbolText(string title, uint align, int sym, Nuklear.Vector2 size)
 		{
 			fixed (char* title_ptr = title)
 			{
@@ -1612,7 +1605,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool MenuBeginSymbolLabel(string title, uint align, int sym, Nuklear.nk_vec2 size)
+		public bool MenuBeginSymbolLabel(string title, uint align, int sym, Nuklear.Vector2 size)
 		{
 			fixed (char* title_ptr = title)
 			{

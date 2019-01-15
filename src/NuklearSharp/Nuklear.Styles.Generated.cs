@@ -7,8 +7,8 @@ namespace NuklearSharp
 	{
 		public unsafe partial class nk_style_text
 		{
-			public nk_color color = new nk_color();
-			public nk_vec2 padding = new nk_vec2();
+			public Color color = new Color();
+			public Vector2 padding = new Vector2();
 		}
 
 		public unsafe partial class nk_style_button
@@ -16,17 +16,17 @@ namespace NuklearSharp
 			public nk_style_item normal = new nk_style_item();
 			public nk_style_item hover = new nk_style_item();
 			public nk_style_item active = new nk_style_item();
-			public nk_color border_color = new nk_color();
-			public nk_color text_background = new nk_color();
-			public nk_color text_normal = new nk_color();
-			public nk_color text_hover = new nk_color();
-			public nk_color text_active = new nk_color();
+			public Color border_color = new Color();
+			public Color text_background = new Color();
+			public Color text_normal = new Color();
+			public Color text_hover = new Color();
+			public Color text_active = new Color();
 			public uint text_alignment;
 			public float border;
 			public float rounding;
-			public nk_vec2 padding = new nk_vec2();
-			public nk_vec2 image_padding = new nk_vec2();
-			public nk_vec2 touch_padding = new nk_vec2();
+			public Vector2 padding = new Vector2();
+			public Vector2 image_padding = new Vector2();
+			public Vector2 touch_padding = new Vector2();
 			public nk_handle userdata = new nk_handle();
 			public NkDrawNotify draw_begin;
 			public NkDrawNotify draw_end;
@@ -37,16 +37,16 @@ namespace NuklearSharp
 			public nk_style_item normal = new nk_style_item();
 			public nk_style_item hover = new nk_style_item();
 			public nk_style_item active = new nk_style_item();
-			public nk_color border_color = new nk_color();
+			public Color border_color = new Color();
 			public nk_style_item cursor_normal = new nk_style_item();
 			public nk_style_item cursor_hover = new nk_style_item();
-			public nk_color text_normal = new nk_color();
-			public nk_color text_hover = new nk_color();
-			public nk_color text_active = new nk_color();
-			public nk_color text_background = new nk_color();
+			public Color text_normal = new Color();
+			public Color text_hover = new Color();
+			public Color text_active = new Color();
+			public Color text_background = new Color();
 			public uint text_alignment;
-			public nk_vec2 padding = new nk_vec2();
-			public nk_vec2 touch_padding = new nk_vec2();
+			public Vector2 padding = new Vector2();
+			public Vector2 touch_padding = new Vector2();
 			public float spacing;
 			public float border;
 			public nk_handle userdata = new nk_handle();
@@ -62,18 +62,18 @@ namespace NuklearSharp
 			public nk_style_item normal_active = new nk_style_item();
 			public nk_style_item hover_active = new nk_style_item();
 			public nk_style_item pressed_active = new nk_style_item();
-			public nk_color text_normal = new nk_color();
-			public nk_color text_hover = new nk_color();
-			public nk_color text_pressed = new nk_color();
-			public nk_color text_normal_active = new nk_color();
-			public nk_color text_hover_active = new nk_color();
-			public nk_color text_pressed_active = new nk_color();
-			public nk_color text_background = new nk_color();
+			public Color text_normal = new Color();
+			public Color text_hover = new Color();
+			public Color text_pressed = new Color();
+			public Color text_normal_active = new Color();
+			public Color text_hover_active = new Color();
+			public Color text_pressed_active = new Color();
+			public Color text_background = new Color();
 			public uint text_alignment;
 			public float rounding;
-			public nk_vec2 padding = new nk_vec2();
-			public nk_vec2 touch_padding = new nk_vec2();
-			public nk_vec2 image_padding = new nk_vec2();
+			public Vector2 padding = new Vector2();
+			public Vector2 touch_padding = new Vector2();
+			public Vector2 image_padding = new Vector2();
 			public nk_handle userdata = new nk_handle();
 			public NkDrawNotify draw_begin;
 			public NkDrawNotify draw_end;
@@ -84,20 +84,20 @@ namespace NuklearSharp
 			public nk_style_item normal = new nk_style_item();
 			public nk_style_item hover = new nk_style_item();
 			public nk_style_item active = new nk_style_item();
-			public nk_color border_color = new nk_color();
-			public nk_color bar_normal = new nk_color();
-			public nk_color bar_hover = new nk_color();
-			public nk_color bar_active = new nk_color();
-			public nk_color bar_filled = new nk_color();
+			public Color border_color = new Color();
+			public Color bar_normal = new Color();
+			public Color bar_hover = new Color();
+			public Color bar_active = new Color();
+			public Color bar_filled = new Color();
 			public nk_style_item cursor_normal = new nk_style_item();
 			public nk_style_item cursor_hover = new nk_style_item();
 			public nk_style_item cursor_active = new nk_style_item();
 			public float border;
 			public float rounding;
 			public float bar_height;
-			public nk_vec2 padding = new nk_vec2();
-			public nk_vec2 spacing = new nk_vec2();
-			public nk_vec2 cursor_size = new nk_vec2();
+			public Vector2 padding = new Vector2();
+			public Vector2 spacing = new Vector2();
+			public Vector2 cursor_size = new Vector2();
 			public int show_buttons;
 			public nk_style_button inc_button = new nk_style_button();
 			public nk_style_button dec_button = new nk_style_button();
@@ -113,16 +113,16 @@ namespace NuklearSharp
 			public nk_style_item normal = new nk_style_item();
 			public nk_style_item hover = new nk_style_item();
 			public nk_style_item active = new nk_style_item();
-			public nk_color border_color = new nk_color();
+			public Color border_color = new Color();
 			public nk_style_item cursor_normal = new nk_style_item();
 			public nk_style_item cursor_hover = new nk_style_item();
 			public nk_style_item cursor_active = new nk_style_item();
-			public nk_color cursor_border_color = new nk_color();
+			public Color cursor_border_color = new Color();
 			public float rounding;
 			public float border;
 			public float cursor_border;
 			public float cursor_rounding;
-			public nk_vec2 padding = new nk_vec2();
+			public Vector2 padding = new Vector2();
 			public nk_handle userdata = new nk_handle();
 			public NkDrawNotify draw_begin;
 			public NkDrawNotify draw_end;
@@ -133,16 +133,16 @@ namespace NuklearSharp
 			public nk_style_item normal = new nk_style_item();
 			public nk_style_item hover = new nk_style_item();
 			public nk_style_item active = new nk_style_item();
-			public nk_color border_color = new nk_color();
+			public Color border_color = new Color();
 			public nk_style_item cursor_normal = new nk_style_item();
 			public nk_style_item cursor_hover = new nk_style_item();
 			public nk_style_item cursor_active = new nk_style_item();
-			public nk_color cursor_border_color = new nk_color();
+			public Color cursor_border_color = new Color();
 			public float border;
 			public float rounding;
 			public float border_cursor;
 			public float rounding_cursor;
-			public nk_vec2 padding = new nk_vec2();
+			public Vector2 padding = new Vector2();
 			public int show_buttons;
 			public nk_style_button inc_button = new nk_style_button();
 			public nk_style_button dec_button = new nk_style_button();
@@ -158,24 +158,24 @@ namespace NuklearSharp
 			public nk_style_item normal = new nk_style_item();
 			public nk_style_item hover = new nk_style_item();
 			public nk_style_item active = new nk_style_item();
-			public nk_color border_color = new nk_color();
+			public Color border_color = new Color();
 			public nk_style_scrollbar scrollbar = new nk_style_scrollbar();
-			public nk_color cursor_normal = new nk_color();
-			public nk_color cursor_hover = new nk_color();
-			public nk_color cursor_text_normal = new nk_color();
-			public nk_color cursor_text_hover = new nk_color();
-			public nk_color text_normal = new nk_color();
-			public nk_color text_hover = new nk_color();
-			public nk_color text_active = new nk_color();
-			public nk_color selected_normal = new nk_color();
-			public nk_color selected_hover = new nk_color();
-			public nk_color selected_text_normal = new nk_color();
-			public nk_color selected_text_hover = new nk_color();
+			public Color cursor_normal = new Color();
+			public Color cursor_hover = new Color();
+			public Color cursor_text_normal = new Color();
+			public Color cursor_text_hover = new Color();
+			public Color text_normal = new Color();
+			public Color text_hover = new Color();
+			public Color text_active = new Color();
+			public Color selected_normal = new Color();
+			public Color selected_hover = new Color();
+			public Color selected_text_normal = new Color();
+			public Color selected_text_hover = new Color();
 			public float border;
 			public float rounding;
 			public float cursor_size;
-			public nk_vec2 scrollbar_size = new nk_vec2();
-			public nk_vec2 padding = new nk_vec2();
+			public Vector2 scrollbar_size = new Vector2();
+			public Vector2 padding = new Vector2();
 			public float row_padding;
 		}
 
@@ -184,15 +184,15 @@ namespace NuklearSharp
 			public nk_style_item normal = new nk_style_item();
 			public nk_style_item hover = new nk_style_item();
 			public nk_style_item active = new nk_style_item();
-			public nk_color border_color = new nk_color();
-			public nk_color label_normal = new nk_color();
-			public nk_color label_hover = new nk_color();
-			public nk_color label_active = new nk_color();
+			public Color border_color = new Color();
+			public Color label_normal = new Color();
+			public Color label_hover = new Color();
+			public Color label_active = new Color();
 			public int sym_left;
 			public int sym_right;
 			public float border;
 			public float rounding;
-			public nk_vec2 padding = new nk_vec2();
+			public Vector2 padding = new Vector2();
 			public nk_style_edit edit = new nk_style_edit();
 			public nk_style_button inc_button = new nk_style_button();
 			public nk_style_button dec_button = new nk_style_button();
@@ -204,12 +204,12 @@ namespace NuklearSharp
 		public unsafe partial class nk_style_chart
 		{
 			public nk_style_item background = new nk_style_item();
-			public nk_color border_color = new nk_color();
-			public nk_color selected_color = new nk_color();
-			public nk_color color = new nk_color();
+			public Color border_color = new Color();
+			public Color selected_color = new Color();
+			public Color color = new Color();
 			public float border;
 			public float rounding;
-			public nk_vec2 padding = new nk_vec2();
+			public Vector2 padding = new Vector2();
 		}
 
 		public unsafe partial class nk_style_combo
@@ -217,29 +217,29 @@ namespace NuklearSharp
 			public nk_style_item normal = new nk_style_item();
 			public nk_style_item hover = new nk_style_item();
 			public nk_style_item active = new nk_style_item();
-			public nk_color border_color = new nk_color();
-			public nk_color label_normal = new nk_color();
-			public nk_color label_hover = new nk_color();
-			public nk_color label_active = new nk_color();
-			public nk_color symbol_normal = new nk_color();
-			public nk_color symbol_hover = new nk_color();
-			public nk_color symbol_active = new nk_color();
+			public Color border_color = new Color();
+			public Color label_normal = new Color();
+			public Color label_hover = new Color();
+			public Color label_active = new Color();
+			public Color symbol_normal = new Color();
+			public Color symbol_hover = new Color();
+			public Color symbol_active = new Color();
 			public nk_style_button button = new nk_style_button();
 			public int sym_normal;
 			public int sym_hover;
 			public int sym_active;
 			public float border;
 			public float rounding;
-			public nk_vec2 content_padding = new nk_vec2();
-			public nk_vec2 button_padding = new nk_vec2();
-			public nk_vec2 spacing = new nk_vec2();
+			public Vector2 content_padding = new Vector2();
+			public Vector2 button_padding = new Vector2();
+			public Vector2 spacing = new Vector2();
 		}
 
 		public unsafe partial class nk_style_tab
 		{
 			public nk_style_item background = new nk_style_item();
-			public nk_color border_color = new nk_color();
-			public nk_color text = new nk_color();
+			public Color border_color = new Color();
+			public Color text = new Color();
 			public nk_style_button tab_maximize_button = new nk_style_button();
 			public nk_style_button tab_minimize_button = new nk_style_button();
 			public nk_style_button node_maximize_button = new nk_style_button();
@@ -249,8 +249,8 @@ namespace NuklearSharp
 			public float border;
 			public float rounding;
 			public float indent;
-			public nk_vec2 padding = new nk_vec2();
-			public nk_vec2 spacing = new nk_vec2();
+			public Vector2 padding = new Vector2();
+			public Vector2 spacing = new Vector2();
 		}
 
 		public unsafe partial class nk_style_window_header
@@ -263,27 +263,27 @@ namespace NuklearSharp
 			public int close_symbol;
 			public int minimize_symbol;
 			public int maximize_symbol;
-			public nk_color label_normal = new nk_color();
-			public nk_color label_hover = new nk_color();
-			public nk_color label_active = new nk_color();
+			public Color label_normal = new Color();
+			public Color label_hover = new Color();
+			public Color label_active = new Color();
 			public int align;
-			public nk_vec2 padding = new nk_vec2();
-			public nk_vec2 label_padding = new nk_vec2();
-			public nk_vec2 spacing = new nk_vec2();
+			public Vector2 padding = new Vector2();
+			public Vector2 label_padding = new Vector2();
+			public Vector2 spacing = new Vector2();
 		}
 
 		public unsafe partial class nk_style_window
 		{
 			public nk_style_window_header header = new nk_style_window_header();
 			public nk_style_item fixed_background = new nk_style_item();
-			public nk_color background = new nk_color();
-			public nk_color border_color = new nk_color();
-			public nk_color popup_border_color = new nk_color();
-			public nk_color combo_border_color = new nk_color();
-			public nk_color contextual_border_color = new nk_color();
-			public nk_color menu_border_color = new nk_color();
-			public nk_color group_border_color = new nk_color();
-			public nk_color tooltip_border_color = new nk_color();
+			public Color background = new Color();
+			public Color border_color = new Color();
+			public Color popup_border_color = new Color();
+			public Color combo_border_color = new Color();
+			public Color contextual_border_color = new Color();
+			public Color menu_border_color = new Color();
+			public Color group_border_color = new Color();
+			public Color tooltip_border_color = new Color();
 			public nk_style_item scaler = new nk_style_item();
 			public float border;
 			public float combo_border;
@@ -294,37 +294,37 @@ namespace NuklearSharp
 			public float popup_border;
 			public float min_row_height_padding;
 			public float rounding;
-			public nk_vec2 spacing = new nk_vec2();
-			public nk_vec2 scrollbar_size = new nk_vec2();
-			public nk_vec2 min_size = new nk_vec2();
-			public nk_vec2 padding = new nk_vec2();
-			public nk_vec2 group_padding = new nk_vec2();
-			public nk_vec2 popup_padding = new nk_vec2();
-			public nk_vec2 combo_padding = new nk_vec2();
-			public nk_vec2 contextual_padding = new nk_vec2();
-			public nk_vec2 menu_padding = new nk_vec2();
-			public nk_vec2 tooltip_padding = new nk_vec2();
+			public Vector2 spacing = new Vector2();
+			public Vector2 scrollbar_size = new Vector2();
+			public Vector2 min_size = new Vector2();
+			public Vector2 padding = new Vector2();
+			public Vector2 group_padding = new Vector2();
+			public Vector2 popup_padding = new Vector2();
+			public Vector2 combo_padding = new Vector2();
+			public Vector2 contextual_padding = new Vector2();
+			public Vector2 menu_padding = new Vector2();
+			public Vector2 tooltip_padding = new Vector2();
 		}
 
-		public static nk_vec2 nk_panel_get_padding(nk_style style, int type)
+		public static Vector2 nk_panel_get_padding(nk_style style, int type)
 		{
 			switch (type)
 			{
 				default:
 				case NK_PANEL_WINDOW:
-					return (nk_vec2) (style.window.padding);
+					return (Vector2) (style.window.padding);
 				case NK_PANEL_GROUP:
-					return (nk_vec2) (style.window.group_padding);
+					return (Vector2) (style.window.group_padding);
 				case NK_PANEL_POPUP:
-					return (nk_vec2) (style.window.popup_padding);
+					return (Vector2) (style.window.popup_padding);
 				case NK_PANEL_CONTEXTUAL:
-					return (nk_vec2) (style.window.contextual_padding);
+					return (Vector2) (style.window.contextual_padding);
 				case NK_PANEL_COMBO:
-					return (nk_vec2) (style.window.combo_padding);
+					return (Vector2) (style.window.combo_padding);
 				case NK_PANEL_MENU:
-					return (nk_vec2) (style.window.menu_padding);
+					return (Vector2) (style.window.menu_padding);
 				case NK_PANEL_TOOLTIP:
-					return (nk_vec2) (style.window.menu_padding);
+					return (Vector2) (style.window.menu_padding);
 			}
 
 		}
@@ -355,25 +355,25 @@ namespace NuklearSharp
 			else return (float) (0);
 		}
 
-		public static nk_color nk_panel_get_border_color(nk_style style, int type)
+		public static Color nk_panel_get_border_color(nk_style style, int type)
 		{
 			switch (type)
 			{
 				default:
 				case NK_PANEL_WINDOW:
-					return (nk_color) (style.window.border_color);
+					return (Color) (style.window.border_color);
 				case NK_PANEL_GROUP:
-					return (nk_color) (style.window.group_border_color);
+					return (Color) (style.window.group_border_color);
 				case NK_PANEL_POPUP:
-					return (nk_color) (style.window.popup_border_color);
+					return (Color) (style.window.popup_border_color);
 				case NK_PANEL_CONTEXTUAL:
-					return (nk_color) (style.window.contextual_border_color);
+					return (Color) (style.window.contextual_border_color);
 				case NK_PANEL_COMBO:
-					return (nk_color) (style.window.combo_border_color);
+					return (Color) (style.window.combo_border_color);
 				case NK_PANEL_MENU:
-					return (nk_color) (style.window.menu_border_color);
+					return (Color) (style.window.menu_border_color);
 				case NK_PANEL_TOOLTIP:
-					return (nk_color) (style.window.menu_border_color);
+					return (Color) (style.window.menu_border_color);
 			}
 
 		}
@@ -383,10 +383,10 @@ namespace NuklearSharp
 			float panel_padding;
 			float panel_spacing;
 			float panel_space;
-			nk_vec2 spacing = new nk_vec2();
-			nk_vec2 padding = new nk_vec2();
-			spacing = (nk_vec2) (style.window.spacing);
-			padding = (nk_vec2) (nk_panel_get_padding(style, (int) (type)));
+			Vector2 spacing = new Vector2();
+			Vector2 padding = new Vector2();
+			spacing = (Vector2) (style.window.spacing);
+			padding = (Vector2) (nk_panel_get_padding(style, (int) (type)));
 			panel_padding = (float) (2*padding.x);
 			panel_spacing = (float) ((float) ((columns - 1) < (0) ? (0) : (columns - 1))*spacing.x);
 			panel_space = (float) (total_space - panel_padding - panel_spacing);

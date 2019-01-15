@@ -10,9 +10,6 @@ namespace NuklearSharp
 		public delegate void NkQueryFontGlyphDelegate(nk_handle handle,
 			float height, nk_user_font_glyph* glyph, char codepoint, char next_codepoint);
 
-		public delegate void NkCommandCustomCallback(
-			nk_draw_list list, short x, short y, ushort w, ushort h, nk_handle callback_data);
-
 		public delegate void NkPluginPaste(nk_handle handle, nk_text_edit text_edit);
 
 		public delegate void NkPluginCopy(nk_handle handle, char* text, int length);
@@ -86,10 +83,10 @@ namespace NuklearSharp
 		public class nk_mouse
 		{
 			public nk_mouse_button[] buttons = new nk_mouse_button[NK_BUTTON_MAX];
-			public nk_vec2 pos;
-			public nk_vec2 prev;
-			public nk_vec2 delta;
-			public nk_vec2 scroll_delta;
+			public Vector2 pos;
+			public Vector2 prev;
+			public Vector2 delta;
+			public Vector2 scroll_delta;
 			public byte grab;
 			public byte grabbed;
 			public byte ungrab;
@@ -104,8 +101,6 @@ namespace NuklearSharp
 			public int button_behavior;
 			public nk_configuration_stacks stacks = new nk_configuration_stacks();
 			public float delta_time_seconds;
-			public nk_draw_list draw_list = new nk_draw_list();
-			public nk_handle userdata = new nk_handle();
 			public nk_text_edit text_edit = new nk_text_edit();
 			public nk_command_buffer overlay = new nk_command_buffer();
 			public int build;
@@ -121,7 +116,7 @@ namespace NuklearSharp
 		{
 			public int type;
 			public uint flags;
-			public nk_rect bounds = new nk_rect();
+			public Rectangle bounds = new Rectangle();
 			public nk_scroll offset;
 			public float at_x;
 			public float at_y;
@@ -130,7 +125,7 @@ namespace NuklearSharp
 			public float header_height;
 			public float border;
 			public uint has_scrolling;
-			public nk_rect clip = new nk_rect();
+			public Rectangle clip = new Rectangle();
 			public nk_menu_state menu = new nk_menu_state();
 			public nk_row_layout row = new nk_row_layout();
 			public nk_chart chart = new nk_chart();
@@ -144,7 +139,7 @@ namespace NuklearSharp
 			public uint name;
 			public string name_string;
 			public uint flags;
-			public nk_rect bounds = new nk_rect();
+			public Rectangle bounds = new Rectangle();
 			public nk_scroll scrollbar = new nk_scroll();
 			public nk_command_buffer buffer = new nk_command_buffer();
 			public nk_panel layout;
@@ -160,41 +155,10 @@ namespace NuklearSharp
 			public nk_window parent;
 		}
 
-		public class nk_draw_list
-		{
-			public nk_rect clip_rect;
-			public readonly nk_vec2[] circle_vtx = new nk_vec2[12];
-			public nk_convert_config config;
-			public readonly NkBuffer<nk_vec2> points = new NkBuffer<nk_vec2>();
-			public NkBuffer<nk_draw_command> buffer;
-			public NkBuffer<byte> vertices;
-			public readonly NkBuffer<nk_vec2> normals = new NkBuffer<nk_vec2>();
-			public NkBuffer<ushort> elements;
-			public int line_AA;
-			public int shape_AA;
-			public nk_handle userdata;
-
-			public int vertex_offset
-			{
-				get { return vertices.Count/(int)config.vertex_size; }
-			}
-
-			public int addElements(int size)
-			{
-				int result = elements.Count;
-
-				elements.addToEnd(size);
-
-				buffer.Data[buffer.Count - 1].elem_count += (uint)size;
-
-				return result;
-			}
-		}
-
 		public class nk_style_item_data
 		{
 			public nk_image image;
-			public nk_color color;
+			public Color color;
 		}
 
 		public class nk_style_item
@@ -222,7 +186,7 @@ namespace NuklearSharp
 			public void* pixel;
 			public int tex_width;
 			public int tex_height;
-			public nk_recti custom;
+			public Rectanglei custom;
 			public nk_cursor[] cursors = new nk_cursor[NK_CURSOR_COUNT];
 			public int glyph_count;
 			public nk_font_glyph* glyphs;
@@ -328,135 +292,10 @@ namespace NuklearSharp
 			}
 		}
 
-		public class nk_command_base
-		{
-			public nk_command header;
-			public nk_handle userdata;
-			public nk_command_base next;
-		}
-
-		public class nk_command_scissor : nk_command_base
-		{
-			public short x;
-			public short y;
-			public ushort w;
-			public ushort h;
-		}
-
-		public class nk_command_line : nk_command_base
-		{
-			public ushort line_thickness;
-			public nk_vec2i begin = new nk_vec2i();
-			public nk_vec2i end = new nk_vec2i();
-			public nk_color color = new nk_color();
-		}
-
-		public class nk_command_rect : nk_command_base
-		{
-			public ushort rounding;
-			public ushort line_thickness;
-			public short x;
-			public short y;
-			public ushort w;
-			public ushort h;
-			public nk_color color = new nk_color();
-		}
-
-		public class nk_command_rect_filled : nk_command_base
-		{
-			public ushort rounding;
-			public short x;
-			public short y;
-			public ushort w;
-			public ushort h;
-			public nk_color color = new nk_color();
-		}
-
-		public class nk_command_rect_multi_color : nk_command_base
-		{
-			public short x;
-			public short y;
-			public ushort w;
-			public ushort h;
-			public nk_color left = new nk_color();
-			public nk_color top = new nk_color();
-			public nk_color bottom = new nk_color();
-			public nk_color right = new nk_color();
-		}
-
-		public class nk_command_triangle_filled : nk_command_base
-		{
-			public nk_vec2i a = new nk_vec2i();
-			public nk_vec2i b = new nk_vec2i();
-			public nk_vec2i c = new nk_vec2i();
-			public nk_color color = new nk_color();
-		}
-
-		public class nk_command_circle_filled : nk_command_base
-		{
-			public short x;
-			public short y;
-			public ushort w;
-			public ushort h;
-			public nk_color color = new nk_color();
-		}
-
-		public class nk_command_polygon : nk_command_base
-		{
-			public nk_color color;
-			public ushort line_thickness;
-			public ushort point_count;
-			public nk_vec2i[] points;
-		}
-
-		public class nk_command_polygon_filled : nk_command_base
-		{
-			public nk_color color;
-			public ushort point_count;
-			public nk_vec2i[] points;
-		}
-
-		public class nk_command_polyline : nk_command_base
-		{
-			public nk_color color;
-			public ushort line_thickness;
-			public ushort point_count;
-			public nk_vec2i[] points;
-		}
-
-		public class nk_command_image : nk_command_base
-		{
-			public short x;
-			public short y;
-			public ushort w;
-			public ushort h;
-			public nk_image img = new nk_image();
-			public nk_color col = new nk_color();
-		}
-
-		public class nk_command_text : nk_command_base
-		{
-			public nk_user_font font;
-			public nk_color background;
-			public nk_color foreground;
-			public short x;
-			public short y;
-			public ushort w;
-			public ushort h;
-			public float height;
-			public char* _string_;
-			public int length;
-		}
-
 		public class nk_command_buffer
 		{
-			public nk_command_base first;
-			public nk_command_base last;
-			public int count;
-
-			public nk_rect clip;
+			public Rectangle clip;
 			public int use_clipping;
-			public nk_handle userdata = new nk_handle();
 		}
 
 		public class nk_popup_buffer
@@ -477,12 +316,6 @@ namespace NuklearSharp
 			public int line_AA;
 			public int shape_AA;
 			public uint circle_segment_count;
-			public uint arc_segment_count;
-			public uint curve_segment_count;
-			public nk_draw_null_texture _null_ = new nk_draw_null_texture();
-			public nk_draw_vertex_layout_element[] vertex_layout;
-			public ulong vertex_size;
-			public ulong vertex_alignment;
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
@@ -490,77 +323,10 @@ namespace NuklearSharp
 		{
 			public fixed float uv_x [2];
 			public fixed float uv_y [2];
-			public nk_vec2 offset;
+			public Vector2 offset;
 			public float width;
 			public float height;
 			public float xadvance;
-		}
-
-
-		private static readonly Func<object>[] _commandCreators =
-		{
-			null,
-			() => nk_create_command<nk_command_scissor>(),
-			() => nk_create_command<nk_command_line>(),
-			() => nk_create_command<nk_command_rect>(),
-			() => nk_create_command<nk_command_rect_filled>(),
-			() => nk_create_command<nk_command_rect_multi_color>(),
-			() => nk_create_command<nk_command_circle_filled>(),
-			() => nk_create_command<nk_command_triangle_filled>(),
-			() => nk_create_command<nk_command_polygon>(),
-			() => nk_create_command<nk_command_polygon_filled>(),
-			() => nk_create_command<nk_command_polyline>(),
-			() => nk_create_command<nk_command_text>(),
-			() => nk_create_command<nk_command_image>()
-		};
-
-		private static object nk_create_command<T>() where T : new()
-		{
-			return new T();
-		}
-
-		public static void nk_command_buffer_init(nk_command_buffer cmdbuf, int clip)
-		{
-			cmdbuf.use_clipping = clip;
-			cmdbuf.first = cmdbuf.last = null;
-			cmdbuf.count = 0;
-		}
-
-		public static void nk_command_buffer_reset(nk_command_buffer cmdbuf)
-		{
-			if (cmdbuf == null) return;
-			cmdbuf.first = cmdbuf.last = null;
-			cmdbuf.count = 0;
-			cmdbuf.clip = nk_null_rect;
-		}
-
-		public static nk_command_base nk_command_buffer_push(nk_command_buffer b, int t)
-		{
-			if (b == null || t < 0 || t >= _commandCreators.Length || _commandCreators[t] == null) return null;
-
-			var creator = _commandCreators[t];
-
-			var command = (nk_command_base) creator();
-
-			command.header = new nk_command
-			{
-				type = t
-			};
-
-			if (b.last == null)
-			{
-				b.first = command;
-				b.last = command;
-			}
-			else
-			{
-				b.last.next = command;
-				b.last = command;
-			}
-
-			++b.count;
-
-			return command;
 		}
 
 		public static nk_window nk__begin(nk_context ctx)
@@ -588,7 +354,7 @@ namespace NuklearSharp
 			if (ctx.style.cursor_active == null) ctx.style.cursor_active = ctx.style.cursors[NK_CURSOR_ARROW];
 			if ((ctx.style.cursor_active != null) && (ctx.input.mouse.grabbed == 0) && ((ctx.style.cursor_visible) != 0))
 			{
-				var mouse_bounds = new nk_rect();
+				var mouse_bounds = new Rectangle();
 				var cursor = ctx.style.cursor_active;
 				nk_command_buffer_init(ctx.overlay, NK_CLIPPING_OFF);
 				nk_start_buffer(ctx, ctx.overlay);
@@ -691,7 +457,7 @@ namespace NuklearSharp
 
 		public static string nk_style_get_color_by_name(int c)
 		{
-			return nk_color_names[c];
+			return Color_names[c];
 		}
 
 		public static int nk_init_fixed(nk_context ctx, void* memory, ulong size, nk_user_font font)
@@ -765,7 +531,7 @@ namespace NuklearSharp
 		{
 		}
 
-		public static int nk_popup_begin(nk_context ctx, int type, string title, uint flags, nk_rect rect)
+		public static int nk_popup_begin(nk_context ctx, int type, string title, uint flags, Rectangle rect)
 		{
 			fixed (char* ptr = title)
 			{
@@ -789,7 +555,7 @@ namespace NuklearSharp
 		public static void nk_property_(nk_context ctx, char* name, nk_property_variant* variant, float inc_per_pixel,
 			int filter)
 		{
-			var bounds = new nk_rect();
+			var bounds = new Rectangle();
 			uint hash;
 			string dummy_buffer = null;
 			var dummy_state = NK_PROPERTY_DEFAULT;
@@ -871,56 +637,6 @@ namespace NuklearSharp
 				win.property.select_start = 0;
 				win.property.select_end = 0;
 				win.property.active = 0;
-			}
-		}
-
-		public static void nk_stroke_polygon(nk_command_buffer b, float* points, int point_count, float line_thickness,
-			nk_color col)
-		{
-			if ((b == null) || (col.a == 0) || (line_thickness <= 0)) return;
-			var cmd = (nk_command_polygon) nk_command_buffer_push(b, NK_COMMAND_POLYGON);
-			if (cmd == null) return;
-			cmd.color = col;
-			cmd.line_thickness = (ushort) line_thickness;
-			cmd.point_count = (ushort) point_count;
-			cmd.points = new nk_vec2i[point_count];
-			for (var i = 0; i < point_count; ++i)
-			{
-				cmd.points[i].x = (short) points[i*2];
-				cmd.points[i].y = (short) points[i*2 + 1];
-			}
-		}
-
-		public static void nk_fill_polygon(nk_command_buffer b, float* points, int point_count, nk_color col)
-		{
-			nk_command_polygon_filled cmd;
-			if ((b == null) || (col.a == 0)) return;
-			cmd = (nk_command_polygon_filled) nk_command_buffer_push(b, NK_COMMAND_POLYGON_FILLED);
-			if (cmd == null) return;
-			cmd.color = col;
-			cmd.point_count = (ushort) point_count;
-			cmd.points = new nk_vec2i[point_count];
-			for (var i = 0; i < point_count; ++i)
-			{
-				cmd.points[i].x = (short) points[i*2 + 0];
-				cmd.points[i].y = (short) points[i*2 + 1];
-			}
-		}
-
-		public static void nk_stroke_polyline(nk_command_buffer b, float* points, int point_count, float line_thickness,
-			nk_color col)
-		{
-			if ((b == null) || (col.a == 0) || (line_thickness <= 0)) return;
-			var cmd = (nk_command_polyline) nk_command_buffer_push(b, NK_COMMAND_POLYLINE);
-			if (cmd == null) return;
-			cmd.color = col;
-			cmd.point_count = (ushort) point_count;
-			cmd.line_thickness = (ushort) line_thickness;
-			cmd.points = new nk_vec2i[point_count];
-			for (var i = 0; i < point_count; ++i)
-			{
-				cmd.points[i].x = (short) points[i*2];
-				cmd.points[i].y = (short) points[i*2 + 1];
 			}
 		}
 

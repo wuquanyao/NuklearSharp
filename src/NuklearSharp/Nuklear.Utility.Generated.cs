@@ -72,65 +72,65 @@ namespace NuklearSharp
 			return (uint) (v);
 		}
 
-		public static nk_rect nk_get_null_rect()
+		public static Rectangle nk_get_null_rect()
 		{
-			return (nk_rect) (nk_null_rect);
+			return (Rectangle) (nk_null_rect);
 		}
 
-		public static nk_rect nk_rect_(float x, float y, float w, float h)
+		public static Rectangle Rectangle_(float x, float y, float w, float h)
 		{
-			nk_rect r = new nk_rect();
+			Rectangle r = new Rectangle();
 			r.x = (float) (x);
 			r.y = (float) (y);
 			r.w = (float) (w);
 			r.h = (float) (h);
-			return (nk_rect) (r);
+			return (Rectangle) (r);
 		}
 
-		public static nk_rect nk_recti_(int x, int y, int w, int h)
+		public static Rectangle Rectanglei_(int x, int y, int w, int h)
 		{
-			nk_rect r = new nk_rect();
+			Rectangle r = new Rectangle();
 			r.x = ((float) (x));
 			r.y = ((float) (y));
 			r.w = ((float) (w));
 			r.h = ((float) (h));
-			return (nk_rect) (r);
+			return (Rectangle) (r);
 		}
 
-		public static nk_rect nk_rectv(float* r)
+		public static Rectangle Rectanglev(float* r)
 		{
-			return (nk_rect) (nk_rect_((float) (r[0]), (float) (r[1]), (float) (r[2]), (float) (r[3])));
+			return (Rectangle) (Rectangle_((float) (r[0]), (float) (r[1]), (float) (r[2]), (float) (r[3])));
 		}
 
-		public static nk_rect nk_rectiv(int* r)
+		public static Rectangle Rectangleiv(int* r)
 		{
-			return (nk_rect) (nk_recti_((int) (r[0]), (int) (r[1]), (int) (r[2]), (int) (r[3])));
+			return (Rectangle) (Rectanglei_((int) (r[0]), (int) (r[1]), (int) (r[2]), (int) (r[3])));
 		}
 
-		public static nk_vec2 nk_vec2_(float x, float y)
+		public static Vector2 Vector2_(float x, float y)
 		{
-			nk_vec2 ret = new nk_vec2();
+			Vector2 ret = new Vector2();
 			ret.x = (float) (x);
 			ret.y = (float) (y);
-			return (nk_vec2) (ret);
+			return (Vector2) (ret);
 		}
 
-		public static nk_vec2 nk_vec2i_(int x, int y)
+		public static Vector2 Point_(int x, int y)
 		{
-			nk_vec2 ret = new nk_vec2();
+			Vector2 ret = new Vector2();
 			ret.x = ((float) (x));
 			ret.y = ((float) (y));
-			return (nk_vec2) (ret);
+			return (Vector2) (ret);
 		}
 
-		public static nk_vec2 nk_vec2v(float* v)
+		public static Vector2 Vector2v(float* v)
 		{
-			return (nk_vec2) (nk_vec2_((float) (v[0]), (float) (v[1])));
+			return (Vector2) (Vector2_((float) (v[0]), (float) (v[1])));
 		}
 
-		public static nk_vec2 nk_vec2iv(int* v)
+		public static Vector2 Pointv(int* v)
 		{
-			return (nk_vec2) (nk_vec2i_((int) (v[0]), (int) (v[1])));
+			return (Vector2) (Point_((int) (v[0]), (int) (v[1])));
 		}
 
 		public static int nk_is_lower(int c)
@@ -714,41 +714,41 @@ namespace NuklearSharp
 			return (int) (i);
 		}
 
-		public static nk_color nk_rgba(int r, int g, int b, int a)
+		public static Color nk_rgba(int r, int g, int b, int a)
 		{
-			nk_color ret = new nk_color();
+			Color ret = new Color();
 			ret.r = ((byte) (((r) < (255) ? (r) : (255)) < (0) ? (0) : ((r) < (255) ? (r) : (255))));
 			ret.g = ((byte) (((g) < (255) ? (g) : (255)) < (0) ? (0) : ((g) < (255) ? (g) : (255))));
 			ret.b = ((byte) (((b) < (255) ? (b) : (255)) < (0) ? (0) : ((b) < (255) ? (b) : (255))));
 			ret.a = ((byte) (((a) < (255) ? (a) : (255)) < (0) ? (0) : ((a) < (255) ? (a) : (255))));
-			return (nk_color) (ret);
+			return (Color) (ret);
 		}
 
-		public static nk_color nk_rgb_hex(sbyte* rgb)
+		public static Color nk_rgb_hex(sbyte* rgb)
 		{
-			nk_color col = new nk_color();
+			Color col = new Color();
 			sbyte* c = rgb;
 			if ((*c) == ('#')) c++;
 			col.r = ((byte) (nk_parse_hex(c, (int) (2))));
 			col.g = ((byte) (nk_parse_hex(c + 2, (int) (2))));
 			col.b = ((byte) (nk_parse_hex(c + 4, (int) (2))));
 			col.a = (byte) (255);
-			return (nk_color) (col);
+			return (Color) (col);
 		}
 
-		public static nk_color nk_rgba_hex(sbyte* rgb)
+		public static Color nk_rgba_hex(sbyte* rgb)
 		{
-			nk_color col = new nk_color();
+			Color col = new Color();
 			sbyte* c = rgb;
 			if ((*c) == ('#')) c++;
 			col.r = ((byte) (nk_parse_hex(c, (int) (2))));
 			col.g = ((byte) (nk_parse_hex(c + 2, (int) (2))));
 			col.b = ((byte) (nk_parse_hex(c + 4, (int) (2))));
 			col.a = ((byte) (nk_parse_hex(c + 6, (int) (2))));
-			return (nk_color) (col);
+			return (Color) (col);
 		}
 
-		public static void nk_color_hex_rgba(char* output, nk_color col)
+		public static void Color_hex_rgba(char* output, Color col)
 		{
 			output[0] = ((char) (((col.r & 0xF0) >> 4) <= 9 ? '0' + ((col.r & 0xF0) >> 4) : 'A' - 10 + ((col.r & 0xF0) >> 4)));
 			output[1] = ((char) ((col.r & 0x0F) <= 9 ? '0' + (col.r & 0x0F) : 'A' - 10 + (col.r & 0x0F)));
@@ -761,7 +761,7 @@ namespace NuklearSharp
 			output[8] = ('\0');
 		}
 
-		public static void nk_color_hex_rgb(char* output, nk_color col)
+		public static void Color_hex_rgb(char* output, Color col)
 		{
 			output[0] = ((char) (((col.r & 0xF0) >> 4) <= 9 ? '0' + ((col.r & 0xF0) >> 4) : 'A' - 10 + ((col.r & 0xF0) >> 4)));
 			output[1] = ((char) ((col.r & 0x0F) <= 9 ? '0' + (col.r & 0x0F) : 'A' - 10 + (col.r & 0x0F)));
@@ -772,135 +772,135 @@ namespace NuklearSharp
 			output[6] = ('\0');
 		}
 
-		public static nk_color nk_rgba_iv(int* c)
+		public static Color nk_rgba_iv(int* c)
 		{
-			return (nk_color) (nk_rgba((int) (c[0]), (int) (c[1]), (int) (c[2]), (int) (c[3])));
+			return (Color) (nk_rgba((int) (c[0]), (int) (c[1]), (int) (c[2]), (int) (c[3])));
 		}
 
-		public static nk_color nk_rgba_bv(byte* c)
+		public static Color nk_rgba_bv(byte* c)
 		{
-			return (nk_color) (nk_rgba((int) (c[0]), (int) (c[1]), (int) (c[2]), (int) (c[3])));
+			return (Color) (nk_rgba((int) (c[0]), (int) (c[1]), (int) (c[2]), (int) (c[3])));
 		}
 
-		public static nk_color nk_rgb(int r, int g, int b)
+		public static Color nk_rgb(int r, int g, int b)
 		{
-			nk_color ret = new nk_color();
+			Color ret = new Color();
 			ret.r = ((byte) (((r) < (255) ? (r) : (255)) < (0) ? (0) : ((r) < (255) ? (r) : (255))));
 			ret.g = ((byte) (((g) < (255) ? (g) : (255)) < (0) ? (0) : ((g) < (255) ? (g) : (255))));
 			ret.b = ((byte) (((b) < (255) ? (b) : (255)) < (0) ? (0) : ((b) < (255) ? (b) : (255))));
 			ret.a = ((byte) (255));
-			return (nk_color) (ret);
+			return (Color) (ret);
 		}
 
-		public static nk_color nk_rgb_iv(int* c)
+		public static Color nk_rgb_iv(int* c)
 		{
-			return (nk_color) (nk_rgb((int) (c[0]), (int) (c[1]), (int) (c[2])));
+			return (Color) (nk_rgb((int) (c[0]), (int) (c[1]), (int) (c[2])));
 		}
 
-		public static nk_color nk_rgb_bv(byte* c)
+		public static Color nk_rgb_bv(byte* c)
 		{
-			return (nk_color) (nk_rgb((int) (c[0]), (int) (c[1]), (int) (c[2])));
+			return (Color) (nk_rgb((int) (c[0]), (int) (c[1]), (int) (c[2])));
 		}
 
-		public static nk_color nk_rgba_u32(uint _in_)
+		public static Color nk_rgba_u32(uint _in_)
 		{
-			nk_color ret = new nk_color();
+			Color ret = new Color();
 			ret.r = (byte) (_in_ & 0xFF);
 			ret.g = (byte) ((_in_ >> 8) & 0xFF);
 			ret.b = (byte) ((_in_ >> 16) & 0xFF);
 			ret.a = ((byte) ((_in_ >> 24) & 0xFF));
-			return (nk_color) (ret);
+			return (Color) (ret);
 		}
 
-		public static nk_color nk_rgba_f(float r, float g, float b, float a)
+		public static Color nk_rgba_f(float r, float g, float b, float a)
 		{
-			nk_color ret = new nk_color();
+			Color ret = new Color();
 			ret.r = ((byte) (((0) < ((1.0f) < (r) ? (1.0f) : (r)) ? ((1.0f) < (r) ? (1.0f) : (r)) : (0))*255.0f));
 			ret.g = ((byte) (((0) < ((1.0f) < (g) ? (1.0f) : (g)) ? ((1.0f) < (g) ? (1.0f) : (g)) : (0))*255.0f));
 			ret.b = ((byte) (((0) < ((1.0f) < (b) ? (1.0f) : (b)) ? ((1.0f) < (b) ? (1.0f) : (b)) : (0))*255.0f));
 			ret.a = ((byte) (((0) < ((1.0f) < (a) ? (1.0f) : (a)) ? ((1.0f) < (a) ? (1.0f) : (a)) : (0))*255.0f));
-			return (nk_color) (ret);
+			return (Color) (ret);
 		}
 
-		public static nk_color nk_rgba_fv(float* c)
+		public static Color nk_rgba_fv(float* c)
 		{
-			return (nk_color) (nk_rgba_f((float) (c[0]), (float) (c[1]), (float) (c[2]), (float) (c[3])));
+			return (Color) (nk_rgba_f((float) (c[0]), (float) (c[1]), (float) (c[2]), (float) (c[3])));
 		}
 
-		public static nk_color nk_rgb_f(float r, float g, float b)
+		public static Color nk_rgb_f(float r, float g, float b)
 		{
-			nk_color ret = new nk_color();
+			Color ret = new Color();
 			ret.r = ((byte) (((0) < ((1.0f) < (r) ? (1.0f) : (r)) ? ((1.0f) < (r) ? (1.0f) : (r)) : (0))*255.0f));
 			ret.g = ((byte) (((0) < ((1.0f) < (g) ? (1.0f) : (g)) ? ((1.0f) < (g) ? (1.0f) : (g)) : (0))*255.0f));
 			ret.b = ((byte) (((0) < ((1.0f) < (b) ? (1.0f) : (b)) ? ((1.0f) < (b) ? (1.0f) : (b)) : (0))*255.0f));
 			ret.a = (byte) (255);
-			return (nk_color) (ret);
+			return (Color) (ret);
 		}
 
-		public static nk_color nk_rgb_fv(float* c)
+		public static Color nk_rgb_fv(float* c)
 		{
-			return (nk_color) (nk_rgb_f((float) (c[0]), (float) (c[1]), (float) (c[2])));
+			return (Color) (nk_rgb_f((float) (c[0]), (float) (c[1]), (float) (c[2])));
 		}
 
-		public static nk_color nk_hsv(int h, int s, int v)
+		public static Color nk_hsv(int h, int s, int v)
 		{
-			return (nk_color) (nk_hsva((int) (h), (int) (s), (int) (v), (int) (255)));
+			return (Color) (nk_hsva((int) (h), (int) (s), (int) (v), (int) (255)));
 		}
 
-		public static nk_color nk_hsv_iv(int* c)
+		public static Color nk_hsv_iv(int* c)
 		{
-			return (nk_color) (nk_hsv((int) (c[0]), (int) (c[1]), (int) (c[2])));
+			return (Color) (nk_hsv((int) (c[0]), (int) (c[1]), (int) (c[2])));
 		}
 
-		public static nk_color nk_hsv_bv(byte* c)
+		public static Color nk_hsv_bv(byte* c)
 		{
-			return (nk_color) (nk_hsv((int) (c[0]), (int) (c[1]), (int) (c[2])));
+			return (Color) (nk_hsv((int) (c[0]), (int) (c[1]), (int) (c[2])));
 		}
 
-		public static nk_color nk_hsv_f(float h, float s, float v)
+		public static Color nk_hsv_f(float h, float s, float v)
 		{
-			return (nk_color) (nk_hsva_f((float) (h), (float) (s), (float) (v), (float) (1.0f)));
+			return (Color) (nk_hsva_f((float) (h), (float) (s), (float) (v), (float) (1.0f)));
 		}
 
-		public static nk_color nk_hsv_fv(float* c)
+		public static Color nk_hsv_fv(float* c)
 		{
-			return (nk_color) (nk_hsv_f((float) (c[0]), (float) (c[1]), (float) (c[2])));
+			return (Color) (nk_hsv_f((float) (c[0]), (float) (c[1]), (float) (c[2])));
 		}
 
-		public static nk_color nk_hsva(int h, int s, int v, int a)
+		public static Color nk_hsva(int h, int s, int v, int a)
 		{
 			float hf = (float) (((float) (((h) < (255) ? (h) : (255)) < (0) ? (0) : ((h) < (255) ? (h) : (255))))/255.0f);
 			float sf = (float) (((float) (((s) < (255) ? (s) : (255)) < (0) ? (0) : ((s) < (255) ? (s) : (255))))/255.0f);
 			float vf = (float) (((float) (((v) < (255) ? (v) : (255)) < (0) ? (0) : ((v) < (255) ? (v) : (255))))/255.0f);
 			float af = (float) (((float) (((a) < (255) ? (a) : (255)) < (0) ? (0) : ((a) < (255) ? (a) : (255))))/255.0f);
-			return (nk_color) (nk_hsva_f((float) (hf), (float) (sf), (float) (vf), (float) (af)));
+			return (Color) (nk_hsva_f((float) (hf), (float) (sf), (float) (vf), (float) (af)));
 		}
 
-		public static nk_color nk_hsva_iv(int* c)
+		public static Color nk_hsva_iv(int* c)
 		{
-			return (nk_color) (nk_hsva((int) (c[0]), (int) (c[1]), (int) (c[2]), (int) (c[3])));
+			return (Color) (nk_hsva((int) (c[0]), (int) (c[1]), (int) (c[2]), (int) (c[3])));
 		}
 
-		public static nk_color nk_hsva_bv(byte* c)
+		public static Color nk_hsva_bv(byte* c)
 		{
-			return (nk_color) (nk_hsva((int) (c[0]), (int) (c[1]), (int) (c[2]), (int) (c[3])));
+			return (Color) (nk_hsva((int) (c[0]), (int) (c[1]), (int) (c[2]), (int) (c[3])));
 		}
 
-		public static nk_colorf nk_hsva_colorf(float h, float s, float v, float a)
+		public static Colorf nk_hsva_colorf(float h, float s, float v, float a)
 		{
 			int i;
 			float p;
 			float q;
 			float t;
 			float f;
-			nk_colorf _out_ = new nk_colorf();
+			Colorf _out_ = new Colorf();
 			if (s <= 0.0f)
 			{
 				_out_.r = (float) (v);
 				_out_.g = (float) (v);
 				_out_.b = (float) (v);
 				_out_.a = (float) (a);
-				return (nk_colorf) (_out_);
+				return (Colorf) (_out_);
 			}
 
 			h = (float) (h/(60.0f/360.0f));
@@ -945,26 +945,26 @@ namespace NuklearSharp
 			}
 
 			_out_.a = (float) (a);
-			return (nk_colorf) (_out_);
+			return (Colorf) (_out_);
 		}
 
-		public static nk_colorf nk_hsva_colorfv(float* c)
+		public static Colorf nk_hsva_colorfv(float* c)
 		{
-			return (nk_colorf) (nk_hsva_colorf((float) (c[0]), (float) (c[1]), (float) (c[2]), (float) (c[3])));
+			return (Colorf) (nk_hsva_colorf((float) (c[0]), (float) (c[1]), (float) (c[2]), (float) (c[3])));
 		}
 
-		public static nk_color nk_hsva_f(float h, float s, float v, float a)
+		public static Color nk_hsva_f(float h, float s, float v, float a)
 		{
-			nk_colorf c = (nk_colorf) (nk_hsva_colorf((float) (h), (float) (s), (float) (v), (float) (a)));
-			return (nk_color) (nk_rgba_f((float) (c.r), (float) (c.g), (float) (c.b), (float) (c.a)));
+			Colorf c = (Colorf) (nk_hsva_colorf((float) (h), (float) (s), (float) (v), (float) (a)));
+			return (Color) (nk_rgba_f((float) (c.r), (float) (c.g), (float) (c.b), (float) (c.a)));
 		}
 
-		public static nk_color nk_hsva_fv(float* c)
+		public static Color nk_hsva_fv(float* c)
 		{
-			return (nk_color) (nk_hsva_f((float) (c[0]), (float) (c[1]), (float) (c[2]), (float) (c[3])));
+			return (Color) (nk_hsva_f((float) (c[0]), (float) (c[1]), (float) (c[2]), (float) (c[3])));
 		}
 
-		public static void nk_color_f(float* r, float* g, float* b, float* a, nk_color _in_)
+		public static void Color_f(float* r, float* g, float* b, float* a, Color _in_)
 		{
 			float s = (float) (1.0f/255.0f);
 			*r = (float) ((float) (_in_.r)*s);
@@ -973,12 +973,12 @@ namespace NuklearSharp
 			*a = (float) ((float) (_in_.a)*s);
 		}
 
-		public static void nk_color_fv(float* c, nk_color _in_)
+		public static void Color_fv(float* c, Color _in_)
 		{
-			nk_color_f(&c[0], &c[1], &c[2], &c[3], (nk_color) (_in_));
+			Color_f(&c[0], &c[1], &c[2], &c[3], (Color) (_in_));
 		}
 
-		public static void nk_color_d(double* r, double* g, double* b, double* a, nk_color _in_)
+		public static void Color_d(double* r, double* g, double* b, double* a, Color _in_)
 		{
 			double s = (double) (1.0/255.0);
 			*r = (double) ((double) (_in_.r)*s);
@@ -987,24 +987,24 @@ namespace NuklearSharp
 			*a = (double) ((double) (_in_.a)*s);
 		}
 
-		public static void nk_color_dv(double* c, nk_color _in_)
+		public static void Color_dv(double* c, Color _in_)
 		{
-			nk_color_d(&c[0], &c[1], &c[2], &c[3], (nk_color) (_in_));
+			Color_d(&c[0], &c[1], &c[2], &c[3], (Color) (_in_));
 		}
 
-		public static void nk_color_hsv_f(float* out_h, float* out_s, float* out_v, nk_color _in_)
-		{
-			float a;
-			nk_color_hsva_f(out_h, out_s, out_v, &a, (nk_color) (_in_));
-		}
-
-		public static void nk_color_hsv_fv(float* _out_, nk_color _in_)
+		public static void Color_hsv_f(float* out_h, float* out_s, float* out_v, Color _in_)
 		{
 			float a;
-			nk_color_hsva_f(&_out_[0], &_out_[1], &_out_[2], &a, (nk_color) (_in_));
+			Color_hsva_f(out_h, out_s, out_v, &a, (Color) (_in_));
 		}
 
-		public static void nk_colorf_hsva_f(float* out_h, float* out_s, float* out_v, float* out_a, nk_colorf _in_)
+		public static void Color_hsv_fv(float* _out_, Color _in_)
+		{
+			float a;
+			Color_hsva_f(&_out_[0], &_out_[1], &_out_[2], &a, (Color) (_in_));
+		}
+
+		public static void Colorf_hsva_f(float* out_h, float* out_s, float* out_v, float* out_a, Colorf _in_)
 		{
 			float chroma;
 			float K = (float) (0.0f);
@@ -1035,85 +1035,85 @@ namespace NuklearSharp
 			*out_a = (float) (_in_.a);
 		}
 
-		public static void nk_colorf_hsva_fv(float* hsva, nk_colorf _in_)
+		public static void Colorf_hsva_fv(float* hsva, Colorf _in_)
 		{
-			nk_colorf_hsva_f(&hsva[0], &hsva[1], &hsva[2], &hsva[3], (nk_colorf) (_in_));
+			Colorf_hsva_f(&hsva[0], &hsva[1], &hsva[2], &hsva[3], (Colorf) (_in_));
 		}
 
-		public static void nk_color_hsva_f(float* out_h, float* out_s, float* out_v, float* out_a, nk_color _in_)
+		public static void Color_hsva_f(float* out_h, float* out_s, float* out_v, float* out_a, Color _in_)
 		{
-			nk_colorf col = new nk_colorf();
-			nk_color_f(&col.r, &col.g, &col.b, &col.a, (nk_color) (_in_));
-			nk_colorf_hsva_f(out_h, out_s, out_v, out_a, (nk_colorf) (col));
+			Colorf col = new Colorf();
+			Color_f(&col.r, &col.g, &col.b, &col.a, (Color) (_in_));
+			Colorf_hsva_f(out_h, out_s, out_v, out_a, (Colorf) (col));
 		}
 
-		public static void nk_color_hsva_fv(float* _out_, nk_color _in_)
+		public static void Color_hsva_fv(float* _out_, Color _in_)
 		{
-			nk_color_hsva_f(&_out_[0], &_out_[1], &_out_[2], &_out_[3], (nk_color) (_in_));
+			Color_hsva_f(&_out_[0], &_out_[1], &_out_[2], &_out_[3], (Color) (_in_));
 		}
 
-		public static void nk_color_hsva_i(int* out_h, int* out_s, int* out_v, int* out_a, nk_color _in_)
+		public static void Color_hsva_i(int* out_h, int* out_s, int* out_v, int* out_a, Color _in_)
 		{
 			float h;
 			float s;
 			float v;
 			float a;
-			nk_color_hsva_f(&h, &s, &v, &a, (nk_color) (_in_));
+			Color_hsva_f(&h, &s, &v, &a, (Color) (_in_));
 			*out_h = (int) ((byte) (h*255.0f));
 			*out_s = (int) ((byte) (s*255.0f));
 			*out_v = (int) ((byte) (v*255.0f));
 			*out_a = (int) ((byte) (a*255.0f));
 		}
 
-		public static void nk_color_hsva_iv(int* _out_, nk_color _in_)
+		public static void Color_hsva_iv(int* _out_, Color _in_)
 		{
-			nk_color_hsva_i(&_out_[0], &_out_[1], &_out_[2], &_out_[3], (nk_color) (_in_));
+			Color_hsva_i(&_out_[0], &_out_[1], &_out_[2], &_out_[3], (Color) (_in_));
 		}
 
-		public static void nk_color_hsva_bv(byte* _out_, nk_color _in_)
+		public static void Color_hsva_bv(byte* _out_, Color _in_)
 		{
 			int* tmp = stackalloc int[4];
-			nk_color_hsva_i(&tmp[0], &tmp[1], &tmp[2], &tmp[3], (nk_color) (_in_));
+			Color_hsva_i(&tmp[0], &tmp[1], &tmp[2], &tmp[3], (Color) (_in_));
 			_out_[0] = ((byte) (tmp[0]));
 			_out_[1] = ((byte) (tmp[1]));
 			_out_[2] = ((byte) (tmp[2]));
 			_out_[3] = ((byte) (tmp[3]));
 		}
 
-		public static void nk_color_hsva_b(byte* h, byte* s, byte* v, byte* a, nk_color _in_)
+		public static void Color_hsva_b(byte* h, byte* s, byte* v, byte* a, Color _in_)
 		{
 			int* tmp = stackalloc int[4];
-			nk_color_hsva_i(&tmp[0], &tmp[1], &tmp[2], &tmp[3], (nk_color) (_in_));
+			Color_hsva_i(&tmp[0], &tmp[1], &tmp[2], &tmp[3], (Color) (_in_));
 			*h = ((byte) (tmp[0]));
 			*s = ((byte) (tmp[1]));
 			*v = ((byte) (tmp[2]));
 			*a = ((byte) (tmp[3]));
 		}
 
-		public static void nk_color_hsv_i(int* out_h, int* out_s, int* out_v, nk_color _in_)
+		public static void Color_hsv_i(int* out_h, int* out_s, int* out_v, Color _in_)
 		{
 			int a;
-			nk_color_hsva_i(out_h, out_s, out_v, &a, (nk_color) (_in_));
+			Color_hsva_i(out_h, out_s, out_v, &a, (Color) (_in_));
 		}
 
-		public static void nk_color_hsv_b(byte* out_h, byte* out_s, byte* out_v, nk_color _in_)
+		public static void Color_hsv_b(byte* out_h, byte* out_s, byte* out_v, Color _in_)
 		{
 			int* tmp = stackalloc int[4];
-			nk_color_hsva_i(&tmp[0], &tmp[1], &tmp[2], &tmp[3], (nk_color) (_in_));
+			Color_hsva_i(&tmp[0], &tmp[1], &tmp[2], &tmp[3], (Color) (_in_));
 			*out_h = ((byte) (tmp[0]));
 			*out_s = ((byte) (tmp[1]));
 			*out_v = ((byte) (tmp[2]));
 		}
 
-		public static void nk_color_hsv_iv(int* _out_, nk_color _in_)
+		public static void Color_hsv_iv(int* _out_, Color _in_)
 		{
-			nk_color_hsv_i(&_out_[0], &_out_[1], &_out_[2], (nk_color) (_in_));
+			Color_hsv_i(&_out_[0], &_out_[1], &_out_[2], (Color) (_in_));
 		}
 
-		public static void nk_color_hsv_bv(byte* _out_, nk_color _in_)
+		public static void Color_hsv_bv(byte* _out_, Color _in_)
 		{
 			int* tmp = stackalloc int[4];
-			nk_color_hsv_i(&tmp[0], &tmp[1], &tmp[2], (nk_color) (_in_));
+			Color_hsv_i(&tmp[0], &tmp[1], &tmp[2], (Color) (_in_));
 			_out_[0] = ((byte) (tmp[0]));
 			_out_[1] = ((byte) (tmp[1]));
 			_out_[2] = ((byte) (tmp[2]));
@@ -1134,7 +1134,7 @@ namespace NuklearSharp
 			return (nk_handle) (handle);
 		}
 
-		public static nk_image nk_subimage_ptr(void* ptr, ushort w, ushort h, nk_rect r)
+		public static nk_image nk_subimage_ptr(void* ptr, ushort w, ushort h, Rectangle r)
 		{
 			nk_image s = new nk_image();
 
@@ -1148,7 +1148,7 @@ namespace NuklearSharp
 			return (nk_image) (s);
 		}
 
-		public static nk_image nk_subimage_id(int id, ushort w, ushort h, nk_rect r)
+		public static nk_image nk_subimage_id(int id, ushort w, ushort h, Rectangle r)
 		{
 			nk_image s = new nk_image();
 
@@ -1242,20 +1242,20 @@ namespace NuklearSharp
 
 		}
 
-		public static nk_vec2 nk_text_calculate_text_bounds(nk_user_font font, char* begin, int byte_len, float row_height,
-			char** remaining, nk_vec2* out_offset, int* glyphs, int op)
+		public static Vector2 nk_text_calculate_text_bounds(nk_user_font font, char* begin, int byte_len, float row_height,
+			char** remaining, Vector2* out_offset, int* glyphs, int op)
 		{
 			float line_height = (float) (row_height);
-			nk_vec2 text_size = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
+			Vector2 text_size = (Vector2) (Vector2_((float) (0), (float) (0)));
 			float line_width = (float) (0.0f);
 			float glyph_width;
 			int glyph_len = (int) (0);
 			char unicode = (char) 0;
 			int text_len = (int) (0);
 			if (((begin == null) || (byte_len <= 0)) || (font == null))
-				return (nk_vec2) (nk_vec2_((float) (0), (float) (row_height)));
+				return (Vector2) (Vector2_((float) (0), (float) (row_height)));
 			glyph_len = (int) (nk_utf_decode(begin, &unicode, (int) (byte_len)));
-			if (glyph_len == 0) return (nk_vec2) (text_size);
+			if (glyph_len == 0) return (Vector2) (text_size);
 			glyph_width = (float) (font.width((nk_handle) (font.userdata), (float) (font.height), begin, (int) (glyph_len)));
 			*glyphs = (int) (0);
 			while (((text_len) < (byte_len)) && ((glyph_len) != 0))
@@ -1288,10 +1288,10 @@ namespace NuklearSharp
 			}
 			if ((text_size.x) < (line_width)) text_size.x = (float) (line_width);
 			if ((out_offset) != null)
-				*out_offset = (nk_vec2) (nk_vec2_((float) (line_width), (float) (text_size.y + line_height)));
+				*out_offset = (Vector2) (Vector2_((float) (line_width), (float) (text_size.y + line_height)));
 			if (((line_width) > (0)) || ((text_size.y) == (0.0f))) text_size.y += (float) (line_height);
 			if ((remaining) != null) *remaining = begin + text_len;
-			return (nk_vec2) (text_size);
+			return (Vector2) (text_size);
 		}
 
 		public static void* nk_buffer_align(void* unaligned, ulong align, ulong* alignment, int type)
@@ -1330,223 +1330,7 @@ namespace NuklearSharp
 			return memory;
 		}
 
-		public static void nk_draw_vertex_color(void* attr, float* vals, int format)
-		{
-			float* val = stackalloc float[4];
-			if (((format) < (NK_FORMAT_COLOR_BEGIN)) || ((format) > (NK_FORMAT_COLOR_END))) return;
-			val[0] = (float) ((0) < ((1.0f) < (vals[0]) ? (1.0f) : (vals[0])) ? ((1.0f) < (vals[0]) ? (1.0f) : (vals[0])) : (0));
-			val[1] = (float) ((0) < ((1.0f) < (vals[1]) ? (1.0f) : (vals[1])) ? ((1.0f) < (vals[1]) ? (1.0f) : (vals[1])) : (0));
-			val[2] = (float) ((0) < ((1.0f) < (vals[2]) ? (1.0f) : (vals[2])) ? ((1.0f) < (vals[2]) ? (1.0f) : (vals[2])) : (0));
-			val[3] = (float) ((0) < ((1.0f) < (vals[3]) ? (1.0f) : (vals[3])) ? ((1.0f) < (vals[3]) ? (1.0f) : (vals[3])) : (0));
-			switch (format)
-			{
-				default:
-					;
-					break;
-				case NK_FORMAT_R8G8B8A8:
-				case NK_FORMAT_R8G8B8:
-				{
-					nk_color col = (nk_color) (nk_rgba_fv(val));
-					nk_memcopy(attr, &col.r, (ulong) (sizeof (nk_color)));
-				}
-					break;
-				case NK_FORMAT_B8G8R8A8:
-				{
-					nk_color col = (nk_color) (nk_rgba_fv(val));
-					nk_color bgra = (nk_color) (nk_rgba((int) (col.b), (int) (col.g), (int) (col.r), (int) (col.a)));
-					nk_memcopy(attr, &bgra, (ulong) (sizeof (nk_color)));
-				}
-					break;
-				case NK_FORMAT_R16G15B16:
-				{
-					ushort* col = stackalloc ushort[3];
-					col[0] = ((ushort) (val[0]*(float) (65535)));
-					col[1] = ((ushort) (val[1]*(float) (65535)));
-					col[2] = ((ushort) (val[2]*(float) (65535)));
-					nk_memcopy(attr, col, (ulong) (sizeof (nk_color)));
-				}
-					break;
-				case NK_FORMAT_R16G15B16A16:
-				{
-					ushort* col = stackalloc ushort[4];
-					col[0] = ((ushort) (val[0]*(float) (65535)));
-					col[1] = ((ushort) (val[1]*(float) (65535)));
-					col[2] = ((ushort) (val[2]*(float) (65535)));
-					col[3] = ((ushort) (val[3]*(float) (65535)));
-					nk_memcopy(attr, col, (ulong) (sizeof (nk_color)));
-				}
-					break;
-				case NK_FORMAT_R32G32B32:
-				{
-					uint* col = stackalloc uint[3];
-					col[0] = ((uint) (val[0]*(float) (4294967295u)));
-					col[1] = ((uint) (val[1]*(float) (4294967295u)));
-					col[2] = ((uint) (val[2]*(float) (4294967295u)));
-					nk_memcopy(attr, col, (ulong) (sizeof (nk_color)));
-				}
-					break;
-				case NK_FORMAT_R32G32B32A32:
-				{
-					uint* col = stackalloc uint[4];
-					col[0] = ((uint) (val[0]*(float) (4294967295u)));
-					col[1] = ((uint) (val[1]*(float) (4294967295u)));
-					col[2] = ((uint) (val[2]*(float) (4294967295u)));
-					col[3] = ((uint) (val[3]*(float) (4294967295u)));
-					nk_memcopy(attr, col, (ulong) (sizeof (nk_color)));
-				}
-					break;
-				case NK_FORMAT_R32G32B32A32_FLOAT:
-					nk_memcopy(attr, val, (ulong) (sizeof (float)*4));
-					break;
-				case NK_FORMAT_R32G32B32A32_DOUBLE:
-				{
-					double* col = stackalloc double[4];
-					col[0] = ((double) (val[0]));
-					col[1] = ((double) (val[1]));
-					col[2] = ((double) (val[2]));
-					col[3] = ((double) (val[3]));
-					nk_memcopy(attr, col, (ulong) (sizeof (nk_color)));
-				}
-					break;
-				case NK_FORMAT_RGB32:
-				case NK_FORMAT_RGBA32:
-				{
-					nk_color col = (nk_color) (nk_rgba_fv(val));
-					uint color = (uint) (nk_color_u32((nk_color) (col)));
-					nk_memcopy(attr, &color, (ulong) (sizeof (uint)));
-				}
-					break;
-			}
-
-		}
-
-		public static void nk_draw_vertex_element(void* dst, float* values, int value_count, int format)
-		{
-			int value_index;
-			void* attribute = dst;
-			if (((format) >= (NK_FORMAT_COLOR_BEGIN)) && (format <= NK_FORMAT_COLOR_END)) return;
-			for (value_index = (int) (0); (value_index) < (value_count); ++value_index)
-			{
-				switch (format)
-				{
-					default:
-						;
-						break;
-					case NK_FORMAT_SCHAR:
-					{
-						sbyte value =
-							(sbyte)
-								(((values[value_index]) < ((float) (127)) ? (values[value_index]) : ((float) (127))) < ((float) (-127))
-									? ((float) (-127))
-									: ((values[value_index]) < ((float) (127)) ? (values[value_index]) : ((float) (127))));
-						nk_memcopy(attribute, &value, (ulong) (sizeof (byte)));
-						attribute = (void*) (((sbyte*) (attribute) + sizeof (byte)));
-					}
-						break;
-					case NK_FORMAT_SSHORT:
-					{
-						short value =
-							(short)
-								(((values[value_index]) < ((float) (32767)) ? (values[value_index]) : ((float) (32767))) < ((float) (-32767))
-									? ((float) (-32767))
-									: ((values[value_index]) < ((float) (32767)) ? (values[value_index]) : ((float) (32767))));
-						nk_memcopy(attribute, &value, (ulong) (sizeof (short)));
-						attribute = (void*) ((sbyte*) (attribute) + sizeof (short));
-					}
-						break;
-					case NK_FORMAT_SINT:
-					{
-						int value =
-							(int)
-								(((values[value_index]) < ((float) (2147483647)) ? (values[value_index]) : ((float) (2147483647))) <
-								 ((float) (-2147483647))
-									? ((float) (-2147483647))
-									: ((values[value_index]) < ((float) (2147483647)) ? (values[value_index]) : ((float) (2147483647))));
-						nk_memcopy(attribute, &value, (ulong) (sizeof (int)));
-						attribute = (void*) ((sbyte*) (attribute) + sizeof (int));
-					}
-						break;
-					case NK_FORMAT_UCHAR:
-					{
-						byte value =
-							(byte)
-								(((values[value_index]) < ((float) (256)) ? (values[value_index]) : ((float) (256))) < ((float) (0))
-									? ((float) (0))
-									: ((values[value_index]) < ((float) (256)) ? (values[value_index]) : ((float) (256))));
-						nk_memcopy(attribute, &value, (ulong) (sizeof (byte)));
-						attribute = (void*) (((sbyte*) (attribute) + sizeof (byte)));
-					}
-						break;
-					case NK_FORMAT_USHORT:
-					{
-						ushort value =
-							(ushort)
-								(((values[value_index]) < ((float) (65535)) ? (values[value_index]) : ((float) (65535))) < ((float) (0))
-									? ((float) (0))
-									: ((values[value_index]) < ((float) (65535)) ? (values[value_index]) : ((float) (65535))));
-						nk_memcopy(attribute, &value, (ulong) (sizeof (short)));
-						attribute = (void*) ((sbyte*) (attribute) + sizeof (short));
-					}
-						break;
-					case NK_FORMAT_UINT:
-					{
-						uint value =
-							(uint)
-								(((values[value_index]) < ((float) (4294967295u)) ? (values[value_index]) : ((float) (4294967295u))) <
-								 ((float) (0))
-									? ((float) (0))
-									: ((values[value_index]) < ((float) (4294967295u)) ? (values[value_index]) : ((float) (4294967295u))));
-						nk_memcopy(attribute, &value, (ulong) (sizeof (uint)));
-						attribute = (void*) ((sbyte*) (attribute) + sizeof (uint));
-					}
-						break;
-					case NK_FORMAT_FLOAT:
-						nk_memcopy(attribute, &values[value_index], (ulong) (sizeof (float)));
-						attribute = (void*) (((sbyte*) (attribute) + sizeof (float)));
-						break;
-					case NK_FORMAT_DOUBLE:
-					{
-						double value = (double) (values[value_index]);
-						nk_memcopy(attribute, &value, (ulong) (sizeof (double)));
-						attribute = (void*) (((sbyte*) (attribute) + sizeof (double)));
-					}
-						break;
-				}
-			}
-		}
-
-		public static void* nk_draw_vertex(void* dst, nk_convert_config config, nk_vec2 pos, nk_vec2 uv, nk_colorf color)
-		{
-			void* result = (void*) ((sbyte*) (dst) + config.vertex_size);
-			fixed (nk_draw_vertex_layout_element* elem_iter2 = config.vertex_layout)
-			{
-				nk_draw_vertex_layout_element* elem_iter = elem_iter2;
-				while (nk_draw_vertex_layout_element_is_end_of_layout(elem_iter) == 0)
-				{
-					void* address = (void*) ((sbyte*) (dst) + elem_iter->offset);
-					switch (elem_iter->attribute)
-					{
-						case NK_VERTEX_ATTRIBUTE_COUNT:
-						default:
-							;
-							break;
-						case NK_VERTEX_POSITION:
-							nk_draw_vertex_element(address, &pos.x, (int) (2), (int) (elem_iter->format));
-							break;
-						case NK_VERTEX_TEXCOORD:
-							nk_draw_vertex_element(address, &uv.x, (int) (2), (int) (elem_iter->format));
-							break;
-						case NK_VERTEX_COLOR:
-							nk_draw_vertex_color(address, &color.r, (int) (elem_iter->format));
-							break;
-					}
-					elem_iter++;
-				}
-			}
-			return result;
-		}
-
-		public static int nk_rect_height_compare(void* a, void* b)
+		public static int Rectangle_height_compare(void* a, void* b)
 		{
 			nk_rp_rect* p = (nk_rp_rect*) (a);
 			nk_rp_rect* q = (nk_rp_rect*) (b);
@@ -1555,7 +1339,7 @@ namespace NuklearSharp
 			return (int) (((p->w) > (q->w)) ? -1 : ((p->w) < (q->w)) ? 1 : 0);
 		}
 
-		public static int nk_rect_original_order(void* a, void* b)
+		public static int Rectangle_original_order(void* a, void* b)
 		{
 			nk_rp_rect* p = (nk_rp_rect*) (a);
 			nk_rp_rect* q = (nk_rp_rect*) (b);
@@ -1974,7 +1758,7 @@ namespace NuklearSharp
 			*temp += (ulong) ((ulong) (glyph_count)*(ulong) sizeof (nk_tt_packedchar));
 			*temp += (ulong) ((ulong) (count)*(ulong) sizeof (nk_font_bake_data));
 			*temp += (ulong) (sizeof (nk_font_baker));
-			*temp += (ulong) (nk_rect_align + nk_range_align + nk_char_align);
+			*temp += (ulong) (Rectangle_align + nk_range_align + nk_char_align);
 			*temp += (ulong) (nk_build_align + nk_baker_align);
 		}
 
@@ -1996,7 +1780,7 @@ namespace NuklearSharp
 				(nk_rp_rect*)
 					((void*)
 						((long)
-							(((ulong) ((long) ((byte*) (baker->packed_chars + glyph_count) + (nk_rect_align - 1)))) & ~(nk_rect_align - 1))));
+							(((ulong) ((long) ((byte*) (baker->packed_chars + glyph_count) + (Rectangle_align - 1)))) & ~(Rectangle_align - 1))));
 			baker->ranges =
 				(nk_tt_pack_range*)
 					((void*)
@@ -2005,7 +1789,7 @@ namespace NuklearSharp
 			return baker;
 		}
 
-		public static void nk_font_bake_custom_data(void* img_memory, int img_width, int img_height, nk_recti img_dst,
+		public static void nk_font_bake_custom_data(void* img_memory, int img_width, int img_height, Rectanglei img_dst,
 			byte* texture_data_mask, int tex_width, int tex_height, char white, char black)
 		{
 			byte* pixels;
@@ -2261,7 +2045,7 @@ namespace NuklearSharp
 			cfg.oversample_v = (byte) (1);
 			cfg.pixel_snap = (byte) (0);
 			cfg.coord_type = (int) (NK_COORD_UV);
-			cfg.spacing = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
+			cfg.spacing = (Vector2) (Vector2_((float) (0), (float) (0)));
 			cfg.range = nk_font_default_glyph_ranges();
 			cfg.merge_mode = (byte) (0);
 			cfg.fallback_glyph = '?';
@@ -2270,18 +2054,18 @@ namespace NuklearSharp
 			return (nk_font_config) (cfg);
 		}
 
-		public static int nk_button_behavior(ref uint state, nk_rect r, nk_input i, int behavior)
+		public static int nk_button_behavior(ref uint state, Rectangle r, nk_input i, int behavior)
 		{
 			int ret = (int) (0);
 			if (((state) & NK_WIDGET_STATE_MODIFIED) != 0)
 				(state) = (uint) (NK_WIDGET_STATE_INACTIVE | NK_WIDGET_STATE_MODIFIED);
 			else (state) = (uint) (NK_WIDGET_STATE_INACTIVE);
 			if (i == null) return (int) (0);
-			if ((nk_input_is_mouse_hovering_rect(i, (nk_rect) (r))) != 0)
+			if ((nk_input_is_mouse_hovering_rect(i, (Rectangle) (r))) != 0)
 			{
 				state = (uint) (NK_WIDGET_STATE_HOVERED);
 				if ((nk_input_is_mouse_down(i, (int) (NK_BUTTON_LEFT))) != 0) state = (uint) (NK_WIDGET_STATE_ACTIVE);
-				if ((nk_input_has_mouse_click_in_rect(i, (int) (NK_BUTTON_LEFT), (nk_rect) (r))) != 0)
+				if ((nk_input_has_mouse_click_in_rect(i, (int) (NK_BUTTON_LEFT), (Rectangle) (r))) != 0)
 				{
 					ret =
 						(int)
@@ -2291,16 +2075,16 @@ namespace NuklearSharp
 				}
 			}
 
-			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(i, (nk_rect) (r)) == 0))
+			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(i, (Rectangle) (r)) == 0))
 				state |= (uint) (NK_WIDGET_STATE_ENTERED);
-			else if ((nk_input_is_mouse_prev_hovering_rect(i, (nk_rect) (r))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
+			else if ((nk_input_is_mouse_prev_hovering_rect(i, (Rectangle) (r))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
 			return (int) (ret);
 		}
 
-		public static int nk_do_button(ref uint state, nk_command_buffer _out_, nk_rect r, nk_style_button style,
-			nk_input _in_, int behavior, nk_rect* content)
+		public static int nk_do_button(ref uint state, nk_command_buffer _out_, Rectangle r, nk_style_button style,
+			nk_input _in_, int behavior, Rectangle* content)
 		{
-			nk_rect bounds = new nk_rect();
+			Rectangle bounds = new Rectangle();
 			if ((_out_ == null) || (style == null)) return (int) (nk_false);
 			content->x = (float) (r.x + style.padding.x + style.border + style.rounding);
 			content->y = (float) (r.y + style.padding.y + style.border + style.rounding);
@@ -2310,42 +2094,42 @@ namespace NuklearSharp
 			bounds.y = (float) (r.y - style.touch_padding.y);
 			bounds.w = (float) (r.w + 2*style.touch_padding.x);
 			bounds.h = (float) (r.h + 2*style.touch_padding.y);
-			return (int) (nk_button_behavior(ref state, (nk_rect) (bounds), _in_, (int) (behavior)));
+			return (int) (nk_button_behavior(ref state, (Rectangle) (bounds), _in_, (int) (behavior)));
 		}
 
-		public static int nk_do_button_text(ref uint state, nk_command_buffer _out_, nk_rect bounds, char* _string_, int len,
+		public static int nk_do_button_text(ref uint state, nk_command_buffer _out_, Rectangle bounds, char* _string_, int len,
 			uint align, int behavior, nk_style_button style, nk_input _in_, nk_user_font font)
 		{
-			nk_rect content = new nk_rect();
+			Rectangle content = new Rectangle();
 			int ret = (int) (nk_false);
 			if ((((_out_ == null) || (style == null)) || (font == null)) || (_string_ == null)) return (int) (nk_false);
-			ret = (int) (nk_do_button(ref state, _out_, (nk_rect) (bounds), style, _in_, (int) (behavior), &content));
+			ret = (int) (nk_do_button(ref state, _out_, (Rectangle) (bounds), style, _in_, (int) (behavior), &content));
 			if ((style.draw_begin) != null) style.draw_begin(_out_, (nk_handle) (style.userdata));
 			nk_draw_button_text(_out_, &bounds, &content, (uint) (state), style, _string_, (int) (len), (uint) (align), font);
 			if ((style.draw_end) != null) style.draw_end(_out_, (nk_handle) (style.userdata));
 			return (int) (ret);
 		}
 
-		public static int nk_do_button_symbol(ref uint state, nk_command_buffer _out_, nk_rect bounds, int symbol,
+		public static int nk_do_button_symbol(ref uint state, nk_command_buffer _out_, Rectangle bounds, int symbol,
 			int behavior, nk_style_button style, nk_input _in_, nk_user_font font)
 		{
 			int ret;
-			nk_rect content = new nk_rect();
+			Rectangle content = new Rectangle();
 			if ((((_out_ == null) || (style == null)) || (font == null))) return (int) (nk_false);
-			ret = (int) (nk_do_button(ref state, _out_, (nk_rect) (bounds), style, _in_, (int) (behavior), &content));
+			ret = (int) (nk_do_button(ref state, _out_, (Rectangle) (bounds), style, _in_, (int) (behavior), &content));
 			if ((style.draw_begin) != null) style.draw_begin(_out_, (nk_handle) (style.userdata));
 			nk_draw_button_symbol(_out_, &bounds, &content, (uint) (state), style, (int) (symbol), font);
 			if ((style.draw_end) != null) style.draw_end(_out_, (nk_handle) (style.userdata));
 			return (int) (ret);
 		}
 
-		public static int nk_do_button_image(ref uint state, nk_command_buffer _out_, nk_rect bounds, nk_image img, int b,
+		public static int nk_do_button_image(ref uint state, nk_command_buffer _out_, Rectangle bounds, nk_image img, int b,
 			nk_style_button style, nk_input _in_)
 		{
 			int ret;
-			nk_rect content = new nk_rect();
+			Rectangle content = new Rectangle();
 			if (((_out_ == null) || (style == null))) return (int) (nk_false);
-			ret = (int) (nk_do_button(ref state, _out_, (nk_rect) (bounds), style, _in_, (int) (b), &content));
+			ret = (int) (nk_do_button(ref state, _out_, (Rectangle) (bounds), style, _in_, (int) (b), &content));
 			content.x += (float) (style.image_padding.x);
 			content.y += (float) (style.image_padding.y);
 			content.w -= (float) (2*style.image_padding.x);
@@ -2356,14 +2140,14 @@ namespace NuklearSharp
 			return (int) (ret);
 		}
 
-		public static int nk_do_button_text_symbol(ref uint state, nk_command_buffer _out_, nk_rect bounds, int symbol,
+		public static int nk_do_button_text_symbol(ref uint state, nk_command_buffer _out_, Rectangle bounds, int symbol,
 			char* str, int len, uint align, int behavior, nk_style_button style, nk_user_font font, nk_input _in_)
 		{
 			int ret;
-			nk_rect tri = new nk_rect();
-			nk_rect content = new nk_rect();
+			Rectangle tri = new Rectangle();
+			Rectangle content = new Rectangle();
 			if (((_out_ == null) || (style == null)) || (font == null)) return (int) (nk_false);
-			ret = (int) (nk_do_button(ref state, _out_, (nk_rect) (bounds), style, _in_, (int) (behavior), &content));
+			ret = (int) (nk_do_button(ref state, _out_, (Rectangle) (bounds), style, _in_, (int) (behavior), &content));
 			tri.y = (float) (content.y + (content.h/2) - font.height/2);
 			tri.w = (float) (font.height);
 			tri.h = (float) (font.height);
@@ -2381,14 +2165,14 @@ namespace NuklearSharp
 			return (int) (ret);
 		}
 
-		public static int nk_do_button_text_image(ref uint state, nk_command_buffer _out_, nk_rect bounds, nk_image img,
+		public static int nk_do_button_text_image(ref uint state, nk_command_buffer _out_, Rectangle bounds, nk_image img,
 			char* str, int len, uint align, int behavior, nk_style_button style, nk_user_font font, nk_input _in_)
 		{
 			int ret;
-			nk_rect icon = new nk_rect();
-			nk_rect content = new nk_rect();
+			Rectangle icon = new Rectangle();
+			Rectangle content = new Rectangle();
 			if ((((_out_ == null) || (font == null)) || (style == null)) || (str == null)) return (int) (nk_false);
-			ret = (int) (nk_do_button(ref state, _out_, (nk_rect) (bounds), style, _in_, (int) (behavior), &content));
+			ret = (int) (nk_do_button(ref state, _out_, (Rectangle) (bounds), style, _in_, (int) (behavior), &content));
 			icon.y = (float) (bounds.y + style.padding.y);
 			icon.w = (float) (icon.h = (float) (bounds.h - 2*style.padding.y));
 			if ((align & NK_TEXT_ALIGN_LEFT) != 0)
@@ -2407,14 +2191,14 @@ namespace NuklearSharp
 			return (int) (ret);
 		}
 
-		public static int nk_do_toggle(ref uint state, nk_command_buffer _out_, nk_rect r, int* active, char* str, int len,
+		public static int nk_do_toggle(ref uint state, nk_command_buffer _out_, Rectangle r, int* active, char* str, int len,
 			int type, nk_style_toggle style, nk_input _in_, nk_user_font font)
 		{
 			int was_active;
-			nk_rect bounds = new nk_rect();
-			nk_rect select = new nk_rect();
-			nk_rect cursor = new nk_rect();
-			nk_rect label = new nk_rect();
+			Rectangle bounds = new Rectangle();
+			Rectangle select = new Rectangle();
+			Rectangle cursor = new Rectangle();
+			Rectangle label = new Rectangle();
 			if ((((_out_ == null) || (style == null)) || (font == null)) || (active == null)) return (int) (0);
 			r.w = (float) ((r.w) < (font.height + 2*style.padding.x) ? (font.height + 2*style.padding.x) : (r.w));
 			r.h = (float) ((r.h) < (font.height + 2*style.padding.y) ? (font.height + 2*style.padding.y) : (r.h));
@@ -2435,7 +2219,7 @@ namespace NuklearSharp
 			label.w = (float) (((r.x + r.w) < (label.x) ? (label.x) : (r.x + r.w)) - label.x);
 			label.h = (float) (select.w);
 			was_active = (int) (*active);
-			*active = (int) (nk_toggle_behavior(_in_, (nk_rect) (bounds), ref state, (int) (*active)));
+			*active = (int) (nk_toggle_behavior(_in_, (Rectangle) (bounds), ref state, (int) (*active)));
 			if ((style.draw_begin) != null) style.draw_begin(_out_, (nk_handle) (style.userdata));
 			if ((type) == (NK_TOGGLE_CHECK))
 			{
@@ -2450,11 +2234,11 @@ namespace NuklearSharp
 			return was_active != *active ? 1 : 0;
 		}
 
-		public static int nk_do_selectable(ref uint state, nk_command_buffer _out_, nk_rect bounds, char* str, int len,
+		public static int nk_do_selectable(ref uint state, nk_command_buffer _out_, Rectangle bounds, char* str, int len,
 			uint align, ref int value, nk_style_selectable style, nk_input _in_, nk_user_font font)
 		{
 			int old_value;
-			nk_rect touch = new nk_rect();
+			Rectangle touch = new Rectangle();
 			if (((((((_out_ == null)) || (str == null)) || (len == 0))) || (style == null)) ||
 			    (font == null)) return (int) (0);
 			old_value = (int) (value);
@@ -2462,7 +2246,7 @@ namespace NuklearSharp
 			touch.y = (float) (bounds.y - style.touch_padding.y);
 			touch.w = (float) (bounds.w + style.touch_padding.x*2);
 			touch.h = (float) (bounds.h + style.touch_padding.y*2);
-			if ((nk_button_behavior(ref state, (nk_rect) (touch), _in_, (int) (NK_BUTTON_DEFAULT))) != 0)
+			if ((nk_button_behavior(ref state, (Rectangle) (touch), _in_, (int) (NK_BUTTON_DEFAULT))) != 0)
 				value = value != 0 ? 0 : 1;
 			if ((style.draw_begin) != null) style.draw_begin(_out_, (nk_handle) (style.userdata));
 			nk_draw_selectable(_out_, (uint) (state), style, (int) (value), &bounds, null, null, str, (int) (len), (uint) (align),
@@ -2471,12 +2255,12 @@ namespace NuklearSharp
 			return old_value != value ? 1 : 0;
 		}
 
-		public static int nk_do_selectable_image(ref uint state, nk_command_buffer _out_, nk_rect bounds, char* str, int len,
+		public static int nk_do_selectable_image(ref uint state, nk_command_buffer _out_, Rectangle bounds, char* str, int len,
 			uint align, ref int value, nk_image img, nk_style_selectable style, nk_input _in_, nk_user_font font)
 		{
 			int old_value;
-			nk_rect touch = new nk_rect();
-			nk_rect icon = new nk_rect();
+			Rectangle touch = new Rectangle();
+			Rectangle icon = new Rectangle();
 			if (((((((_out_ == null)) || (str == null)) || (len == 0))) || (style == null)) ||
 			    (font == null)) return (int) (0);
 			old_value = (int) (value);
@@ -2484,7 +2268,7 @@ namespace NuklearSharp
 			touch.y = (float) (bounds.y - style.touch_padding.y);
 			touch.w = (float) (bounds.w + style.touch_padding.x*2);
 			touch.h = (float) (bounds.h + style.touch_padding.y*2);
-			if ((nk_button_behavior(ref state, (nk_rect) (touch), _in_, (int) (NK_BUTTON_DEFAULT))) != 0)
+			if ((nk_button_behavior(ref state, (Rectangle) (touch), _in_, (int) (NK_BUTTON_DEFAULT))) != 0)
 				value = value != 0 ? 0 : 1;
 			icon.y = (float) (bounds.y + style.padding.y);
 			icon.w = (float) (icon.h = (float) (bounds.h - 2*style.padding.y));
@@ -2505,8 +2289,8 @@ namespace NuklearSharp
 			return old_value != value ? 1 : 0;
 		}
 
-		public static float nk_slider_behavior(ref uint state, nk_rect* logical_cursor, nk_rect* visual_cursor, nk_input _in_,
-			nk_rect bounds, float slider_min, float slider_max, float slider_value, float slider_step, float slider_steps)
+		public static float nk_slider_behavior(ref uint state, Rectangle* logical_cursor, Rectangle* visual_cursor, nk_input _in_,
+			Rectangle bounds, float slider_min, float slider_max, float slider_value, float slider_step, float slider_steps)
 		{
 			int left_mouse_down;
 			int left_mouse_click_in_cursor;
@@ -2518,7 +2302,7 @@ namespace NuklearSharp
 			left_mouse_click_in_cursor =
 				(int)
 					(((_in_) != null) &&
-					 ((nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (nk_rect) (*visual_cursor), (int) (nk_true))) !=
+					 ((nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (Rectangle) (*visual_cursor), (int) (nk_true))) !=
 					  0)
 						? 1
 						: 0);
@@ -2543,14 +2327,14 @@ namespace NuklearSharp
 				}
 			}
 
-			if ((nk_input_is_mouse_hovering_rect(_in_, (nk_rect) (bounds))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
-			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (bounds)) == 0))
+			if ((nk_input_is_mouse_hovering_rect(_in_, (Rectangle) (bounds))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
+			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (bounds)) == 0))
 				state |= (uint) (NK_WIDGET_STATE_ENTERED);
-			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (bounds))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
+			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (bounds))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
 			return (float) (slider_value);
 		}
 
-		public static float nk_do_slider(ref uint state, nk_command_buffer _out_, nk_rect bounds, float min, float val,
+		public static float nk_do_slider(ref uint state, nk_command_buffer _out_, Rectangle bounds, float min, float val,
 			float max, float step, nk_style_slider style, nk_input _in_, nk_user_font font)
 		{
 			float slider_range;
@@ -2559,8 +2343,8 @@ namespace NuklearSharp
 			float slider_value;
 			float slider_steps;
 			float cursor_offset;
-			nk_rect visual_cursor = new nk_rect();
-			nk_rect logical_cursor = new nk_rect();
+			Rectangle visual_cursor = new Rectangle();
+			Rectangle logical_cursor = new Rectangle();
 			if ((_out_ == null) || (style == null)) return (float) (0);
 			bounds.x = (float) (bounds.x + style.padding.x);
 			bounds.y = (float) (bounds.y + style.padding.y);
@@ -2573,17 +2357,17 @@ namespace NuklearSharp
 			if ((style.show_buttons) != 0)
 			{
 				uint ws = 0;
-				nk_rect button = new nk_rect();
+				Rectangle button = new Rectangle();
 				button.y = (float) (bounds.y);
 				button.w = (float) (bounds.h);
 				button.h = (float) (bounds.h);
 				button.x = (float) (bounds.x);
 				if (
-					(nk_do_button_symbol(ref ws, _out_, (nk_rect) (button), (int) (style.dec_symbol), (int) (NK_BUTTON_DEFAULT),
+					(nk_do_button_symbol(ref ws, _out_, (Rectangle) (button), (int) (style.dec_symbol), (int) (NK_BUTTON_DEFAULT),
 						style.dec_button, _in_, font)) != 0) val -= (float) (step);
 				button.x = (float) ((bounds.x + bounds.w) - button.w);
 				if (
-					(nk_do_button_symbol(ref ws, _out_, (nk_rect) (button), (int) (style.inc_symbol), (int) (NK_BUTTON_DEFAULT),
+					(nk_do_button_symbol(ref ws, _out_, (Rectangle) (button), (int) (style.inc_symbol), (int) (NK_BUTTON_DEFAULT),
 						style.inc_button, _in_, font)) != 0) val += (float) (step);
 				bounds.x = (float) (bounds.x + button.w + style.spacing.x);
 				bounds.w = (float) (bounds.w - (2*button.w + 2*style.spacing.x));
@@ -2611,7 +2395,7 @@ namespace NuklearSharp
 			visual_cursor.x = (float) (logical_cursor.x - visual_cursor.w*0.5f);
 			slider_value =
 				(float)
-					(nk_slider_behavior(ref state, &logical_cursor, &visual_cursor, _in_, (nk_rect) (bounds), (float) (slider_min),
+					(nk_slider_behavior(ref state, &logical_cursor, &visual_cursor, _in_, (Rectangle) (bounds), (float) (slider_min),
 						(float) (slider_max), (float) (slider_value), (float) (step), (float) (slider_steps)));
 			visual_cursor.x = (float) (logical_cursor.x - visual_cursor.w*0.5f);
 			if ((style.draw_begin) != null) style.draw_begin(_out_, (nk_handle) (style.userdata));
@@ -2621,7 +2405,7 @@ namespace NuklearSharp
 			return (float) (slider_value);
 		}
 
-		public static ulong nk_progress_behavior(ref uint state, nk_input _in_, nk_rect r, nk_rect cursor, ulong max,
+		public static ulong nk_progress_behavior(ref uint state, nk_input _in_, Rectangle r, Rectangle cursor, ulong max,
 			ulong value, int modifiable)
 		{
 			int left_mouse_down = (int) (0);
@@ -2635,10 +2419,10 @@ namespace NuklearSharp
 			left_mouse_click_in_cursor =
 				(int)
 					(((_in_) != null) &&
-					 ((nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (nk_rect) (cursor), (int) (nk_true))) != 0)
+					 ((nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (Rectangle) (cursor), (int) (nk_true))) != 0)
 						? 1
 						: 0);
-			if ((nk_input_is_mouse_hovering_rect(_in_, (nk_rect) (r))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
+			if ((nk_input_is_mouse_hovering_rect(_in_, (Rectangle) (r))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
 			if ((((_in_) != null) && ((left_mouse_down) != 0)) && ((left_mouse_click_in_cursor) != 0))
 			{
 				if (((left_mouse_down) != 0) && ((left_mouse_click_in_cursor) != 0))
@@ -2654,32 +2438,32 @@ namespace NuklearSharp
 				}
 			}
 
-			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (r)) == 0))
+			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (r)) == 0))
 				state |= (uint) (NK_WIDGET_STATE_ENTERED);
-			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (r))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
+			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (r))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
 			return (ulong) (value);
 		}
 
-		public static ulong nk_do_progress(ref uint state, nk_command_buffer _out_, nk_rect bounds, ulong value, ulong max,
+		public static ulong nk_do_progress(ref uint state, nk_command_buffer _out_, Rectangle bounds, ulong value, ulong max,
 			int modifiable, nk_style_progress style, nk_input _in_)
 		{
 			float prog_scale;
 			ulong prog_value;
-			nk_rect cursor = new nk_rect();
+			Rectangle cursor = new Rectangle();
 			if ((_out_ == null) || (style == null)) return (ulong) (0);
 			cursor.w =
 				(float) ((bounds.w) < (2*style.padding.x + 2*style.border) ? (2*style.padding.x + 2*style.border) : (bounds.w));
 			cursor.h =
 				(float) ((bounds.h) < (2*style.padding.y + 2*style.border) ? (2*style.padding.y + 2*style.border) : (bounds.h));
 			cursor =
-				(nk_rect)
-					(nk_pad_rect((nk_rect) (bounds),
-						(nk_vec2) (nk_vec2_((float) (style.padding.x + style.border), (float) (style.padding.y + style.border)))));
+				(Rectangle)
+					(nk_pad_rect((Rectangle) (bounds),
+						(Vector2) (Vector2_((float) (style.padding.x + style.border), (float) (style.padding.y + style.border)))));
 			prog_scale = (float) ((float) (value)/(float) (max));
 			prog_value = (ulong) ((value) < (max) ? (value) : (max));
 			prog_value =
 				(ulong)
-					(nk_progress_behavior(ref state, _in_, (nk_rect) (bounds), (nk_rect) (cursor), (ulong) (max), (ulong) (prog_value),
+					(nk_progress_behavior(ref state, _in_, (Rectangle) (bounds), (Rectangle) (cursor), (ulong) (max), (ulong) (prog_value),
 						(int) (modifiable)));
 			cursor.w = (float) (cursor.w*prog_scale);
 			if ((style.draw_begin) != null) style.draw_begin(_out_, (nk_handle) (style.userdata));
@@ -2688,8 +2472,8 @@ namespace NuklearSharp
 			return (ulong) (prog_value);
 		}
 
-		public static float nk_scrollbar_behavior(ref uint state, nk_input _in_, int has_scrolling, nk_rect* scroll,
-			ref nk_rect cursor, nk_rect* empty0, nk_rect* empty1, float scroll_offset, float target, float scroll_step, int o)
+		public static float nk_scrollbar_behavior(ref uint state, nk_input _in_, int has_scrolling, Rectangle* scroll,
+			ref Rectangle cursor, Rectangle* empty0, Rectangle* empty1, float scroll_offset, float target, float scroll_step, int o)
 		{
 			uint ws = (uint) (0);
 			int left_mouse_down;
@@ -2701,8 +2485,8 @@ namespace NuklearSharp
 			if (_in_ == null) return (float) (scroll_offset);
 			left_mouse_down = (int) (_in_.mouse.buttons[NK_BUTTON_LEFT].down);
 			left_mouse_click_in_cursor =
-				(int) (nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (nk_rect) (cursor), (int) (nk_true)));
-			if ((nk_input_is_mouse_hovering_rect(_in_, (nk_rect) (*scroll))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
+				(int) (nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (Rectangle) (cursor), (int) (nk_true)));
+			if ((nk_input_is_mouse_hovering_rect(_in_, (Rectangle) (*scroll))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
 			scroll_delta = (float) (((o) == (NK_VERTICAL)) ? _in_.mouse.scroll_delta.y : _in_.mouse.scroll_delta.x);
 			if (((left_mouse_down) != 0) && ((left_mouse_click_in_cursor) != 0))
 			{
@@ -2738,7 +2522,7 @@ namespace NuklearSharp
 			}
 			else if (((((nk_input_is_key_pressed(_in_, (int) (NK_KEY_SCROLL_UP))) != 0) && ((o) == (NK_VERTICAL))) &&
 			          ((has_scrolling) != 0)) ||
-			         ((nk_button_behavior(ref ws, (nk_rect) (*empty0), _in_, (int) (NK_BUTTON_DEFAULT))) != 0))
+			         ((nk_button_behavior(ref ws, (Rectangle) (*empty0), _in_, (int) (NK_BUTTON_DEFAULT))) != 0))
 			{
 				if ((o) == (NK_VERTICAL))
 					scroll_offset = (float) ((0) < (scroll_offset - scroll->h) ? (scroll_offset - scroll->h) : (0));
@@ -2746,7 +2530,7 @@ namespace NuklearSharp
 			}
 			else if (((((nk_input_is_key_pressed(_in_, (int) (NK_KEY_SCROLL_DOWN))) != 0) && ((o) == (NK_VERTICAL))) &&
 			          ((has_scrolling) != 0)) ||
-			         ((nk_button_behavior(ref ws, (nk_rect) (*empty1), _in_, (int) (NK_BUTTON_DEFAULT))) != 0))
+			         ((nk_button_behavior(ref ws, (Rectangle) (*empty1), _in_, (int) (NK_BUTTON_DEFAULT))) != 0))
 			{
 				if ((o) == (NK_VERTICAL))
 					scroll_offset =
@@ -2785,19 +2569,19 @@ namespace NuklearSharp
 				}
 			}
 
-			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (*scroll)) == 0))
+			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (*scroll)) == 0))
 				state |= (uint) (NK_WIDGET_STATE_ENTERED);
-			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (*scroll))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
+			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (*scroll))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
 			return (float) (scroll_offset);
 		}
 
-		public static float nk_do_scrollbarv(ref uint state, nk_command_buffer _out_, nk_rect scroll, int has_scrolling,
+		public static float nk_do_scrollbarv(ref uint state, nk_command_buffer _out_, Rectangle scroll, int has_scrolling,
 			float offset, float target, float step, float button_pixel_inc, nk_style_scrollbar style, nk_input _in_,
 			nk_user_font font)
 		{
-			nk_rect empty_north = new nk_rect();
-			nk_rect empty_south = new nk_rect();
-			nk_rect cursor = new nk_rect();
+			Rectangle empty_north = new Rectangle();
+			Rectangle empty_south = new Rectangle();
+			Rectangle cursor = new Rectangle();
 			float scroll_step;
 			float scroll_offset;
 			float scroll_off;
@@ -2810,7 +2594,7 @@ namespace NuklearSharp
 			{
 				uint ws = 0;
 				float scroll_h;
-				nk_rect button = new nk_rect();
+				Rectangle button = new Rectangle();
 				button.x = (float) (scroll.x);
 				button.w = (float) (scroll.w);
 				button.h = (float) (scroll.w);
@@ -2818,11 +2602,11 @@ namespace NuklearSharp
 				scroll_step = (float) ((step) < (button_pixel_inc) ? (step) : (button_pixel_inc));
 				button.y = (float) (scroll.y);
 				if (
-					(nk_do_button_symbol(ref ws, _out_, (nk_rect) (button), (int) (style.dec_symbol), (int) (NK_BUTTON_REPEATER),
+					(nk_do_button_symbol(ref ws, _out_, (Rectangle) (button), (int) (style.dec_symbol), (int) (NK_BUTTON_REPEATER),
 						style.dec_button, _in_, font)) != 0) offset = (float) (offset - scroll_step);
 				button.y = (float) (scroll.y + scroll.h - button.h);
 				if (
-					(nk_do_button_symbol(ref ws, _out_, (nk_rect) (button), (int) (style.inc_symbol), (int) (NK_BUTTON_REPEATER),
+					(nk_do_button_symbol(ref ws, _out_, (Rectangle) (button), (int) (style.inc_symbol), (int) (NK_BUTTON_REPEATER),
 						style.inc_button, _in_, font)) != 0) offset = (float) (offset + scroll_step);
 				scroll.y = (float) (scroll.y + button.h);
 				scroll.h = (float) (scroll_h);
@@ -2866,13 +2650,13 @@ namespace NuklearSharp
 			return (float) (scroll_offset);
 		}
 
-		public static float nk_do_scrollbarh(ref uint state, nk_command_buffer _out_, nk_rect scroll, int has_scrolling,
+		public static float nk_do_scrollbarh(ref uint state, nk_command_buffer _out_, Rectangle scroll, int has_scrolling,
 			float offset, float target, float step, float button_pixel_inc, nk_style_scrollbar style, nk_input _in_,
 			nk_user_font font)
 		{
-			nk_rect cursor = new nk_rect();
-			nk_rect empty_west = new nk_rect();
-			nk_rect empty_east = new nk_rect();
+			Rectangle cursor = new Rectangle();
+			Rectangle empty_west = new Rectangle();
+			Rectangle empty_east = new Rectangle();
 			float scroll_step;
 			float scroll_offset;
 			float scroll_off;
@@ -2885,7 +2669,7 @@ namespace NuklearSharp
 			{
 				uint ws = 0;
 				float scroll_w;
-				nk_rect button = new nk_rect();
+				Rectangle button = new Rectangle();
 				button.y = (float) (scroll.y);
 				button.w = (float) (scroll.h);
 				button.h = (float) (scroll.h);
@@ -2893,11 +2677,11 @@ namespace NuklearSharp
 				scroll_step = (float) ((step) < (button_pixel_inc) ? (step) : (button_pixel_inc));
 				button.x = (float) (scroll.x);
 				if (
-					(nk_do_button_symbol(ref ws, _out_, (nk_rect) (button), (int) (style.dec_symbol), (int) (NK_BUTTON_REPEATER),
+					(nk_do_button_symbol(ref ws, _out_, (Rectangle) (button), (int) (style.dec_symbol), (int) (NK_BUTTON_REPEATER),
 						style.dec_button, _in_, font)) != 0) offset = (float) (offset - scroll_step);
 				button.x = (float) (scroll.x + scroll.w - button.w);
 				if (
-					(nk_do_button_symbol(ref ws, _out_, (nk_rect) (button), (int) (style.inc_symbol), (int) (NK_BUTTON_REPEATER),
+					(nk_do_button_symbol(ref ws, _out_, (Rectangle) (button), (int) (style.inc_symbol), (int) (NK_BUTTON_REPEATER),
 						style.inc_button, _in_, font)) != 0) offset = (float) (offset + scroll_step);
 				scroll.x = (float) (scroll.x + button.w);
 				scroll.w = (float) (scroll_w);
@@ -2935,18 +2719,18 @@ namespace NuklearSharp
 			return (float) (scroll_offset);
 		}
 
-		public static uint nk_do_edit(ref uint state, nk_command_buffer _out_, nk_rect bounds, uint flags,
+		public static uint nk_do_edit(ref uint state, nk_command_buffer _out_, Rectangle bounds, uint flags,
 			NkPluginFilter filter, nk_text_edit edit, nk_style_edit style, nk_input _in_, nk_user_font font)
 		{
-			nk_rect area = new nk_rect();
+			Rectangle area = new Rectangle();
 			uint ret = (uint) (0);
 			float row_height;
 			sbyte prev_state = (sbyte) (0);
 			sbyte is_hovered = (sbyte) (0);
 			sbyte select_all = (sbyte) (0);
 			sbyte cursor_follow = (sbyte) (0);
-			nk_rect old_clip = new nk_rect();
-			nk_rect clip = new nk_rect();
+			Rectangle old_clip = new Rectangle();
+			Rectangle clip = new Rectangle();
 			if (((_out_ == null)) || (style == null)) return (uint) (ret);
 			area.x = (float) (bounds.x + style.padding.x + style.border);
 			area.y = (float) (bounds.y + style.padding.y + style.border);
@@ -2955,11 +2739,11 @@ namespace NuklearSharp
 			if ((flags & NK_EDIT_MULTILINE) != 0)
 				area.w = (float) ((0) < (area.w - style.scrollbar_size.x) ? (area.w - style.scrollbar_size.x) : (0));
 			row_height = (float) ((flags & NK_EDIT_MULTILINE) != 0 ? font.height + style.row_padding : area.h);
-			old_clip = (nk_rect) (_out_.clip);
+			old_clip = (Rectangle) (_out_.clip);
 			nk_unify(ref clip, ref old_clip, (float) (area.x), (float) (area.y), (float) (area.x + area.w),
 				(float) (area.y + area.h));
 			prev_state = ((sbyte) (edit.active));
-			is_hovered = ((sbyte) (nk_input_is_mouse_hovering_rect(_in_, (nk_rect) (bounds))));
+			is_hovered = ((sbyte) (nk_input_is_mouse_hovering_rect(_in_, (Rectangle) (bounds))));
 			if ((((_in_) != null) && (_in_.mouse.buttons[NK_BUTTON_LEFT].clicked != 0)) &&
 			    ((_in_.mouse.buttons[NK_BUTTON_LEFT].down) != 0))
 			{
@@ -2992,7 +2776,7 @@ namespace NuklearSharp
 				int shift_mod = (int) (_in_.keyboard.keys[NK_KEY_SHIFT].down);
 				float mouse_x = (float) ((_in_.mouse.pos.x - area.x) + edit.scrollbar.x);
 				float mouse_y = (float) ((_in_.mouse.pos.y - area.y) + edit.scrollbar.y);
-				is_hovered = ((sbyte) (nk_input_is_mouse_hovering_rect(_in_, (nk_rect) (area))));
+				is_hovered = ((sbyte) (nk_input_is_mouse_hovering_rect(_in_, (Rectangle) (area))));
 				if ((select_all) != 0)
 				{
 					nk_textedit_select_all(edit);
@@ -3102,23 +2886,23 @@ namespace NuklearSharp
 						else background = style.normal;
 						if ((background.type) == (NK_STYLE_ITEM_COLOR))
 						{
-							nk_stroke_rect(_out_, (nk_rect) (bounds), (float) (style.rounding), (float) (style.border),
-								(nk_color) (style.border_color));
-							nk_fill_rect(_out_, (nk_rect) (bounds), (float) (style.rounding), (nk_color) (background.data.color));
+							nk_stroke_rect(_out_, (Rectangle) (bounds), (float) (style.rounding), (float) (style.border),
+								(Color) (style.border_color));
+							nk_fill_rect(_out_, (Rectangle) (bounds), (float) (style.rounding), (Color) (background.data.color));
 						}
-						else nk_draw_image(_out_, (nk_rect) (bounds), background.data.image, (nk_color) (nk_white));
+						else nk_draw_image(_out_, (Rectangle) (bounds), background.data.image, (Color) (nk_white));
 					}
 					area.w = (float) ((0) < (area.w - style.cursor_size) ? (area.w - style.cursor_size) : (0));
 					if ((edit.active) != 0)
 					{
 						int total_lines = (int) (1);
-						nk_vec2 text_size = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
+						Vector2 text_size = (Vector2) (Vector2_((float) (0), (float) (0)));
 						char* cursor_ptr = null;
 						char* select_begin_ptr = null;
 						char* select_end_ptr = null;
-						nk_vec2 cursor_pos = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
-						nk_vec2 selection_offset_start = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
-						nk_vec2 selection_offset_end = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
+						Vector2 cursor_pos = (Vector2) (Vector2_((float) (0), (float) (0)));
+						Vector2 selection_offset_start = (Vector2) (Vector2_((float) (0), (float) (0)));
+						Vector2 selection_offset_end = (Vector2) (Vector2_((float) (0), (float) (0)));
 						int selection_begin = (int) ((edit.select_start) < (edit.select_end) ? (edit.select_start) : (edit.select_end));
 						int selection_end = (int) ((edit.select_start) < (edit.select_end) ? (edit.select_end) : (edit.select_start));
 						float line_width = (float) (0.0f);
@@ -3138,12 +2922,12 @@ namespace NuklearSharp
 								if ((cursor_ptr == null) && ((glyphs) == (edit.cursor)))
 								{
 									int glyph_offset;
-									nk_vec2 out_offset = new nk_vec2();
-									nk_vec2 row_size = new nk_vec2();
+									Vector2 out_offset = new Vector2();
+									Vector2 row_size = new Vector2();
 									char* remaining;
 									cursor_pos.y = (float) ((float) (total_lines - 1)*row_height);
 									row_size =
-										(nk_vec2)
+										(Vector2)
 											(nk_text_calculate_text_bounds(font, text + row_begin, (int) (text_len - row_begin), (float) (row_height),
 												&remaining, &out_offset, &glyph_offset, (int) (NK_STOP_ON_NEW_LINE)));
 									cursor_pos.x = (float) (row_size.x);
@@ -3152,12 +2936,12 @@ namespace NuklearSharp
 								if (((select_begin_ptr == null) && (edit.select_start != edit.select_end)) && ((glyphs) == (selection_begin)))
 								{
 									int glyph_offset;
-									nk_vec2 out_offset = new nk_vec2();
-									nk_vec2 row_size = new nk_vec2();
+									Vector2 out_offset = new Vector2();
+									Vector2 row_size = new Vector2();
 									char* remaining;
 									selection_offset_start.y = (float) ((float) ((total_lines - 1) < (0) ? (0) : (total_lines - 1))*row_height);
 									row_size =
-										(nk_vec2)
+										(Vector2)
 											(nk_text_calculate_text_bounds(font, text + row_begin, (int) (text_len - row_begin), (float) (row_height),
 												&remaining, &out_offset, &glyph_offset, (int) (NK_STOP_ON_NEW_LINE)));
 									selection_offset_start.x = (float) (row_size.x);
@@ -3166,12 +2950,12 @@ namespace NuklearSharp
 								if (((select_end_ptr == null) && (edit.select_start != edit.select_end)) && ((glyphs) == (selection_end)))
 								{
 									int glyph_offset;
-									nk_vec2 out_offset = new nk_vec2();
-									nk_vec2 row_size = new nk_vec2();
+									Vector2 out_offset = new Vector2();
+									Vector2 row_size = new Vector2();
 									char* remaining;
 									selection_offset_end.y = (float) ((float) (total_lines - 1)*row_height);
 									row_size =
-										(nk_vec2)
+										(Vector2)
 											(nk_text_calculate_text_bounds(font, text + row_begin, (int) (text_len - row_begin), (float) (row_height),
 												&remaining, &out_offset, &glyph_offset, (int) (NK_STOP_ON_NEW_LINE)));
 									selection_offset_end.x = (float) (row_size.x);
@@ -3229,12 +3013,12 @@ namespace NuklearSharp
 							if ((flags & NK_EDIT_MULTILINE) != 0)
 							{
 								uint ws = 0;
-								nk_rect scroll = new nk_rect();
+								Rectangle scroll = new Rectangle();
 								float scroll_target;
 								float scroll_offset;
 								float scroll_step;
 								float scroll_inc;
-								scroll = (nk_rect) (area);
+								scroll = (Rectangle) (area);
 								scroll.x = (float) ((bounds.x + bounds.w - style.border) - style.scrollbar_size.x);
 								scroll.w = (float) (style.scrollbar_size.x);
 								scroll_offset = (float) (edit.scrollbar.y);
@@ -3243,57 +3027,57 @@ namespace NuklearSharp
 								scroll_target = (float) (text_size.y);
 								edit.scrollbar.y =
 									(float)
-										(nk_do_scrollbarv(ref ws, _out_, (nk_rect) (scroll), (int) (0), (float) (scroll_offset),
+										(nk_do_scrollbarv(ref ws, _out_, (Rectangle) (scroll), (int) (0), (float) (scroll_offset),
 											(float) (scroll_target), (float) (scroll_step), (float) (scroll_inc), style.scrollbar, _in_, font));
 							}
 						}
 						{
-							nk_color background_color = new nk_color();
-							nk_color text_color = new nk_color();
-							nk_color sel_background_color = new nk_color();
-							nk_color sel_text_color = new nk_color();
-							nk_color cursor_color = new nk_color();
-							nk_color cursor_text_color = new nk_color();
+							Color background_color = new Color();
+							Color text_color = new Color();
+							Color sel_background_color = new Color();
+							Color sel_text_color = new Color();
+							Color cursor_color = new Color();
+							Color cursor_text_color = new Color();
 							nk_style_item background;
-							nk_push_scissor(_out_, (nk_rect) (clip));
+							nk_push_scissor(_out_, (Rectangle) (clip));
 							if ((state & NK_WIDGET_STATE_ACTIVED) != 0)
 							{
 								background = style.active;
-								text_color = (nk_color) (style.text_active);
-								sel_text_color = (nk_color) (style.selected_text_hover);
-								sel_background_color = (nk_color) (style.selected_hover);
-								cursor_color = (nk_color) (style.cursor_hover);
-								cursor_text_color = (nk_color) (style.cursor_text_hover);
+								text_color = (Color) (style.text_active);
+								sel_text_color = (Color) (style.selected_text_hover);
+								sel_background_color = (Color) (style.selected_hover);
+								cursor_color = (Color) (style.cursor_hover);
+								cursor_text_color = (Color) (style.cursor_text_hover);
 							}
 							else if ((state & NK_WIDGET_STATE_HOVER) != 0)
 							{
 								background = style.hover;
-								text_color = (nk_color) (style.text_hover);
-								sel_text_color = (nk_color) (style.selected_text_hover);
-								sel_background_color = (nk_color) (style.selected_hover);
-								cursor_text_color = (nk_color) (style.cursor_text_hover);
-								cursor_color = (nk_color) (style.cursor_hover);
+								text_color = (Color) (style.text_hover);
+								sel_text_color = (Color) (style.selected_text_hover);
+								sel_background_color = (Color) (style.selected_hover);
+								cursor_text_color = (Color) (style.cursor_text_hover);
+								cursor_color = (Color) (style.cursor_hover);
 							}
 							else
 							{
 								background = style.normal;
-								text_color = (nk_color) (style.text_normal);
-								sel_text_color = (nk_color) (style.selected_text_normal);
-								sel_background_color = (nk_color) (style.selected_normal);
-								cursor_color = (nk_color) (style.cursor_normal);
-								cursor_text_color = (nk_color) (style.cursor_text_normal);
+								text_color = (Color) (style.text_normal);
+								sel_text_color = (Color) (style.selected_text_normal);
+								sel_background_color = (Color) (style.selected_normal);
+								cursor_color = (Color) (style.cursor_normal);
+								cursor_text_color = (Color) (style.cursor_text_normal);
 							}
 							if ((background.type) == (NK_STYLE_ITEM_IMAGE))
-								background_color = (nk_color) (nk_rgba((int) (0), (int) (0), (int) (0), (int) (0)));
-							else background_color = (nk_color) (background.data.color);
+								background_color = (Color) (nk_rgba((int) (0), (int) (0), (int) (0), (int) (0)));
+							else background_color = (Color) (background.data.color);
 							if ((edit.select_start) == (edit.select_end))
 							{
 								fixed (char* begin = edit._string_.str)
 								{
 									int l = (int) (edit._string_.len);
 									nk_edit_draw_text(_out_, style, (float) (area.x - edit.scrollbar.x), (float) (area.y - edit.scrollbar.y),
-										(float) (0), begin, (int) (l), (float) (row_height), font, (nk_color) (background_color),
-										(nk_color) (text_color), (int) (nk_false));
+										(float) (0), begin, (int) (l), (float) (row_height), font, (Color) (background_color),
+										(Color) (text_color), (int) (nk_false));
 								}
 							}
 							else
@@ -3304,8 +3088,8 @@ namespace NuklearSharp
 									{
 										nk_edit_draw_text(_out_, style, (float) (area.x - edit.scrollbar.x), (float) (area.y - edit.scrollbar.y),
 											(float) (0), begin, (int) (select_begin_ptr - begin), (float) (row_height), font,
-											(nk_color) (background_color),
-											(nk_color) (text_color), (int) (nk_false));
+											(Color) (background_color),
+											(Color) (text_color), (int) (nk_false));
 									}
 								}
 								if (edit.select_start != edit.select_end)
@@ -3318,7 +3102,7 @@ namespace NuklearSharp
 									nk_edit_draw_text(_out_, style, (float) (area.x - edit.scrollbar.x),
 										(float) (area.y + selection_offset_start.y - edit.scrollbar.y), (float) (selection_offset_start.x),
 										select_begin_ptr, (int) (select_end_ptr - select_begin_ptr), (float) (row_height), font,
-										(nk_color) (sel_background_color), (nk_color) (sel_text_color), (int) (nk_true));
+										(Color) (sel_background_color), (Color) (sel_text_color), (int) (nk_true));
 								}
 								if (((edit.select_start != edit.select_end) && ((selection_end) < (edit._string_.len))))
 								{
@@ -3326,7 +3110,7 @@ namespace NuklearSharp
 									char* end = text + edit._string_.len;
 									nk_edit_draw_text(_out_, style, (float) (area.x - edit.scrollbar.x),
 										(float) (area.y + selection_offset_end.y - edit.scrollbar.y), (float) (selection_offset_end.x), begin,
-										(int) (end - begin), (float) (row_height), font, (nk_color) (background_color), (nk_color) (text_color),
+										(int) (end - begin), (float) (row_height), font, (Color) (background_color), (Color) (text_color),
 										(int) (nk_true));
 								}
 							}
@@ -3334,18 +3118,18 @@ namespace NuklearSharp
 							{
 								if (((edit.cursor) >= (edit._string_.len)) || (((cursor_ptr) != null) && ((*cursor_ptr) == ('\n'))))
 								{
-									nk_rect cursor = new nk_rect();
+									Rectangle cursor = new Rectangle();
 									cursor.w = (float) (style.cursor_size);
 									cursor.h = (float) (font.height);
 									cursor.x = (float) (area.x + cursor_pos.x - edit.scrollbar.x);
 									cursor.y = (float) (area.y + cursor_pos.y + row_height/2.0f - cursor.h/2.0f);
 									cursor.y -= (float) (edit.scrollbar.y);
-									nk_fill_rect(_out_, (nk_rect) (cursor), (float) (0), (nk_color) (cursor_color));
+									nk_fill_rect(_out_, (Rectangle) (cursor), (float) (0), (Color) (cursor_color));
 								}
 								else
 								{
 									int glyph_len;
-									nk_rect label = new nk_rect();
+									Rectangle label = new Rectangle();
 									nk_text txt = new nk_text();
 									char unicode;
 									glyph_len = (int) (nk_utf_decode(cursor_ptr, &unicode, (int) (4)));
@@ -3354,11 +3138,11 @@ namespace NuklearSharp
 									label.w =
 										(float) (font.width((nk_handle) (font.userdata), (float) (font.height), cursor_ptr, (int) (glyph_len)));
 									label.h = (float) (row_height);
-									txt.padding = (nk_vec2) (nk_vec2_((float) (0), (float) (0)));
-									txt.background = (nk_color) (cursor_color);
-									txt.text = (nk_color) (cursor_text_color);
-									nk_fill_rect(_out_, (nk_rect) (label), (float) (0), (nk_color) (cursor_color));
-									nk_widget_text(_out_, (nk_rect) (label), cursor_ptr, (int) (glyph_len), &txt, (uint) (NK_TEXT_LEFT), font);
+									txt.padding = (Vector2) (Vector2_((float) (0), (float) (0)));
+									txt.background = (Color) (cursor_color);
+									txt.text = (Color) (cursor_text_color);
+									nk_fill_rect(_out_, (Rectangle) (label), (float) (0), (Color) (cursor_color));
+									nk_widget_text(_out_, (Rectangle) (label), cursor_ptr, (int) (glyph_len), &txt, (uint) (NK_TEXT_LEFT), font);
 								}
 							}
 						}
@@ -3369,41 +3153,41 @@ namespace NuklearSharp
 						fixed (char* begin = edit._string_.str)
 						{
 							nk_style_item background;
-							nk_color background_color = new nk_color();
-							nk_color text_color = new nk_color();
-							nk_push_scissor(_out_, (nk_rect) (clip));
+							Color background_color = new Color();
+							Color text_color = new Color();
+							nk_push_scissor(_out_, (Rectangle) (clip));
 							if ((state & NK_WIDGET_STATE_ACTIVED) != 0)
 							{
 								background = style.active;
-								text_color = (nk_color) (style.text_active);
+								text_color = (Color) (style.text_active);
 							}
 							else if ((state & NK_WIDGET_STATE_HOVER) != 0)
 							{
 								background = style.hover;
-								text_color = (nk_color) (style.text_hover);
+								text_color = (Color) (style.text_hover);
 							}
 							else
 							{
 								background = style.normal;
-								text_color = (nk_color) (style.text_normal);
+								text_color = (Color) (style.text_normal);
 							}
 							if ((background.type) == (NK_STYLE_ITEM_IMAGE))
-								background_color = (nk_color) (nk_rgba((int) (0), (int) (0), (int) (0), (int) (0)));
-							else background_color = (nk_color) (background.data.color);
+								background_color = (Color) (nk_rgba((int) (0), (int) (0), (int) (0), (int) (0)));
+							else background_color = (Color) (background.data.color);
 							nk_edit_draw_text(_out_, style, (float) (area.x - edit.scrollbar.x), (float) (area.y - edit.scrollbar.y),
-								(float) (0), begin, (int) (l), (float) (row_height), font, (nk_color) (background_color),
-								(nk_color) (text_color),
+								(float) (0), begin, (int) (l), (float) (row_height), font, (Color) (background_color),
+								(Color) (text_color),
 								(int) (nk_false));
 						}
 					}
-					nk_push_scissor(_out_, (nk_rect) (old_clip));
+					nk_push_scissor(_out_, (Rectangle) (old_clip));
 				}
 			}
 
 			return (uint) (ret);
 		}
 
-		public static void nk_drag_behavior(ref uint state, nk_input _in_, nk_rect drag, nk_property_variant* variant,
+		public static void nk_drag_behavior(ref uint state, nk_input _in_, Rectangle drag, nk_property_variant* variant,
 			float inc_per_pixel)
 		{
 			int left_mouse_down =
@@ -3411,13 +3195,13 @@ namespace NuklearSharp
 			int left_mouse_click_in_cursor =
 				(int)
 					(((_in_) != null) &&
-					 ((nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (nk_rect) (drag), (int) (nk_true))) != 0)
+					 ((nk_input_has_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (Rectangle) (drag), (int) (nk_true))) != 0)
 						? 1
 						: 0);
 			if (((state) & NK_WIDGET_STATE_MODIFIED) != 0)
 				(state) = (uint) (NK_WIDGET_STATE_INACTIVE | NK_WIDGET_STATE_MODIFIED);
 			else (state) = (uint) (NK_WIDGET_STATE_INACTIVE);
-			if ((nk_input_is_mouse_hovering_rect(_in_, (nk_rect) (drag))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
+			if ((nk_input_is_mouse_hovering_rect(_in_, (Rectangle) (drag))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
 			if (((left_mouse_down) != 0) && ((left_mouse_click_in_cursor) != 0))
 			{
 				float delta;
@@ -3459,33 +3243,33 @@ namespace NuklearSharp
 				state = (uint) (NK_WIDGET_STATE_ACTIVE);
 			}
 
-			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (drag)) == 0))
+			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (drag)) == 0))
 				state |= (uint) (NK_WIDGET_STATE_ENTERED);
-			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (drag))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
+			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (drag))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
 		}
 
-		public static void nk_property_behavior(ref uint ws, nk_input _in_, nk_rect property, nk_rect label, nk_rect edit,
-			nk_rect empty, ref int state, nk_property_variant* variant, float inc_per_pixel)
+		public static void nk_property_behavior(ref uint ws, nk_input _in_, Rectangle property, Rectangle label, Rectangle edit,
+			Rectangle empty, ref int state, nk_property_variant* variant, float inc_per_pixel)
 		{
 			if (((_in_) != null) && ((state) == (NK_PROPERTY_DEFAULT)))
 			{
-				if ((nk_button_behavior(ref ws, (nk_rect) (edit), _in_, (int) (NK_BUTTON_DEFAULT))) != 0)
+				if ((nk_button_behavior(ref ws, (Rectangle) (edit), _in_, (int) (NK_BUTTON_DEFAULT))) != 0)
 					state = (int) (NK_PROPERTY_EDIT);
-				else if ((nk_input_is_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (nk_rect) (label), (int) (nk_true))) != 0)
+				else if ((nk_input_is_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (Rectangle) (label), (int) (nk_true))) != 0)
 					state = (int) (NK_PROPERTY_DRAG);
-				else if ((nk_input_is_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (nk_rect) (empty), (int) (nk_true))) != 0)
+				else if ((nk_input_is_mouse_click_down_in_rect(_in_, (int) (NK_BUTTON_LEFT), (Rectangle) (empty), (int) (nk_true))) != 0)
 					state = (int) (NK_PROPERTY_DRAG);
 			}
 
 			if ((state) == (NK_PROPERTY_DRAG))
 			{
-				nk_drag_behavior(ref ws, _in_, (nk_rect) (property), variant, (float) (inc_per_pixel));
+				nk_drag_behavior(ref ws, _in_, (Rectangle) (property), variant, (float) (inc_per_pixel));
 				if ((ws & NK_WIDGET_STATE_ACTIVED) == 0) state = (int) (NK_PROPERTY_DEFAULT);
 			}
 
 		}
 
-		public static void nk_do_property(ref uint ws, nk_command_buffer _out_, nk_rect property, char* name,
+		public static void nk_do_property(ref uint ws, nk_command_buffer _out_, Rectangle property, char* name,
 			nk_property_variant* variant, float inc_per_pixel, ref string buffer, ref int state, ref int cursor,
 			ref int select_begin, ref int select_end, nk_style_property style, int filter, nk_input _in_, nk_user_font font,
 			nk_text_edit text_edit, int behavior)
@@ -3499,11 +3283,11 @@ namespace NuklearSharp
 			int name_len;
 			float size;
 			string dst = null;
-			nk_rect left = new nk_rect();
-			nk_rect right = new nk_rect();
-			nk_rect label = new nk_rect();
-			nk_rect edit = new nk_rect();
-			nk_rect empty = new nk_rect();
+			Rectangle left = new Rectangle();
+			Rectangle right = new Rectangle();
+			Rectangle label = new Rectangle();
+			Rectangle edit = new Rectangle();
+			Rectangle empty = new Rectangle();
 			left.h = (float) (font.height/2);
 			left.w = (float) (left.h);
 			left.x = (float) (property.x + style.border + style.padding.x);
@@ -3567,13 +3351,13 @@ namespace NuklearSharp
 			empty.y = (float) (property.y);
 			empty.h = (float) (property.h);
 			old = (int) ((state) == (NK_PROPERTY_EDIT) ? 1 : 0);
-			nk_property_behavior(ref ws, _in_, (nk_rect) (property), (nk_rect) (label), (nk_rect) (edit), (nk_rect) (empty),
+			nk_property_behavior(ref ws, _in_, (Rectangle) (property), (Rectangle) (label), (Rectangle) (edit), (Rectangle) (empty),
 				ref state, variant, (float) (inc_per_pixel));
 			if ((style.draw_begin) != null) style.draw_begin(_out_, (nk_handle) (style.userdata));
 			nk_draw_property(_out_, style, &property, &label, (uint) (ws), name, (int) (name_len), font);
 			if ((style.draw_end) != null) style.draw_end(_out_, (nk_handle) (style.userdata));
 			if (
-				(nk_do_button_symbol(ref ws, _out_, (nk_rect) (left), (int) (style.sym_left), (int) (behavior), style.dec_button,
+				(nk_do_button_symbol(ref ws, _out_, (Rectangle) (left), (int) (style.sym_left), (int) (behavior), style.dec_button,
 					_in_, font)) != 0)
 			{
 				switch (variant->kind)
@@ -3617,7 +3401,7 @@ namespace NuklearSharp
 			}
 
 			if (
-				(nk_do_button_symbol(ref ws, _out_, (nk_rect) (right), (int) (style.sym_right), (int) (behavior), style.inc_button,
+				(nk_do_button_symbol(ref ws, _out_, (Rectangle) (right), (int) (style.sym_right), (int) (behavior), style.inc_button,
 					_in_, font)) != 0)
 			{
 				switch (variant->kind)
@@ -3686,7 +3470,7 @@ namespace NuklearSharp
 						? (0)
 						: ((select_end) < (length) ? (select_end) : (length)));
 			text_edit.mode = (byte) (NK_TEXT_EDIT_MODE_INSERT);
-			nk_do_edit(ref ws, _out_, (nk_rect) (edit), (uint) (NK_EDIT_FIELD | NK_EDIT_AUTO_SELECT), filters[filter], text_edit,
+			nk_do_edit(ref ws, _out_, (Rectangle) (edit), (uint) (NK_EDIT_FIELD | NK_EDIT_AUTO_SELECT), filters[filter], text_edit,
 				style.edit, ((state) == (NK_PROPERTY_EDIT)) ? _in_ : null, font);
 			cursor = (int) (text_edit.cursor);
 			select_begin = (int) (text_edit.select_start);
@@ -3738,14 +3522,14 @@ namespace NuklearSharp
 
 		}
 
-		public static int nk_color_picker_behavior(ref uint state, nk_rect* bounds, nk_rect* matrix, nk_rect* hue_bar,
-			nk_rect* alpha_bar, nk_colorf* color, nk_input _in_)
+		public static int Color_picker_behavior(ref uint state, Rectangle* bounds, Rectangle* matrix, Rectangle* hue_bar,
+			Rectangle* alpha_bar, Colorf* color, nk_input _in_)
 		{
 			float* hsva = stackalloc float[4];
 			int value_changed = (int) (0);
 			int hsv_changed = (int) (0);
-			nk_colorf_hsva_fv(hsva, (nk_colorf) (*color));
-			if ((nk_button_behavior(ref state, (nk_rect) (*matrix), _in_, (int) (NK_BUTTON_REPEATER))) != 0)
+			Colorf_hsva_fv(hsva, (Colorf) (*color));
+			if ((nk_button_behavior(ref state, (Rectangle) (*matrix), _in_, (int) (NK_BUTTON_REPEATER))) != 0)
 			{
 				hsva[1] =
 					(float)
@@ -3771,7 +3555,7 @@ namespace NuklearSharp
 				value_changed = (int) (hsv_changed = (int) (1));
 			}
 
-			if ((nk_button_behavior(ref state, (nk_rect) (*hue_bar), _in_, (int) (NK_BUTTON_REPEATER))) != 0)
+			if ((nk_button_behavior(ref state, (Rectangle) (*hue_bar), _in_, (int) (NK_BUTTON_REPEATER))) != 0)
 			{
 				hsva[0] =
 					(float)
@@ -3788,7 +3572,7 @@ namespace NuklearSharp
 
 			if ((alpha_bar) != null)
 			{
-				if ((nk_button_behavior(ref state, (nk_rect) (*alpha_bar), _in_, (int) (NK_BUTTON_REPEATER))) != 0)
+				if ((nk_button_behavior(ref state, (Rectangle) (*alpha_bar), _in_, (int) (NK_BUTTON_REPEATER))) != 0)
 				{
 					hsva[3] =
 						(float)
@@ -3810,7 +3594,7 @@ namespace NuklearSharp
 			else (state) = (uint) (NK_WIDGET_STATE_INACTIVE);
 			if ((hsv_changed) != 0)
 			{
-				*color = (nk_colorf) (nk_hsva_colorfv(hsva));
+				*color = (Colorf) (nk_hsva_colorfv(hsva));
 				state = (uint) (NK_WIDGET_STATE_ACTIVE);
 			}
 
@@ -3820,20 +3604,20 @@ namespace NuklearSharp
 				state = (uint) (NK_WIDGET_STATE_ACTIVE);
 			}
 
-			if ((nk_input_is_mouse_hovering_rect(_in_, (nk_rect) (*bounds))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
-			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (*bounds)) == 0))
+			if ((nk_input_is_mouse_hovering_rect(_in_, (Rectangle) (*bounds))) != 0) state = (uint) (NK_WIDGET_STATE_HOVERED);
+			if (((state & NK_WIDGET_STATE_HOVER) != 0) && (nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (*bounds)) == 0))
 				state |= (uint) (NK_WIDGET_STATE_ENTERED);
-			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (nk_rect) (*bounds))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
+			else if ((nk_input_is_mouse_prev_hovering_rect(_in_, (Rectangle) (*bounds))) != 0) state |= (uint) (NK_WIDGET_STATE_LEFT);
 			return (int) (value_changed);
 		}
 
-		public static int nk_do_color_picker(ref uint state, nk_command_buffer _out_, nk_colorf* col, int fmt, nk_rect bounds,
-			nk_vec2 padding, nk_input _in_, nk_user_font font)
+		public static int nk_do_color_picker(ref uint state, nk_command_buffer _out_, Colorf* col, int fmt, Rectangle bounds,
+			Vector2 padding, nk_input _in_, nk_user_font font)
 		{
 			int ret = (int) (0);
-			nk_rect matrix = new nk_rect();
-			nk_rect hue_bar = new nk_rect();
-			nk_rect alpha_bar = new nk_rect();
+			Rectangle matrix = new Rectangle();
+			Rectangle hue_bar = new Rectangle();
+			Rectangle alpha_bar = new Rectangle();
 			float bar_w;
 			if ((((_out_ == null) || (col == null))) || (font == null)) return (int) (ret);
 			bar_w = (float) (font.height);
@@ -3855,9 +3639,9 @@ namespace NuklearSharp
 			alpha_bar.h = (float) (matrix.h);
 			ret =
 				(int)
-					(nk_color_picker_behavior(ref state, &bounds, &matrix, &hue_bar, ((fmt) == (NK_RGBA)) ? &alpha_bar : null, col,
+					(Color_picker_behavior(ref state, &bounds, &matrix, &hue_bar, ((fmt) == (NK_RGBA)) ? &alpha_bar : null, col,
 						_in_));
-			nk_draw_color_picker(_out_, &matrix, &hue_bar, ((fmt) == (NK_RGBA)) ? &alpha_bar : null, (nk_colorf) (*col));
+			nk_draw_color_picker(_out_, &matrix, &hue_bar, ((fmt) == (NK_RGBA)) ? &alpha_bar : null, (Colorf) (*col));
 			return (int) (ret);
 		}
 
@@ -3865,7 +3649,7 @@ namespace NuklearSharp
 		{
 			nk_style_item i = new nk_style_item();
 			i.type = (int) (NK_STYLE_ITEM_COLOR);
-			i.data.color = (nk_color) (nk_rgba((int) (0), (int) (0), (int) (0), (int) (0)));
+			i.data.color = (Color) (nk_rgba((int) (0), (int) (0), (int) (0), (int) (0)));
 			return (nk_style_item) (i);
 		}
 

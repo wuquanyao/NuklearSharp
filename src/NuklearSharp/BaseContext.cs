@@ -1,21 +1,17 @@
-﻿namespace NuklearSharp
+﻿using Microsoft.Xna.Framework.Graphics;
+
+namespace NuklearSharp
 {
 	public abstract unsafe partial class BaseContext
 	{
 		private readonly Nuklear.nk_context _ctx;
-		private readonly NkBuffer<Nuklear.nk_draw_command> _cmds = new NkBuffer<Nuklear.nk_draw_command>();
-		private readonly NkBuffer<byte> _vertices = new NkBuffer<byte>();
+		private readonly NkBuffer<VertexPositionColorTexture> _vertices = new NkBuffer<VertexPositionColorTexture>();
 		private readonly NkBuffer<ushort> _indices = new NkBuffer<ushort>();
 		private readonly Nuklear.nk_convert_config _convertConfig;
 
 		public Nuklear.nk_context Ctx
 		{
 			get { return _ctx; }
-		}
-
-		public NkBuffer<Nuklear.nk_draw_command> Cmds
-		{
-			get { return _cmds; }
 		}
 
 		public Nuklear.nk_convert_config ConvertConfig
@@ -30,13 +26,10 @@
 
 			_convertConfig = new Nuklear.nk_convert_config
 			{
-				vertex_alignment = 4,
 				global_alpha = 1f,
 				shape_AA = Nuklear.NK_ANTI_ALIASING_ON,
 				line_AA = Nuklear.NK_ANTI_ALIASING_ON,
 				circle_segment_count = 22,
-				curve_segment_count = 22,
-				arc_segment_count = 22
 			};
 		}
 
@@ -51,8 +44,7 @@
 
 			//  ushort* offset = null;
 
-			_cmds.reset();
-			_vertices.reset();
+				_vertices.reset();
 			_indices.reset();
 			Convert(_cmds, _vertices, _indices, _convertConfig);
 

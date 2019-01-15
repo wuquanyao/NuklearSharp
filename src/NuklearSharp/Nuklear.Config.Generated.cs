@@ -19,8 +19,8 @@ namespace NuklearSharp
 
 		public unsafe partial class nk_config_stack_vec2_element
 		{
-			public nk_vec2* address;
-			public nk_vec2 old_value = new nk_vec2();
+			public Vector2* address;
+			public Vector2 old_value = new Vector2();
 		}
 
 		public unsafe partial class nk_config_stack_flags_element
@@ -31,8 +31,8 @@ namespace NuklearSharp
 
 		public unsafe partial class nk_config_stack_color_element
 		{
-			public nk_color* address;
-			public nk_color old_value = new nk_color();
+			public Color* address;
+			public Color old_value = new Color();
 		}
 
 		public unsafe partial class nk_config_stack_user_font_element

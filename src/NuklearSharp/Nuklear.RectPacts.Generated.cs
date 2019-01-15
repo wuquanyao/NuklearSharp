@@ -267,7 +267,7 @@ namespace NuklearSharp
 			{
 				rects[i].was_packed = (int) (i);
 			}
-			nk_rp_qsort(rects, (uint) (num_rects), nk_rect_height_compare);
+			nk_rp_qsort(rects, (uint) (num_rects), Rectangle_height_compare);
 			for (i = (int) (0); (i) < (num_rects); ++i)
 			{
 				nk_rp__findresult fr =
@@ -282,7 +282,7 @@ namespace NuklearSharp
 					rects[i].x = (ushort) (rects[i].y = (ushort) (0xffff));
 				}
 			}
-			nk_rp_qsort(rects, (uint) (num_rects), nk_rect_original_order);
+			nk_rp_qsort(rects, (uint) (num_rects), Rectangle_original_order);
 			for (i = (int) (0); (i) < (num_rects); ++i)
 			{
 				rects[i].was_packed = (int) ((((rects[i].x) == (0xffff)) && ((rects[i].y) == (0xffff))) ? 0 : 1);

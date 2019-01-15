@@ -2,85 +2,78 @@ namespace NuklearSharp
 {
 	unsafe partial class Nuklear
 	{
-		public static nk_vec2[,] nk_cursor_data =
+		public static Vector2[,] nk_cursor_data =
 		{
-			{new nk_vec2 {x = 0, y = 3}, new nk_vec2 {x = 12, y = 19}, new nk_vec2 {x = 0, y = 0}},
-			{new nk_vec2 {x = 13, y = 0}, new nk_vec2 {x = 7, y = 16}, new nk_vec2 {x = 4, y = 8}},
-			{new nk_vec2 {x = 31, y = 0}, new nk_vec2 {x = 23, y = 23}, new nk_vec2 {x = 11, y = 11}},
-			{new nk_vec2 {x = 21, y = 0}, new nk_vec2 {x = 9, y = 23}, new nk_vec2 {x = 5, y = 11}},
-			{new nk_vec2 {x = 55, y = 18}, new nk_vec2 {x = 23, y = 9}, new nk_vec2 {x = 11, y = 5}},
-			{new nk_vec2 {x = 73, y = 0}, new nk_vec2 {x = 17, y = 17}, new nk_vec2 {x = 9, y = 9}},
-			{new nk_vec2 {x = 55, y = 0}, new nk_vec2 {x = 17, y = 17}, new nk_vec2 {x = 9, y = 9}}
+			{new Vector2 {x = 0, y = 3}, new Vector2 {x = 12, y = 19}, new Vector2 {x = 0, y = 0}},
+			{new Vector2 {x = 13, y = 0}, new Vector2 {x = 7, y = 16}, new Vector2 {x = 4, y = 8}},
+			{new Vector2 {x = 31, y = 0}, new Vector2 {x = 23, y = 23}, new Vector2 {x = 11, y = 11}},
+			{new Vector2 {x = 21, y = 0}, new Vector2 {x = 9, y = 23}, new Vector2 {x = 5, y = 11}},
+			{new Vector2 {x = 55, y = 18}, new Vector2 {x = 23, y = 9}, new Vector2 {x = 11, y = 5}},
+			{new Vector2 {x = 73, y = 0}, new Vector2 {x = 17, y = 17}, new Vector2 {x = 9, y = 9}},
+			{new Vector2 {x = 55, y = 0}, new Vector2 {x = 17, y = 17}, new Vector2 {x = 9, y = 9}}
 		};
 
-		public static nk_rect nk_null_rect = new nk_rect {x = -8192.0f, y = -8192.0f, w = 16384, h = 16384};
-		public static nk_color nk_red = new nk_color {r = 255, g = 0, b = 0, a = 255};
-		public static nk_color nk_green = new nk_color {r = 0, g = 255, b = 0, a = 255};
-		public static nk_color nk_blue = new nk_color {r = 0, g = 0, b = 255, a = 255};
-		public static nk_color nk_white = new nk_color {r = 255, g = 255, b = 255, a = 255};
-		public static nk_color nk_black = new nk_color {r = 0, g = 0, b = 0, a = 255};
-		public static nk_color nk_yellow = new nk_color {r = 255, g = 255, b = 0, a = 255};
-		public static nk_color nk_black_trans = new nk_color {r = 0, g = 0, b = 0, a = 0};
+		public static Rectangle nk_null_rect = new Rectangle {x = -8192.0f, y = -8192.0f, w = 16384, h = 16384};
 
-		public static nk_color[] hue_colors =
+		public static Color[] hue_colors =
 		{
-			new nk_color {r = 255, g = 0, b = 0, a = 255},
-			new nk_color {r = 255, g = 255, b = 0, a = 255},
-			new nk_color {r = 0, g = 255, b = 0, a = 255},
-			new nk_color {r = 0, g = 255, b = 255, a = 255},
-			new nk_color {r = 0, g = 0, b = 255, a = 255},
-			new nk_color {r = 255, g = 0, b = 255, a = 255},
-			new nk_color {r = 255, g = 0, b = 0, a = 255}
+			new Color {r = 255, g = 0, b = 0, a = 255},
+			new Color {r = 255, g = 255, b = 0, a = 255},
+			new Color {r = 0, g = 255, b = 0, a = 255},
+			new Color {r = 0, g = 255, b = 255, a = 255},
+			new Color {r = 0, g = 0, b = 255, a = 255},
+			new Color {r = 255, g = 0, b = 255, a = 255},
+			new Color {r = 255, g = 0, b = 0, a = 255}
 		};
 
-		public static nk_color[] nk_default_color_style =
+		public static Color[] nk_default_color_style =
 		{
-			new nk_color {r = 175, g = 175, b = 175, a = 255},
-			new nk_color {r = 45, g = 45, b = 45, a = 255},
-			new nk_color {r = 40, g = 40, b = 40, a = 255},
-			new nk_color {r = 65, g = 65, b = 65, a = 255},
-			new nk_color {r = 50, g = 50, b = 50, a = 255},
-			new nk_color {r = 40, g = 40, b = 40, a = 255},
-			new nk_color {r = 35, g = 35, b = 35, a = 255},
-			new nk_color {r = 100, g = 100, b = 100, a = 255},
-			new nk_color {r = 120, g = 120, b = 120, a = 255},
-			new nk_color {r = 45, g = 45, b = 45, a = 255},
-			new nk_color {r = 45, g = 45, b = 45, a = 255},
-			new nk_color {r = 35, g = 35, b = 35, a = 255},
-			new nk_color {r = 38, g = 38, b = 38, a = 255},
-			new nk_color {r = 100, g = 100, b = 100, a = 255},
-			new nk_color {r = 120, g = 120, b = 120, a = 255},
-			new nk_color {r = 150, g = 150, b = 150, a = 255},
-			new nk_color {r = 38, g = 38, b = 38, a = 255},
-			new nk_color {r = 38, g = 38, b = 38, a = 255},
-			new nk_color {r = 175, g = 175, b = 175, a = 255},
-			new nk_color {r = 45, g = 45, b = 45, a = 255},
-			new nk_color {r = 120, g = 120, b = 120, a = 255},
-			new nk_color {r = 45, g = 45, b = 45, a = 255},
-			new nk_color {r = 255, g = 0, b = 0, a = 255},
-			new nk_color {r = 40, g = 40, b = 40, a = 255},
-			new nk_color {r = 100, g = 100, b = 100, a = 255},
-			new nk_color {r = 120, g = 120, b = 120, a = 255},
-			new nk_color {r = 150, g = 150, b = 150, a = 255},
-			new nk_color {r = 40, g = 40, b = 40, a = 255}
+			new Color {r = 175, g = 175, b = 175, a = 255},
+			new Color {r = 45, g = 45, b = 45, a = 255},
+			new Color {r = 40, g = 40, b = 40, a = 255},
+			new Color {r = 65, g = 65, b = 65, a = 255},
+			new Color {r = 50, g = 50, b = 50, a = 255},
+			new Color {r = 40, g = 40, b = 40, a = 255},
+			new Color {r = 35, g = 35, b = 35, a = 255},
+			new Color {r = 100, g = 100, b = 100, a = 255},
+			new Color {r = 120, g = 120, b = 120, a = 255},
+			new Color {r = 45, g = 45, b = 45, a = 255},
+			new Color {r = 45, g = 45, b = 45, a = 255},
+			new Color {r = 35, g = 35, b = 35, a = 255},
+			new Color {r = 38, g = 38, b = 38, a = 255},
+			new Color {r = 100, g = 100, b = 100, a = 255},
+			new Color {r = 120, g = 120, b = 120, a = 255},
+			new Color {r = 150, g = 150, b = 150, a = 255},
+			new Color {r = 38, g = 38, b = 38, a = 255},
+			new Color {r = 38, g = 38, b = 38, a = 255},
+			new Color {r = 175, g = 175, b = 175, a = 255},
+			new Color {r = 45, g = 45, b = 45, a = 255},
+			new Color {r = 120, g = 120, b = 120, a = 255},
+			new Color {r = 45, g = 45, b = 45, a = 255},
+			new Color {r = 255, g = 0, b = 0, a = 255},
+			new Color {r = 40, g = 40, b = 40, a = 255},
+			new Color {r = 100, g = 100, b = 100, a = 255},
+			new Color {r = 120, g = 120, b = 120, a = 255},
+			new Color {r = 150, g = 150, b = 150, a = 255},
+			new Color {r = 40, g = 40, b = 40, a = 255}
 		};
 
-		public static string[] nk_color_names =
+		public static string[] Color_names =
 		{
-			"NK_COLOR_TEXT", "NK_COLOR_WINDOW", "NK_COLOR_HEADER", "NK_COLOR_BORDER", "NK_COLOR_BUTTON", "NK_COLOR_BUTTON_HOVER",
-			"NK_COLOR_BUTTON_ACTIVE", "NK_COLOR_TOGGLE", "NK_COLOR_TOGGLE_HOVER", "NK_COLOR_TOGGLE_CURSOR", "NK_COLOR_SELECT",
-			"NK_COLOR_SELECT_ACTIVE", "NK_COLOR_SLIDER", "NK_COLOR_SLIDER_CURSOR", "NK_COLOR_SLIDER_CURSOR_HOVER",
-			"NK_COLOR_SLIDER_CURSOR_ACTIVE", "NK_COLOR_PROPERTY", "NK_COLOR_EDIT", "NK_COLOR_EDIT_CURSOR", "NK_COLOR_COMBO",
-			"NK_COLOR_CHART", "NK_COLOR_CHART_COLOR", "NK_COLOR_CHART_COLOR_HIGHLIGHT", "NK_COLOR_SCROLLBAR",
-			"NK_COLOR_SCROLLBAR_CURSOR", "NK_COLOR_SCROLLBAR_CURSOR_HOVER", "NK_COLOR_SCROLLBAR_CURSOR_ACTIVE",
-			"NK_COLOR_TAB_HEADER"
+			"Color_TEXT", "Color_WINDOW", "Color_HEADER", "Color_BORDER", "Color_BUTTON", "Color_BUTTON_HOVER",
+			"Color_BUTTON_ACTIVE", "Color_TOGGLE", "Color_TOGGLE_HOVER", "Color_TOGGLE_CURSOR", "Color_SELECT",
+			"Color_SELECT_ACTIVE", "Color_SLIDER", "Color_SLIDER_CURSOR", "Color_SLIDER_CURSOR_HOVER",
+			"Color_SLIDER_CURSOR_ACTIVE", "Color_PROPERTY", "Color_EDIT", "Color_EDIT_CURSOR", "Color_COMBO",
+			"Color_CHART", "Color_CHART_COLOR", "Color_CHART_COLOR_HIGHLIGHT", "Color_SCROLLBAR",
+			"Color_SCROLLBAR_CURSOR", "Color_SCROLLBAR_CURSOR_HOVER", "Color_SCROLLBAR_CURSOR_ACTIVE",
+			"Color_TAB_HEADER"
 		};
 
 		public static byte[] nk_utfbyte = {0x80, 0, 0xC0, 0xE0, 0xF0};
 		public static byte[] nk_utfmask = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
 		public static uint[] nk_utfmin = {0, 0, 0x80, 0x800, 0x10000};
 		public static uint[] nk_utfmax = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
-		public static ulong nk_rect_align = 4;
+		public static ulong Rectangle_align = 4;
 		public static ulong nk_range_align = 8;
 		public static ulong nk_char_align = 4;
 		public static ulong nk_build_align = 8;

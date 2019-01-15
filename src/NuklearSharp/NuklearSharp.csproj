@@ -1,15 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)SolutionDefines.targets" />
 
   <PropertyGroup>
-    <Authors>NuklearSharpTeam</Authors>
-    <Product>NuklearSharp</Product>
-    <Description>C# Port of the ANSI C GUI Library: https://github.com/vurtun/nuklear</Description>
-    <PackageLicense>https://github.com/rds1983/NuklearSharp#license</PackageLicense>
-    <PackageProjectUrl>https://github.com/rds1983/NuklearSharp</PackageProjectUrl>
+    <Authors>NuklearTextTeam</Authors>
+    <Product>NuklearText</Product>
+    <Description>C# port of the text rendering from https://github.com/vurtun/nuklear</Description>
+    <PackageLicense>https://github.com/rds1983/NuklearText#license</PackageLicense>
+    <PackageProjectUrl>https://github.com/rds1983/NuklearText</PackageProjectUrl>
     <NoWarn>NU1701</NoWarn>
-    <AssemblyName>NuklearSharp</AssemblyName>
-    <RootNamespace>NuklearSharp</RootNamespace>
+    <AssemblyName>NuklearText</AssemblyName>
+    <RootNamespace>NuklearText</RootNamespace>
     <Version>1.0.0.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -17,19 +17,19 @@
 
   <PropertyGroup Condition="$(DefineConstants.Contains('MONOGAME'))">
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-    <PackageId>NuklearSharp</PackageId>
+    <PackageId>NuklearText.MonoGame</PackageId>
     <OutputPath>bin\MonoGame\$(Configuration)</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(DefineConstants.Contains('FNA'))">
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-    <PackageId>NuklearSharp.FNA</PackageId>
+    <PackageId>NuklearText.FNA</PackageId>
     <OutputPath>bin\FNA\$(Configuration)</OutputPath>
   </PropertyGroup>
   
     <PropertyGroup Condition="$(DefineConstants.Contains('XENKO'))">
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageId>NuklearSharp.Xenko</PackageId>
+    <PackageId>NuklearText.Xenko</PackageId>
     <OutputPath>bin\Xenko\$(Configuration)</OutputPath>
   </PropertyGroup>
   
