@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework;
 
 namespace NuklearSharp
 {
@@ -61,7 +62,7 @@ namespace NuklearSharp
 			fixed (char* str2 = edit._string_.str)
 			{
 				char* str = str2 + line_start + char_id;
-				return (float) (font.width((nk_handle) (font.userdata), (float) (font.height), str, 1));
+				return (float) (font.Widthidth((nk_handle) (font.userdata), (float) (font.Height), str, 1));
 			}
 		}
 
@@ -81,10 +82,10 @@ namespace NuklearSharp
 						(nk_text_calculate_text_bounds(font, text, (int) (end - text), (float) (row_height), &remaining, null, &glyphs,
 							(int) (NK_STOP_ON_NEW_LINE)));
 				r->x0 = (float) (0.0f);
-				r->x1 = (float) (size.x);
-				r->baseline_y_delta = (float) (size.y);
+				r->x1 = (float) (size.X);
+				r->baseline_y_delta = (float) (size.Y);
 				r->ymin = (float) (0.0f);
-				r->ymax = (float) (size.y);
+				r->ymax = (float) (size.Y);
 				r->num_chars = (int) (glyphs);
 			}
 		}
@@ -97,24 +98,24 @@ namespace NuklearSharp
 			float prev_x;
 			int i = (int) (0);
 			int k;
-			r.x0 = (float) (r.x1 = (float) (0));
-			r.ymin = (float) (r.ymax = (float) (0));
+			r.X0 = (float) (r.X1 = (float) (0));
+			r.Ymin = (float) (r.Ymax = (float) (0));
 			r.num_chars = (int) (0);
 			while ((i) < (n))
 			{
 				nk_textedit_layout_row(&r, edit, (int) (i), (float) (row_height), font);
 				if (r.num_chars <= 0) return (int) (n);
-				if (((i) == (0)) && ((y) < (base_y + r.ymin))) return (int) (0);
-				if ((y) < (base_y + r.ymax)) break;
+				if (((i) == (0)) && ((y) < (base_y + r.Ymin))) return (int) (0);
+				if ((y) < (base_y + r.Ymax)) break;
 				i += (int) (r.num_chars);
 				base_y += (float) (r.baseline_y_delta);
 			}
 			if ((i) >= (n)) return (int) (n);
-			if ((x) < (r.x0)) return (int) (i);
-			if ((x) < (r.x1))
+			if ((x) < (r.X0)) return (int) (i);
+			if ((x) < (r.X1))
 			{
 				k = (int) (i);
-				prev_x = (float) (r.x0);
+				prev_x = (float) (r.X0);
 				for (i = (int) (0); (i) < (r.num_chars); ++i)
 				{
 					float w = (float) (nk_textedit_get_width(edit, (int) (k), (int) (i), font));
@@ -136,7 +137,7 @@ namespace NuklearSharp
 			state.cursor = (int) (nk_textedit_locate_coord(state, (float) (x), (float) (y), font, (float) (row_height)));
 			state.select_start = (int) (state.cursor);
 			state.select_end = (int) (state.cursor);
-			state.has_preferred_x = (byte) (0);
+			state.Heightas_preferred_x = (byte) (0);
 		}
 
 		public static void nk_textedit_drag(nk_text_edit state, float x, float y, nk_user_font font, float row_height)
@@ -174,9 +175,9 @@ namespace NuklearSharp
 					find->first_char = (int) (i);
 					find->length = (int) (r.num_chars);
 				}
-				find->x = (float) (r.x1);
-				find->y = (float) (r.ymin);
-				find->height = (float) (r.ymax - r.ymin);
+				find->x = (float) (r.X1);
+				find->y = (float) (r.Ymin);
+				find->height = (float) (r.Ymax - r.Ymin);
 				find->prev_first = (int) (prev_start);
 				return;
 			}
@@ -192,9 +193,9 @@ namespace NuklearSharp
 			}
 			find->first_char = (int) (first = (int) (i));
 			find->length = (int) (r.num_chars);
-			find->height = (float) (r.ymax - r.ymin);
+			find->height = (float) (r.Ymax - r.Ymin);
 			find->prev_first = (int) (prev_start);
-			find->x = (float) (r.x0);
+			find->x = (float) (r.X0);
 			for (i = (int) (0); (first + i) < (n); ++i)
 			{
 				find->x += (float) (nk_textedit_get_width(state, (int) (first), (int) (i), font));
@@ -218,7 +219,7 @@ namespace NuklearSharp
 		{
 			nk_textedit_makeundo_delete(state, (int) (where), (int) (len));
 			state._string_.remove_at((int) (where), (int) (len));
-			state.has_preferred_x = (byte) (0);
+			state.Heightas_preferred_x = (byte) (0);
 		}
 
 		public static void nk_textedit_delete_selection(nk_text_edit state)
@@ -236,7 +237,7 @@ namespace NuklearSharp
 					nk_textedit_delete(state, (int) (state.select_end), (int) (state.select_start - state.select_end));
 					state.select_start = (int) (state.cursor = (int) (state.select_end));
 				}
-				state.has_preferred_x = (byte) (0);
+				state.Heightas_preferred_x = (byte) (0);
 			}
 
 		}
@@ -259,7 +260,7 @@ namespace NuklearSharp
 				nk_textedit_sortselection(state);
 				state.cursor = (int) (state.select_start);
 				state.select_end = (int) (state.select_start);
-				state.has_preferred_x = (byte) (0);
+				state.Heightas_preferred_x = (byte) (0);
 			}
 
 		}
@@ -272,7 +273,7 @@ namespace NuklearSharp
 				nk_textedit_clamp(state);
 				state.cursor = (int) (state.select_end);
 				state.select_start = (int) (state.select_end);
-				state.has_preferred_x = (byte) (0);
+				state.Heightas_preferred_x = (byte) (0);
 			}
 
 		}
@@ -327,7 +328,7 @@ namespace NuklearSharp
 			if (((state).select_start != (state).select_end))
 			{
 				nk_textedit_delete_selection(state);
-				state.has_preferred_x = (byte) (0);
+				state.Heightas_preferred_x = (byte) (0);
 				return (int) (1);
 			}
 
@@ -346,7 +347,7 @@ namespace NuklearSharp
 			{
 				nk_textedit_makeundo_insert(state, (int) (state.cursor), (int) (glyphs));
 				state.cursor += (int) (len);
-				state.has_preferred_x = (byte) (0);
+				state.Heightas_preferred_x = (byte) (0);
 				return (int) (1);
 			}
 
@@ -376,7 +377,7 @@ namespace NuklearSharp
 					if ((state._string_.insert_at((int) (state.cursor), text + text_len, (int) (1))) != 0)
 					{
 						++state.cursor;
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 				}
 				else
@@ -386,7 +387,7 @@ namespace NuklearSharp
 					{
 						nk_textedit_makeundo_insert(state, (int) (state.cursor), (int) (1));
 						++state.cursor;
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 				}
 				next:
@@ -415,15 +416,15 @@ namespace NuklearSharp
 					break;
 				case NK_KEY_TEXT_UNDO:
 					nk_textedit_undo(state);
-					state.has_preferred_x = (byte) (0);
+					state.Heightas_preferred_x = (byte) (0);
 					break;
 				case NK_KEY_TEXT_REDO:
 					nk_textedit_redo(state);
-					state.has_preferred_x = (byte) (0);
+					state.Heightas_preferred_x = (byte) (0);
 					break;
 				case NK_KEY_TEXT_SELECT_ALL:
 					nk_textedit_select_all(state);
-					state.has_preferred_x = (byte) (0);
+					state.Heightas_preferred_x = (byte) (0);
 					break;
 				case NK_KEY_TEXT_INSERT_MODE:
 					if ((state.mode) == (NK_TEXT_EDIT_MODE_VIEW)) state.mode = (byte) (NK_TEXT_EDIT_MODE_INSERT);
@@ -442,13 +443,13 @@ namespace NuklearSharp
 						nk_textedit_prep_selection_at_cursor(state);
 						if ((state.select_end) > (0)) --state.select_end;
 						state.cursor = (int) (state.select_end);
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 					else
 					{
 						if (((state).select_start != (state).select_end)) nk_textedit_move_to_first(state);
 						else if ((state.cursor) > (0)) --state.cursor;
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 					break;
 				case NK_KEY_RIGHT:
@@ -458,14 +459,14 @@ namespace NuklearSharp
 						++state.select_end;
 						nk_textedit_clamp(state);
 						state.cursor = (int) (state.select_end);
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 					else
 					{
 						if (((state).select_start != (state).select_end)) nk_textedit_move_to_last(state);
 						else ++state.cursor;
 						nk_textedit_clamp(state);
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 					break;
 				case NK_KEY_TEXT_WORD_LEFT:
@@ -522,12 +523,12 @@ namespace NuklearSharp
 					if ((find.length) != 0)
 					{
 						float x;
-						float goal_x = (float) ((state.has_preferred_x) != 0 ? state.preferred_x : find.x);
+						float goal_x = (float) ((state.Heightas_preferred_x) != 0 ? state.preferred_x : find.X);
 						int start = (int) (find.first_char + find.length);
 						state.cursor = (int) (start);
 						nk_textedit_layout_row(&row, state, (int) (state.cursor), (float) (row_height), font);
-						x = (float) (row.x0);
-						for (i = (int) (0); ((i) < (row.num_chars)) && ((x) < (row.x1)); ++i)
+						x = (float) (row.X0);
+						for (i = (int) (0); ((i) < (row.num_chars)) && ((x) < (row.X1)); ++i)
 						{
 							float dx = (float) (nk_textedit_get_width(state, (int) (start), (int) (i), font));
 							x += (float) (dx);
@@ -535,7 +536,7 @@ namespace NuklearSharp
 							++state.cursor;
 						}
 						nk_textedit_clamp(state);
-						state.has_preferred_x = (byte) (1);
+						state.Heightas_preferred_x = (byte) (1);
 						state.preferred_x = (float) (goal_x);
 						if ((sel) != 0) state.select_end = (int) (state.cursor);
 					}
@@ -559,11 +560,11 @@ namespace NuklearSharp
 					if (find.prev_first != find.first_char)
 					{
 						float x;
-						float goal_x = (float) ((state.has_preferred_x) != 0 ? state.preferred_x : find.x);
+						float goal_x = (float) ((state.Heightas_preferred_x) != 0 ? state.preferred_x : find.X);
 						state.cursor = (int) (find.prev_first);
 						nk_textedit_layout_row(&row, state, (int) (state.cursor), (float) (row_height), font);
-						x = (float) (row.x0);
-						for (i = (int) (0); ((i) < (row.num_chars)) && ((x) < (row.x1)); ++i)
+						x = (float) (row.X0);
+						for (i = (int) (0); ((i) < (row.num_chars)) && ((x) < (row.X1)); ++i)
 						{
 							float dx = (float) (nk_textedit_get_width(state, (int) (find.prev_first), (int) (i), font));
 							x += (float) (dx);
@@ -571,7 +572,7 @@ namespace NuklearSharp
 							++state.cursor;
 						}
 						nk_textedit_clamp(state);
-						state.has_preferred_x = (byte) (1);
+						state.Heightas_preferred_x = (byte) (1);
 						state.preferred_x = (float) (goal_x);
 						if ((sel) != 0) state.select_end = (int) (state.cursor);
 					}
@@ -585,7 +586,7 @@ namespace NuklearSharp
 						int n = (int) (state._string_.len);
 						if ((state.cursor) < (n)) nk_textedit_delete(state, (int) (state.cursor), (int) (1));
 					}
-					state.has_preferred_x = (byte) (0);
+					state.Heightas_preferred_x = (byte) (0);
 					break;
 				case NK_KEY_BACKSPACE:
 					if ((state.mode) == (NK_TEXT_EDIT_MODE_VIEW)) break;
@@ -599,19 +600,19 @@ namespace NuklearSharp
 							--state.cursor;
 						}
 					}
-					state.has_preferred_x = (byte) (0);
+					state.Heightas_preferred_x = (byte) (0);
 					break;
 				case NK_KEY_TEXT_START:
 					if ((shift_mod) != 0)
 					{
 						nk_textedit_prep_selection_at_cursor(state);
 						state.cursor = (int) (state.select_end = (int) (0));
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 					else
 					{
 						state.cursor = (int) (state.select_start = (int) (state.select_end = (int) (0)));
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 					break;
 				case NK_KEY_TEXT_END:
@@ -619,13 +620,13 @@ namespace NuklearSharp
 					{
 						nk_textedit_prep_selection_at_cursor(state);
 						state.cursor = (int) (state.select_end = (int) (state._string_.len));
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 					else
 					{
 						state.cursor = (int) (state._string_.len);
 						state.select_start = (int) (state.select_end = (int) (0));
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 					break;
 				case NK_KEY_TEXT_LINE_START:
@@ -638,7 +639,7 @@ namespace NuklearSharp
 						if (((state._string_.len) != 0) && ((state.cursor) == (state._string_.len))) --state.cursor;
 						nk_textedit_find_charpos(&find, state, (int) (state.cursor), (int) (state.single_line), font, (float) (row_height));
 						state.cursor = (int) (state.select_end = (int) (find.first_char));
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 					else
 					{
@@ -648,7 +649,7 @@ namespace NuklearSharp
 						nk_textedit_move_to_first(state);
 						nk_textedit_find_charpos(&find, state, (int) (state.cursor), (int) (state.single_line), font, (float) (row_height));
 						state.cursor = (int) (find.first_char);
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 					}
 				}
 					break;
@@ -660,7 +661,7 @@ namespace NuklearSharp
 						nk_textedit_clamp(state);
 						nk_textedit_prep_selection_at_cursor(state);
 						nk_textedit_find_charpos(&find, state, (int) (state.cursor), (int) (state.single_line), font, (float) (row_height));
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 						state.cursor = (int) (find.first_char + find.length);
 						if (((find.length) > (0)) && ((state._string_[(int) (state.cursor - 1)]) == ('\n')))
 							--state.cursor;
@@ -672,7 +673,7 @@ namespace NuklearSharp
 						nk_textedit_clamp(state);
 						nk_textedit_move_to_first(state);
 						nk_textedit_find_charpos(&find, state, (int) (state.cursor), (int) (state.single_line), font, (float) (row_height));
-						state.has_preferred_x = (byte) (0);
+						state.Heightas_preferred_x = (byte) (0);
 						state.cursor = (int) (find.first_char + find.length);
 						if (((find.length) > (0)) && ((state._string_[(int) (state.cursor - 1)]) == ('\n')))
 							--state.cursor;
@@ -796,7 +797,7 @@ namespace NuklearSharp
 			r->char_storage = (short) (-1);
 			r->insert_length = (short) (u.delete_length);
 			r->delete_length = (short) (u.insert_length);
-			r->where = (int) (u.where);
+			r->where = (int) (u.Widthhere);
 			if ((u.delete_length) != 0)
 			{
 				if ((s.undo_char_point + u.delete_length) >= (999))
@@ -816,20 +817,20 @@ namespace NuklearSharp
 					s.redo_char_point = ((short) (s.redo_char_point - u.delete_length));
 					for (i = (int) (0); (i) < (u.delete_length); ++i)
 					{
-						s.undo_char[r->char_storage + i] = (char) (state._string_[(int) (u.where + i)]);
+						s.undo_char[r->char_storage + i] = (char) (state._string_[(int) (u.Widthhere + i)]);
 					}
 				}
-				state._string_.remove_at((int) (u.where), (int) (u.delete_length));
+				state._string_.remove_at((int) (u.Widthhere), (int) (u.delete_length));
 			}
 
 			if ((u.insert_length) != 0)
 			{
-				state._string_.insert_at((int) (u.where), (char*) s.undo_char + u.char_storage,
+				state._string_.insert_at((int) (u.Widthhere), (char*) s.undo_char + u.char_storage,
 					(int) (u.insert_length));
 				s.undo_char_point = ((short) (s.undo_char_point - u.insert_length));
 			}
 
-			state.cursor = (int) ((short) (u.where + u.insert_length));
+			state.cursor = (int) ((short) (u.Widthhere + u.insert_length));
 			s.undo_point--;
 			s.redo_point--;
 		}
@@ -844,7 +845,7 @@ namespace NuklearSharp
 			r = (nk_text_undo_record) (s.undo_rec[s.redo_point]);
 			u->delete_length = (short) (r.insert_length);
 			u->insert_length = (short) (r.delete_length);
-			u->where = (int) (r.where);
+			u->where = (int) (r.Widthhere);
 			u->char_storage = (short) (-1);
 			if ((r.delete_length) != 0)
 			{
@@ -863,16 +864,16 @@ namespace NuklearSharp
 						s.undo_char[u->char_storage + i] = (char) (state._string_[(int) (u->where + i)]);
 					}
 				}
-				state._string_.remove_at((int) (r.where), (int) (r.delete_length));
+				state._string_.remove_at((int) (r.Widthhere), (int) (r.delete_length));
 			}
 
 			if ((r.insert_length) != 0)
 			{
-				state._string_.insert_at((int) (r.where), (char*) s.undo_char + r.char_storage,
+				state._string_.insert_at((int) (r.Widthhere), (char*) s.undo_char + r.char_storage,
 					(int) (r.insert_length));
 			}
 
-			state.cursor = (int) (r.where + r.insert_length);
+			state.cursor = (int) (r.Widthhere + r.insert_length);
 			s.undo_point++;
 			s.redo_point++;
 		}
@@ -916,14 +917,14 @@ namespace NuklearSharp
 			state.undo.redo_char_point = (short) (999);
 			state.select_end = (int) (state.select_start = (int) (0));
 			state.cursor = (int) (0);
-			state.has_preferred_x = (byte) (0);
+			state.Heightas_preferred_x = (byte) (0);
 			state.preferred_x = (float) (0);
 			state.cursor_at_end_of_line = (byte) (0);
 			state.initialized = (byte) (1);
 			state.single_line = ((byte) ((type) == (NK_TEXT_EDIT_SINGLE_LINE) ? 1 : 0));
 			state.mode = (byte) (NK_TEXT_EDIT_MODE_VIEW);
 			state.filter = filter;
-			state.scrollbar = (Vector2) (Vector2_((float) (0), (float) (0)));
+			state.scrollbar = (Vector2) (new Vector2((float) (0), (float) (0)));
 		}
 
 		public static void nk_textedit_init_fixed(nk_text_edit state, void* memory, ulong size)

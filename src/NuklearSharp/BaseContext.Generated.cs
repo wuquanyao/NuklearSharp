@@ -205,7 +205,7 @@ namespace NuklearSharp
 			Nuklear.nk_remove_window(_ctx, win);
 		}
 
-		public bool Begin(string title, Nuklear.Rectangle bounds, uint flags)
+		public bool Begin(string title, Nuklear.RectangleF bounds, uint flags)
 		{
 			fixed (char* title_ptr = title)
 			{
@@ -213,7 +213,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool BeginTitled(string name, string title, Nuklear.Rectangle bounds, uint flags)
+		public bool BeginTitled(string name, string title, Nuklear.RectangleF bounds, uint flags)
 		{
 			fixed (char* name_ptr = name)
 			{
@@ -229,7 +229,7 @@ namespace NuklearSharp
 			Nuklear.nk_end(_ctx);
 		}
 
-		public Nuklear.Rectangle WindowGetBounds()
+		public Nuklear.RectangleF WindowGetBounds()
 		{
 			return Nuklear.nk_window_get_bounds(_ctx);
 		}
@@ -254,7 +254,7 @@ namespace NuklearSharp
 			return Nuklear.nk_window_get_height(_ctx);
 		}
 
-		public Nuklear.Rectangle WindowGetContentRegion()
+		public Nuklear.RectangleF WindowGetContentRegion()
 		{
 			return Nuklear.nk_window_get_content_region(_ctx);
 		}
@@ -352,7 +352,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public void WindowSetBounds(string name, Nuklear.Rectangle bounds)
+		public void WindowSetBounds(string name, Nuklear.RectangleF bounds)
 		{
 			fixed (char* name_ptr = name)
 			{
@@ -519,17 +519,17 @@ namespace NuklearSharp
 			Nuklear.nk_layout_space_end(_ctx);
 		}
 
-		public void LayoutSpacePush(Nuklear.Rectangle rect)
+		public void LayoutSpacePush(Nuklear.RectangleF rect)
 		{
 			Nuklear.nk_layout_space_push(_ctx, rect);
 		}
 
-		public Nuklear.Rectangle LayoutSpaceBounds()
+		public Nuklear.RectangleF LayoutSpaceBounds()
 		{
 			return Nuklear.nk_layout_space_bounds(_ctx);
 		}
 
-		public Nuklear.Rectangle LayoutWidgetBounds()
+		public Nuklear.RectangleF LayoutWidgetBounds()
 		{
 			return Nuklear.nk_layout_widget_bounds(_ctx);
 		}
@@ -544,12 +544,12 @@ namespace NuklearSharp
 			return Nuklear.nk_layout_space_to_local(_ctx, ret);
 		}
 
-		public Nuklear.Rectangle LayoutSpaceRectToScreen(Nuklear.Rectangle ret)
+		public Nuklear.RectangleF LayoutSpaceRectToScreen(Nuklear.RectangleF ret)
 		{
 			return Nuklear.nk_layout_space_rect_to_screen(_ctx, ret);
 		}
 
-		public Nuklear.Rectangle LayoutSpaceRectToLocal(Nuklear.Rectangle ret)
+		public Nuklear.RectangleF LayoutSpaceRectToLocal(Nuklear.RectangleF ret)
 		{
 			return Nuklear.nk_layout_space_rect_to_local(_ctx, ret);
 		}
@@ -603,7 +603,7 @@ namespace NuklearSharp
 			Nuklear.nk_tree_pop(_ctx);
 		}
 
-		public Nuklear.Rectangle WidgetBounds()
+		public Nuklear.RectangleF WidgetBounds()
 		{
 			return Nuklear.nk_widget_bounds(_ctx);
 		}
@@ -1255,7 +1255,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool PopupBegin(int type, string title, uint flags, Nuklear.Rectangle rect)
+		public bool PopupBegin(int type, string title, uint flags, Nuklear.RectangleF rect)
 		{
 			fixed (char* title_ptr = title)
 			{
@@ -1263,7 +1263,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool NonblockBegin(uint flags, Nuklear.Rectangle body, Nuklear.Rectangle header, int panel_type)
+		public bool NonblockBegin(uint flags, Nuklear.RectangleF body, Nuklear.RectangleF header, int panel_type)
 		{
 			return Nuklear.nk_nonblock_begin(_ctx, flags, body, header, panel_type) != 0;
 		}
@@ -1296,7 +1296,7 @@ namespace NuklearSharp
 			}
 		}
 
-		public bool ContextualBegin(uint flags, Nuklear.Vector2 size, Nuklear.Rectangle trigger_bounds)
+		public bool ContextualBegin(uint flags, Nuklear.Vector2 size, Nuklear.RectangleF trigger_bounds)
 		{
 			return Nuklear.nk_contextual_begin(_ctx, flags, size, trigger_bounds) != 0;
 		}
@@ -1359,7 +1359,7 @@ namespace NuklearSharp
 			Nuklear.nk_contextual_end(_ctx);
 		}
 
-		public bool ComboBegin(Nuklear.nk_window win, Nuklear.Vector2 size, int is_clicked, Nuklear.Rectangle header)
+		public bool ComboBegin(Nuklear.nk_window win, Nuklear.Vector2 size, int is_clicked, Nuklear.RectangleF header)
 		{
 			return Nuklear.nk_combo_begin(_ctx, win, size, is_clicked, header) != 0;
 		}
@@ -1541,7 +1541,7 @@ namespace NuklearSharp
 			selected = s;
 		}
 
-		public bool MenuBegin(Nuklear.nk_window win, string id, int is_clicked, Nuklear.Rectangle header, Nuklear.Vector2 size)
+		public bool MenuBegin(Nuklear.nk_window win, string id, int is_clicked, Nuklear.RectangleF header, Nuklear.Vector2 size)
 		{
 			fixed (char* id_ptr = id)
 			{

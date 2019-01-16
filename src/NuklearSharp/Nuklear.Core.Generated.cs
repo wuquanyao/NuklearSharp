@@ -16,7 +16,7 @@ namespace NuklearSharp
 		}
 
 		[StructLayout(LayoutKind.Sequential)]
-		public unsafe partial struct Rectanglei
+		public unsafe partial struct RectangleFi
 		{
 			public short x;
 			public short y;
@@ -71,48 +71,48 @@ namespace NuklearSharp
 			public Color text;
 		}
 
-		public static Rectangle Rectanglea(Vector2 pos, Vector2 size)
+		public static RectangleF RectangleFa(Vector2 pos, Vector2 size)
 		{
-			return (Rectangle) (Rectangle_((float) (pos.x), (float) (pos.y), (float) (size.x), (float) (size.y)));
+			return (RectangleF) (RectangleF_((float) (pos.X), (float) (pos.Y), (float) (size.X), (float) (size.Y)));
 		}
 
-		public static Vector2 Rectangle_pos(Rectangle r)
+		public static Vector2 RectangleF_pos(RectangleF r)
 		{
 			Vector2 ret = new Vector2();
-			ret.x = (float) (r.x);
-			ret.y = (float) (r.y);
+			ret.X = (float) (r.X);
+			ret.Y = (float) (r.Y);
 			return (Vector2) (ret);
 		}
 
-		public static Vector2 Rectangle_size(Rectangle r)
+		public static Vector2 RectangleF_size(RectangleF r)
 		{
 			Vector2 ret = new Vector2();
-			ret.x = (float) (r.w);
-			ret.y = (float) (r.h);
+			ret.X = (float) (r.Width);
+			ret.Y = (float) (r.Height);
 			return (Vector2) (ret);
 		}
 
-		public static Rectangle nk_shriRectangle_(Rectangle r, float amount)
+		public static RectangleF nk_shriRectangleF_(RectangleF r, float amount)
 		{
-			Rectangle res = new Rectangle();
-			r.w = (float) ((r.w) < (2*amount) ? (2*amount) : (r.w));
-			r.h = (float) ((r.h) < (2*amount) ? (2*amount) : (r.h));
-			res.x = (float) (r.x + amount);
-			res.y = (float) (r.y + amount);
-			res.w = (float) (r.w - 2*amount);
-			res.h = (float) (r.h - 2*amount);
-			return (Rectangle) (res);
+			RectangleF res = new RectangleF();
+			r.Width = (float) ((r.Width) < (2*amount) ? (2*amount) : (r.Width));
+			r.Height = (float) ((r.Height) < (2*amount) ? (2*amount) : (r.Height));
+			res.X = (float) (r.X + amount);
+			res.Y = (float) (r.Y + amount);
+			res.Width = (float) (r.Width - 2*amount);
+			res.Height = (float) (r.Height - 2*amount);
+			return (RectangleF) (res);
 		}
 
-		public static Rectangle nk_pad_rect(Rectangle r, Vector2 pad)
+		public static RectangleF nk_pad_rect(RectangleF r, Vector2 pad)
 		{
-			r.w = (float) ((r.w) < (2*pad.x) ? (2*pad.x) : (r.w));
-			r.h = (float) ((r.h) < (2*pad.y) ? (2*pad.y) : (r.h));
-			r.x += (float) (pad.x);
-			r.y += (float) (pad.y);
-			r.w -= (float) (2*pad.x);
-			r.h -= (float) (2*pad.y);
-			return (Rectangle) (r);
+			r.Width = (float) ((r.Width) < (2*pad.X) ? (2*pad.X) : (r.Width));
+			r.Height = (float) ((r.Height) < (2*pad.Y) ? (2*pad.Y) : (r.Height));
+			r.X += (float) (pad.X);
+			r.Y += (float) (pad.Y);
+			r.Width -= (float) (2*pad.X);
+			r.Height -= (float) (2*pad.Y);
+			return (RectangleF) (r);
 		}
 
 		public static Color nk_rgba_cf(Colorf c)
@@ -141,17 +141,17 @@ namespace NuklearSharp
 			return (Colorf) (o);
 		}
 
-		public static nk_image nk_subimage_handle(nk_handle handle, ushort w, ushort h, Rectangle r)
+		public static nk_image nk_subimage_handle(nk_handle handle, ushort w, ushort h, RectangleF r)
 		{
 			nk_image s = new nk_image();
 
 			s.handle = (nk_handle) (handle);
-			s.w = (ushort) (w);
-			s.h = (ushort) (h);
-			s.region[0] = ((ushort) (r.x));
-			s.region[1] = ((ushort) (r.y));
-			s.region[2] = ((ushort) (r.w));
-			s.region[3] = ((ushort) (r.h));
+			s.Width = (ushort) (w);
+			s.Height = (ushort) (h);
+			s.region[0] = ((ushort) (r.X));
+			s.region[1] = ((ushort) (r.Y));
+			s.region[2] = ((ushort) (r.Width));
+			s.region[3] = ((ushort) (r.Height));
 			return (nk_image) (s);
 		}
 
@@ -160,8 +160,8 @@ namespace NuklearSharp
 			nk_image s = new nk_image();
 
 			s.handle = (nk_handle) (handle);
-			s.w = (ushort) (0);
-			s.h = (ushort) (0);
+			s.Width = (ushort) (0);
+			s.Height = (ushort) (0);
 			s.region[0] = (ushort) (0);
 			s.region[1] = (ushort) (0);
 			s.region[2] = (ushort) (0);
@@ -171,54 +171,54 @@ namespace NuklearSharp
 
 		public static int nk_image_is_subimage(nk_image img)
 		{
-			return (int) ((((img.w) == (0)) && ((img.h) == (0))) ? 1 : 0);
+			return (int) ((((img.Width) == (0)) && ((img.Height) == (0))) ? 1 : 0);
 		}
 
-		public static void nk_unify(ref Rectangle clip, ref Rectangle a, float x0, float y0, float x1, float y1)
+		public static void nk_unify(ref RectangleF clip, ref RectangleF a, float x0, float y0, float x1, float y1)
 		{
-			clip.x = (float) ((a.x) < (x0) ? (x0) : (a.x));
-			clip.y = (float) ((a.y) < (y0) ? (y0) : (a.y));
-			clip.w = (float) (((a.x + a.w) < (x1) ? (a.x + a.w) : (x1)) - clip.x);
-			clip.h = (float) (((a.y + a.h) < (y1) ? (a.y + a.h) : (y1)) - clip.y);
-			clip.w = (float) ((0) < (clip.w) ? (clip.w) : (0));
-			clip.h = (float) ((0) < (clip.h) ? (clip.h) : (0));
+			clip.X = (float) ((a.X) < (x0) ? (x0) : (a.X));
+			clip.Y = (float) ((a.Y) < (y0) ? (y0) : (a.Y));
+			clip.Width = (float) (((a.X + a.Width) < (x1) ? (a.X + a.Width) : (x1)) - clip.X);
+			clip.Height = (float) (((a.Y + a.Height) < (y1) ? (a.Y + a.Height) : (y1)) - clip.Y);
+			clip.Width = (float) ((0) < (clip.Width) ? (clip.Width) : (0));
+			clip.Height = (float) ((0) < (clip.Height) ? (clip.Height) : (0));
 		}
 
-		public static void nk_triangle_from_direction(Vector2* result, Rectangle r, float pad_x, float pad_y, int direction)
+		public static void nk_triangle_from_direction(Vector2* result, RectangleF r, float pad_x, float pad_y, int direction)
 		{
 			float w_half;
 			float h_half;
-			r.w = (float) ((2*pad_x) < (r.w) ? (r.w) : (2*pad_x));
-			r.h = (float) ((2*pad_y) < (r.h) ? (r.h) : (2*pad_y));
-			r.w = (float) (r.w - 2*pad_x);
-			r.h = (float) (r.h - 2*pad_y);
-			r.x = (float) (r.x + pad_x);
-			r.y = (float) (r.y + pad_y);
-			w_half = (float) (r.w/2.0f);
-			h_half = (float) (r.h/2.0f);
+			r.Width = (float) ((2*pad_x) < (r.Width) ? (r.Width) : (2*pad_x));
+			r.Height = (float) ((2*pad_y) < (r.Height) ? (r.Height) : (2*pad_y));
+			r.Width = (float) (r.Width - 2*pad_x);
+			r.Height = (float) (r.Height - 2*pad_y);
+			r.X = (float) (r.X + pad_x);
+			r.Y = (float) (r.Y + pad_y);
+			w_half = (float) (r.Width/2.0f);
+			h_half = (float) (r.Height/2.0f);
 			if ((direction) == (NK_UP))
 			{
-				result[0] = (Vector2) (Vector2_((float) (r.x + w_half), (float) (r.y)));
-				result[1] = (Vector2) (Vector2_((float) (r.x + r.w), (float) (r.y + r.h)));
-				result[2] = (Vector2) (Vector2_((float) (r.x), (float) (r.y + r.h)));
+				result[0] = (Vector2) (new Vector2((float) (r.X + w_half), (float) (r.Y)));
+				result[1] = (Vector2) (new Vector2((float) (r.X + r.Width), (float) (r.Y + r.Height)));
+				result[2] = (Vector2) (new Vector2((float) (r.X), (float) (r.Y + r.Height)));
 			}
 			else if ((direction) == (NK_RIGHT))
 			{
-				result[0] = (Vector2) (Vector2_((float) (r.x), (float) (r.y)));
-				result[1] = (Vector2) (Vector2_((float) (r.x + r.w), (float) (r.y + h_half)));
-				result[2] = (Vector2) (Vector2_((float) (r.x), (float) (r.y + r.h)));
+				result[0] = (Vector2) (new Vector2((float) (r.X), (float) (r.Y)));
+				result[1] = (Vector2) (new Vector2((float) (r.X + r.Width), (float) (r.Y + h_half)));
+				result[2] = (Vector2) (new Vector2((float) (r.X), (float) (r.Y + r.Height)));
 			}
 			else if ((direction) == (NK_DOWN))
 			{
-				result[0] = (Vector2) (Vector2_((float) (r.x), (float) (r.y)));
-				result[1] = (Vector2) (Vector2_((float) (r.x + r.w), (float) (r.y)));
-				result[2] = (Vector2) (Vector2_((float) (r.x + w_half), (float) (r.y + r.h)));
+				result[0] = (Vector2) (new Vector2((float) (r.X), (float) (r.Y)));
+				result[1] = (Vector2) (new Vector2((float) (r.X + r.Width), (float) (r.Y)));
+				result[2] = (Vector2) (new Vector2((float) (r.X + w_half), (float) (r.Y + r.Height)));
 			}
 			else
 			{
-				result[0] = (Vector2) (Vector2_((float) (r.x), (float) (r.y + h_half)));
-				result[1] = (Vector2) (Vector2_((float) (r.x + r.w), (float) (r.y)));
-				result[2] = (Vector2) (Vector2_((float) (r.x + r.w), (float) (r.y + r.h)));
+				result[0] = (Vector2) (new Vector2((float) (r.X), (float) (r.Y + h_half)));
+				result[1] = (Vector2) (new Vector2((float) (r.X + r.Width), (float) (r.Y)));
+				result[2] = (Vector2) (new Vector2((float) (r.X + r.Width), (float) (r.Y + r.Height)));
 			}
 
 		}
@@ -242,7 +242,7 @@ namespace NuklearSharp
 			float scale = (float) (0);
 
 			if (((font == null) || (text == null)) || (len == 0)) return (float) (0);
-			scale = (float) (height/font.info.height);
+			scale = (float) (height/font.info.Height);
 			glyph_len = (int) (text_len = (int) (nk_utf_decode(text, &unicode, (int) (len))));
 			if (glyph_len == 0) return (float) (0);
 			while ((text_len <= len) && ((glyph_len) != 0))
@@ -265,11 +265,11 @@ namespace NuklearSharp
 
 
 			if ((font == null) || (glyph == null)) return;
-			scale = (float) (height/font.info.height);
+			scale = (float) (height/font.info.Height);
 			g = nk_font_find_glyph(font, codepoint);
 			glyph->width = (float) ((g->x1 - g->x0)*scale);
 			glyph->height = (float) ((g->y1 - g->y0)*scale);
-			glyph->offset = (Vector2) (Vector2_((float) (g->x0*scale), (float) (g->y0*scale)));
+			glyph->offset = (Vector2) (new Vector2((float) (g->x0*scale), (float) (g->y0*scale)));
 			glyph->xadvance = (float) (g->xadvance*scale);
 			glyph->uv_x[0] = g->u0;
 			glyph->uv_y[0] = g->v0;
@@ -293,7 +293,7 @@ namespace NuklearSharp
 			return (nk_style_item) (i);
 		}
 
-		public static void nk_layout_widget_space(Rectangle* bounds, nk_context ctx, nk_window win, int modify)
+		public static void nk_layout_widget_space(RectangleF* bounds, nk_context ctx, nk_window win, int modify)
 		{
 			nk_panel layout;
 			nk_style style;
@@ -307,11 +307,11 @@ namespace NuklearSharp
 			win = ctx.current;
 			layout = win.layout;
 			style = ctx.style;
-			spacing = (Vector2) (style.window.spacing);
+			spacing = (Vector2) (style.Widthindow.spacing);
 			padding = (Vector2) (nk_panel_get_padding(style, (int) (layout.type)));
 			panel_space =
 				(float)
-					(nk_layout_row_calculate_usable_space(ctx.style, (int) (layout.type), (float) (layout.bounds.w),
+					(nk_layout_row_calculate_usable_space(ctx.style, (int) (layout.type), (float) (layout.bounds.Width),
 						(int) (layout.row.columns)));
 			switch (layout.row.type)
 			{
@@ -319,7 +319,7 @@ namespace NuklearSharp
 				{
 					item_width = (float) (((1.0f) < (panel_space - 1.0f) ? (panel_space - 1.0f) : (1.0f))/(float) (layout.row.columns));
 					item_offset = (float) ((float) (layout.row.index)*item_width);
-					item_spacing = (float) ((float) (layout.row.index)*spacing.x);
+					item_spacing = (float) ((float) (layout.row.index)*spacing.X);
 				}
 					break;
 				case NK_LAYOUT_DYNAMIC_ROW:
@@ -329,7 +329,7 @@ namespace NuklearSharp
 					item_spacing = (float) (0);
 					if ((modify) != 0)
 					{
-						layout.row.item_offset += (float) (item_width + spacing.x);
+						layout.row.item_offset += (float) (item_width + spacing.X);
 						layout.row.filled += (float) (layout.row.item_width);
 						layout.row.index = (int) (0);
 					}
@@ -337,12 +337,12 @@ namespace NuklearSharp
 					break;
 				case NK_LAYOUT_DYNAMIC_FREE:
 				{
-					bounds->x = (float) (layout.at_x + (layout.bounds.w*layout.row.item.x));
-					bounds->x -= ((float) (layout.offset.x));
-					bounds->y = (float) (layout.at_y + (layout.row.height*layout.row.item.y));
-					bounds->y -= ((float) (layout.offset.y));
-					bounds->w = (float) (layout.bounds.w*layout.row.item.w);
-					bounds->h = (float) (layout.row.height*layout.row.item.h);
+					bounds->x = (float) (layout.at_x + (layout.bounds.Width*layout.row.item.X));
+					bounds->x -= ((float) (layout.offset.X));
+					bounds->y = (float) (layout.at_y + (layout.row.Height*layout.row.item.Y));
+					bounds->y -= ((float) (layout.offset.Y));
+					bounds->w = (float) (layout.bounds.Width*layout.row.item.Width);
+					bounds->h = (float) (layout.row.Height*layout.row.item.Height);
 					return;
 				}
 				case NK_LAYOUT_DYNAMIC:
@@ -351,7 +351,7 @@ namespace NuklearSharp
 					ratio =
 						(float)
 							(((layout.row.ratio[layout.row.index]) < (0)) ? layout.row.item_width : layout.row.ratio[layout.row.index]);
-					item_spacing = (float) ((float) (layout.row.index)*spacing.x);
+					item_spacing = (float) ((float) (layout.row.index)*spacing.X);
 					item_width = (float) (ratio*panel_space);
 					item_offset = (float) (layout.row.item_offset);
 					if ((modify) != 0)
@@ -365,31 +365,31 @@ namespace NuklearSharp
 				{
 					item_width = (float) (layout.row.item_width);
 					item_offset = (float) ((float) (layout.row.index)*item_width);
-					item_spacing = (float) ((float) (layout.row.index)*spacing.x);
+					item_spacing = (float) ((float) (layout.row.index)*spacing.X);
 				}
 					break;
 				case NK_LAYOUT_STATIC_ROW:
 				{
 					item_width = (float) (layout.row.item_width);
 					item_offset = (float) (layout.row.item_offset);
-					item_spacing = (float) ((float) (layout.row.index)*spacing.x);
+					item_spacing = (float) ((float) (layout.row.index)*spacing.X);
 					if ((modify) != 0) layout.row.item_offset += (float) (item_width);
 				}
 					break;
 				case NK_LAYOUT_STATIC_FREE:
 				{
-					bounds->x = (float) (layout.at_x + layout.row.item.x);
-					bounds->w = (float) (layout.row.item.w);
+					bounds->x = (float) (layout.at_x + layout.row.item.X);
+					bounds->w = (float) (layout.row.item.Width);
 					if (((bounds->x + bounds->w) > (layout.max_x)) && ((modify) != 0)) layout.max_x = (float) (bounds->x + bounds->w);
-					bounds->x -= ((float) (layout.offset.x));
-					bounds->y = (float) (layout.at_y + layout.row.item.y);
-					bounds->y -= ((float) (layout.offset.y));
-					bounds->h = (float) (layout.row.item.h);
+					bounds->x -= ((float) (layout.offset.X));
+					bounds->y = (float) (layout.at_y + layout.row.item.Y);
+					bounds->y -= ((float) (layout.offset.Y));
+					bounds->h = (float) (layout.row.item.Height);
 					return;
 				}
 				case NK_LAYOUT_STATIC:
 				{
-					item_spacing = (float) ((float) (layout.row.index)*spacing.x);
+					item_spacing = (float) ((float) (layout.row.index)*spacing.X);
 					item_width = (float) (layout.row.ratio[layout.row.index]);
 					item_offset = (float) (layout.row.item_offset);
 					if ((modify) != 0) layout.row.item_offset += (float) (item_width);
@@ -399,7 +399,7 @@ namespace NuklearSharp
 				{
 					item_width = (float) (layout.row.templates[layout.row.index]);
 					item_offset = (float) (layout.row.item_offset);
-					item_spacing = (float) ((float) (layout.row.index)*spacing.x);
+					item_spacing = (float) ((float) (layout.row.index)*spacing.X);
 					if ((modify) != 0) layout.row.item_offset += (float) (item_width);
 				}
 					break;
@@ -409,14 +409,14 @@ namespace NuklearSharp
 			}
 
 			bounds->w = (float) (item_width);
-			bounds->h = (float) (layout.row.height - spacing.y);
-			bounds->y = (float) (layout.at_y - (float) (layout.offset.y));
-			bounds->x = (float) (layout.at_x + item_offset + item_spacing + padding.x);
+			bounds->h = (float) (layout.row.Height - spacing.Y);
+			bounds->y = (float) (layout.at_y - (float) (layout.offset.Y));
+			bounds->x = (float) (layout.at_x + item_offset + item_spacing + padding.X);
 			if (((bounds->x + bounds->w) > (layout.max_x)) && ((modify) != 0)) layout.max_x = (float) (bounds->x + bounds->w);
-			bounds->x -= ((float) (layout.offset.x));
+			bounds->x -= ((float) (layout.offset.X));
 		}
 
-		public static void nk_panel_alloc_space(Rectangle* bounds, nk_context ctx)
+		public static void nk_panel_alloc_space(RectangleF* bounds, nk_context ctx)
 		{
 			nk_window win;
 			nk_panel layout;
@@ -428,7 +428,7 @@ namespace NuklearSharp
 			layout.row.index++;
 		}
 
-		public static void nk_layout_peek(Rectangle* bounds, nk_context ctx)
+		public static void nk_layout_peek(RectangleF* bounds, nk_context ctx)
 		{
 			float y;
 			int index;
@@ -441,7 +441,7 @@ namespace NuklearSharp
 			index = (int) (layout.row.index);
 			if ((layout.row.index) >= (layout.row.columns))
 			{
-				layout.at_y += (float) (layout.row.height);
+				layout.at_y += (float) (layout.row.Height);
 				layout.row.index = (int) (0);
 			}
 
@@ -455,10 +455,10 @@ namespace NuklearSharp
 			layout.row.index = (int) (index);
 		}
 
-		public static int nk_widget(Rectangle* bounds, nk_context ctx)
+		public static int nk_widget(RectangleF* bounds, nk_context ctx)
 		{
-			Rectangle c = new Rectangle();
-			Rectangle v = new Rectangle();
+			RectangleF c = new RectangleF();
+			RectangleF v = new RectangleF();
 			nk_window win;
 			nk_panel layout;
 			nk_input _in_;
@@ -467,27 +467,27 @@ namespace NuklearSharp
 			win = ctx.current;
 			layout = win.layout;
 			_in_ = ctx.input;
-			c = (Rectangle) (layout.clip);
+			c = (RectangleF) (layout.clip);
 			bounds->x = ((float) ((int) (bounds->x)));
 			bounds->y = ((float) ((int) (bounds->y)));
 			bounds->w = ((float) ((int) (bounds->w)));
 			bounds->h = ((float) ((int) (bounds->h)));
-			c.x = ((float) ((int) (c.x)));
-			c.y = ((float) ((int) (c.y)));
-			c.w = ((float) ((int) (c.w)));
-			c.h = ((float) ((int) (c.h)));
+			c.X = ((float) ((int) (c.X)));
+			c.Y = ((float) ((int) (c.Y)));
+			c.Width = ((float) ((int) (c.Width)));
+			c.Height = ((float) ((int) (c.Height)));
 			nk_unify(ref v, ref c, (float) (bounds->x), (float) (bounds->y), (float) (bounds->x + bounds->w),
 				(float) (bounds->y + bounds->h));
 			if (
-				!(!(((((bounds->x) > (c.x + c.w)) || ((bounds->x + bounds->w) < (c.x))) || ((bounds->y) > (c.y + c.h))) ||
-				    ((bounds->y + bounds->h) < (c.y))))) return (int) (NK_WIDGET_INVALID);
+				!(!(((((bounds->x) > (c.X + c.Width)) || ((bounds->x + bounds->w) < (c.X))) || ((bounds->y) > (c.Y + c.Height))) ||
+				    ((bounds->y + bounds->h) < (c.Y))))) return (int) (NK_WIDGET_INVALID);
 			if (
-				!((((v.x) <= (_in_.mouse.pos.x)) && ((_in_.mouse.pos.x) < (v.x + v.w))) &&
-				  (((v.y) <= (_in_.mouse.pos.y)) && ((_in_.mouse.pos.y) < (v.y + v.h))))) return (int) (NK_WIDGET_ROM);
+				!((((v.X) <= (_in_.mouse.pos.X)) && ((_in_.mouse.pos.X) < (v.X + v.Width))) &&
+				  (((v.Y) <= (_in_.mouse.pos.Y)) && ((_in_.mouse.pos.Y) < (v.Y + v.Height))))) return (int) (NK_WIDGET_ROM);
 			return (int) (NK_WIDGET_VALID);
 		}
 
-		public static int nk_widget_fitting(Rectangle* bounds, nk_context ctx, Vector2 item_padding)
+		public static int nk_widget_fitting(RectangleF* bounds, nk_context ctx, Vector2 item_padding)
 		{
 			nk_window win;
 			nk_style style;
@@ -502,12 +502,12 @@ namespace NuklearSharp
 			panel_padding = (Vector2) (nk_panel_get_padding(style, (int) (layout.type)));
 			if ((layout.row.index) == (1))
 			{
-				bounds->w += (float) (panel_padding.x);
-				bounds->x -= (float) (panel_padding.x);
+				bounds->w += (float) (panel_padding.X);
+				bounds->x -= (float) (panel_padding.X);
 			}
-			else bounds->x -= (float) (item_padding.x);
-			if ((layout.row.index) == (layout.row.columns)) bounds->w += (float) (panel_padding.x);
-			else bounds->w += (float) (item_padding.x);
+			else bounds->x -= (float) (item_padding.X);
+			if ((layout.row.index) == (layout.row.columns)) bounds->w += (float) (panel_padding.X);
+			else bounds->w += (float) (item_padding.X);
 			return (int) (state);
 		}
 
@@ -520,7 +520,7 @@ namespace NuklearSharp
 			ctx = view.ctx;
 			win = ctx.current;
 			layout = win.layout;
-			layout.at_y = (float) (layout.bounds.y + (float) (view.total_height));
+			layout.at_y = (float) (layout.bounds.Y + (float) (view.total_height));
 			*view.scroll_pointer = (uint) (*view.scroll_pointer + view.scroll_value);
 			nk_group_end(view.ctx);
 		}

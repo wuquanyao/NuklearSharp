@@ -13,7 +13,7 @@ namespace NuklearSharp
 			{new Vector2 {x = 55, y = 0}, new Vector2 {x = 17, y = 17}, new Vector2 {x = 9, y = 9}}
 		};
 
-		public static Rectangle nk_null_rect = new Rectangle {x = -8192.0f, y = -8192.0f, w = 16384, h = 16384};
+		public static RectangleF nk_null_rect = new RectangleF {x = -8192.0f, y = -8192.0f, w = 16384, h = 16384};
 
 		public static Color[] hue_colors =
 		{
@@ -73,7 +73,7 @@ namespace NuklearSharp
 		public static byte[] nk_utfmask = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
 		public static uint[] nk_utfmin = {0, 0, 0x80, 0x800, 0x10000};
 		public static uint[] nk_utfmax = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
-		public static ulong Rectangle_align = 4;
+		public static ulong RectangleF_align = 4;
 		public static ulong nk_range_align = 8;
 		public static ulong nk_char_align = 4;
 		public static ulong nk_build_align = 8;

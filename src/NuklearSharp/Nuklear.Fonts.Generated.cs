@@ -1,9 +1,10 @@
 using System;
 using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework;
 
 namespace NuklearSharp
 {
-	public unsafe static partial class Nuklear
+	public unsafe static partial class StbTrueType
 	{
 		public unsafe partial class nk_font_config
 		{
@@ -472,7 +473,7 @@ namespace NuklearSharp
 							points += 2;
 						}
 					}
-					vertices[off + i].x = ((short) (x));
+					vertices[off + i].X = ((short) (x));
 				}
 				y = (int) (0);
 				for (i = (int) (0); (i) < (n); ++i)
@@ -491,15 +492,15 @@ namespace NuklearSharp
 							points += 2;
 						}
 					}
-					vertices[off + i].y = ((short) (y));
+					vertices[off + i].Y = ((short) (y));
 				}
 				num_vertices = (int) (0);
 				sx = (int) (sy = (int) (cx = (int) (cy = (int) (scx = (int) (scy = (int) (0))))));
 				for (i = (int) (0); (i) < (n); ++i)
 				{
 					flags = (byte) (vertices[off + i].type);
-					x = (int) (vertices[off + i].x);
-					y = (int) (vertices[off + i].y);
+					x = (int) (vertices[off + i].X);
+					y = (int) (vertices[off + i].Y);
 					if ((next_move) == (i))
 					{
 						if (i != 0)
@@ -514,13 +515,13 @@ namespace NuklearSharp
 							scy = (int) (y);
 							if ((vertices[off + i + 1].type & 1) == 0)
 							{
-								sx = (int) ((x + (int) (vertices[off + i + 1].x)) >> 1);
-								sy = (int) ((y + (int) (vertices[off + i + 1].y)) >> 1);
+								sx = (int) ((x + (int) (vertices[off + i + 1].X)) >> 1);
+								sy = (int) ((y + (int) (vertices[off + i + 1].Y)) >> 1);
 							}
 							else
 							{
-								sx = ((int) (vertices[off + i + 1].x));
-								sy = ((int) (vertices[off + i + 1].y));
+								sx = ((int) (vertices[off + i + 1].X));
+								sy = ((int) (vertices[off + i + 1].Y));
 								++i;
 							}
 						}
@@ -828,7 +829,7 @@ namespace NuklearSharp
 			else scanline = scanline_data;
 			scanline2 = scanline + result->w;
 			y = (int) (off_y);
-			e[n].y0 = (float) ((float) (off_y + result->h) + 1);
+			e[n].Y0 = (float) ((float) (off_y + result->h) + 1);
 			while ((j) < (result->h))
 			{
 				float scan_y_top = (float) ((float) (y) + 0.0f);
@@ -1008,18 +1009,18 @@ namespace NuklearSharp
 				{
 					int a = (int) (k);
 					int b = (int) (j);
-					if ((p[j].y) == (p[k].y)) continue;
+					if ((p[j].Y) == (p[k].Y)) continue;
 					e[n].invert = (int) (0);
-					if (invert != 0 ? (p[j].y > p[k].y) : (p[j].y < p[k].y))
+					if (invert != 0 ? (p[j].Y > p[k].Y) : (p[j].Y < p[k].Y))
 					{
 						e[n].invert = (int) (1);
 						a = (int) (j);
 						b = (int) (k);
 					}
-					e[n].x0 = (float) (p[a].x*scale_x + shift_x);
-					e[n].y0 = (float) ((p[a].y*y_scale_inv + shift_y)*(float) (vsubsample));
-					e[n].x1 = (float) (p[b].x*scale_x + shift_x);
-					e[n].y1 = (float) ((p[b].y*y_scale_inv + shift_y)*(float) (vsubsample));
+					e[n].X0 = (float) (p[a].X*scale_x + shift_x);
+					e[n].Y0 = (float) ((p[a].Y*y_scale_inv + shift_y)*(float) (vsubsample));
+					e[n].X1 = (float) (p[b].X*scale_x + shift_x);
+					e[n].Y1 = (float) ((p[b].Y*y_scale_inv + shift_y)*(float) (vsubsample));
 					++n;
 				}
 			}
@@ -1031,8 +1032,8 @@ namespace NuklearSharp
 		public static void nk_tt__add_point(nk_tt__point* points, int n, float x, float y)
 		{
 			if (points == null) return;
-			points[n].x = (float) (x);
-			points[n].y = (float) (y);
+			points[n].X = (float) (x);
+			points[n].Y = (float) (y);
 		}
 
 		public static int nk_tt__tesselate_curve(nk_tt__point* points, int* num_points, float x0, float y0, float x1, float y1,
@@ -1101,21 +1102,21 @@ namespace NuklearSharp
 							if ((n) >= (0)) (*contour_lengths)[n] = (int) (num_points - start);
 							++n;
 							start = (int) (num_points);
-							x = (float) (vertices[i].x);
-							y = (float) (vertices[i].y);
+							x = (float) (vertices[i].X);
+							y = (float) (vertices[i].Y);
 							nk_tt__add_point(points, (int) (num_points++), (float) (x), (float) (y));
 							break;
 						case NK_TT_vline:
-							x = (float) (vertices[i].x);
-							y = (float) (vertices[i].y);
+							x = (float) (vertices[i].X);
+							y = (float) (vertices[i].Y);
 							nk_tt__add_point(points, (int) (num_points++), (float) (x), (float) (y));
 							break;
 						case NK_TT_vcurve:
 							nk_tt__tesselate_curve(points, &num_points, (float) (x), (float) (y), (float) (vertices[i].cx),
-								(float) (vertices[i].cy), (float) (vertices[i].x), (float) (vertices[i].y), (float) (objspace_flatness_squared),
+								(float) (vertices[i].cy), (float) (vertices[i].X), (float) (vertices[i].Y), (float) (objspace_flatness_squared),
 								(int) (0));
-							x = (float) (vertices[i].x);
-							y = (float) (vertices[i].y);
+							x = (float) (vertices[i].X);
+							y = (float) (vertices[i].Y);
 							break;
 						default:
 							break;
@@ -1162,10 +1163,10 @@ namespace NuklearSharp
 			nk_tt_GetGlyphBitmapBoxSubpixel(info, (int) (glyph), (float) (scale_x), (float) (scale_y), (float) (shift_x),
 				(float) (shift_y), &ix0, &iy0, null, null);
 			gbm.pixels = output;
-			gbm.w = (int) (out_w);
-			gbm.h = (int) (out_h);
+			gbm.Width = (int) (out_w);
+			gbm.Height = (int) (out_h);
 			gbm.stride = (int) (out_stride);
-			if (((gbm.w) != 0) && ((gbm.h) != 0))
+			if (((gbm.Width) != 0) && ((gbm.Height) != 0))
 				nk_tt_Rasterize(&gbm, (float) (0.35f), vertices, (int) (num_verts), (float) (scale_x), (float) (scale_y),
 					(float) (shift_x), (float) (shift_y), (int) (ix0), (int) (iy0), (int) (1));
 			CRuntime.free(vertices);
@@ -1225,7 +1226,7 @@ namespace NuklearSharp
 						(((fh) > (0))
 							? nk_tt_ScaleForPixelHeight(info, (float) (fh))
 							: nk_tt_ScaleForMappingEmToPixels(info, (float) (-fh)));
-				ranges[i].h_oversample = ((byte) (spc->h_oversample));
+				ranges[i].Height_oversample = ((byte) (spc->h_oversample));
 				ranges[i].v_oversample = ((byte) (spc->v_oversample));
 				for (j = (int) (0); (j) < (ranges[i].num_chars); ++j)
 				{
@@ -1241,8 +1242,8 @@ namespace NuklearSharp
 					int glyph = (int) (nk_tt_FindGlyphIndex(info, (int) (codepoint)));
 					nk_tt_GetGlyphBitmapBoxSubpixel(info, (int) (glyph), (float) (scale*(float) (spc->h_oversample)),
 						(float) (scale*(float) (spc->v_oversample)), (float) (0), (float) (0), &x0, &y0, &x1, &y1);
-					rects[k].w = ((ushort) (x1 - x0 + spc->padding + (int) (spc->h_oversample) - 1));
-					rects[k].h = ((ushort) (y1 - y0 + spc->padding + (int) (spc->v_oversample) - 1));
+					rects[k].Width = ((ushort) (x1 - x0 + spc->padding + (int) (spc->h_oversample) - 1));
+					rects[k].Height = ((ushort) (y1 - y0 + spc->padding + (int) (spc->v_oversample) - 1));
 					++k;
 				}
 			}
@@ -1269,7 +1270,7 @@ namespace NuklearSharp
 				float scale =
 					(float)
 						((fh) > (0) ? nk_tt_ScaleForPixelHeight(info, (float) (fh)) : nk_tt_ScaleForMappingEmToPixels(info, (float) (-fh)));
-				spc->h_oversample = (uint) (ranges[i].h_oversample);
+				spc->h_oversample = (uint) (ranges[i].Height_oversample);
 				spc->v_oversample = (uint) (ranges[i].v_oversample);
 				recip_h = (float) (1.0f/(float) (spc->h_oversample));
 				recip_v = (float) (1.0f/(float) (spc->v_oversample));
@@ -1366,7 +1367,7 @@ namespace NuklearSharp
 		}
 
 		public static int nk_font_bake_pack(nk_font_baker* baker, ulong* image_memory, ref int width, ref int height,
-			ref Rectanglei custom, nk_font_config config_list, int count)
+			ref RectangleFi custom, nk_font_config config_list, int count)
 		{
 			ulong max_height = (ulong) (1024*32);
 			nk_font_config config_iter;
@@ -1406,15 +1407,15 @@ namespace NuklearSharp
 				{
 					nk_rp_rect custom_space = new nk_rp_rect();
 					nk_zero(&custom_space, (ulong) (sizeof (nk_rp_rect)));
-					custom_space.w = ((ushort) ((custom.w*2) + 1));
-					custom_space.h = ((ushort) (custom.h + 1));
+					custom_space.Width = ((ushort) ((custom.Width*2) + 1));
+					custom_space.Height = ((ushort) (custom.Height + 1));
 					nk_tt_PackSetOversampling(&baker->spc, (uint) (1), (uint) (1));
 					nk_rp_pack_rects((nk_rp_context*) (baker->spc.pack_info), &custom_space, (int) (1));
-					height = (int) ((height) < (custom_space.y + custom_space.h) ? (custom_space.y + custom_space.h) : (height));
-					custom.x = ((short) (custom_space.x));
-					custom.y = ((short) (custom_space.y));
-					custom.w = ((short) (custom_space.w));
-					custom.h = ((short) (custom_space.h));
+					height = (int) ((height) < (custom_space.Y + custom_space.Height) ? (custom_space.Y + custom_space.Height) : (height));
+					custom.X = ((short) (custom_space.X));
+					custom.Y = ((short) (custom_space.Y));
+					custom.Width = ((short) (custom_space.Width));
+					custom.Height = ((short) (custom_space.Height));
 				}
 				for (input_i = (int) (0) , config_iter = config_list;
 					((input_i) < (count)) && ((config_iter) != null);
@@ -1456,8 +1457,8 @@ namespace NuklearSharp
 						nk_rp_pack_rects((nk_rp_context*) (baker->spc.pack_info), tmp->rects, (int) (n));
 						for (i = (int) (0); (i) < (n); ++i)
 						{
-							if ((tmp->rects[i].was_packed) != 0)
-								height = (int) ((height) < (tmp->rects[i].y + tmp->rects[i].h) ? (tmp->rects[i].y + tmp->rects[i].h) : (height));
+							if ((tmp->rects[i].Widthas_packed) != 0)
+								height = (int) ((height) < (tmp->rects[i].Y + tmp->rects[i].Height) ? (tmp->rects[i].Y + tmp->rects[i].Height) : (height));
 						}
 					} while ((it = it.n) != config_iter);
 				}
@@ -1479,7 +1480,7 @@ namespace NuklearSharp
 			     (glyphs == null)) || (glyphs_count == 0)) return;
 			nk_zero(image_memory, (ulong) ((ulong) (width)*(ulong) (height)));
 			baker->spc.pixels = (byte*) (image_memory);
-			baker->spc.height = (int) (height);
+			baker->spc.Height = (int) (height);
 			for (input_i = (int) (0) , config_iter = config_list;
 				((input_i) < (font_count)) && ((config_iter) != null);
 				config_iter = config_iter.next)
@@ -1515,7 +1516,7 @@ namespace NuklearSharp
 					if (cfg.merge_mode == 0)
 					{
 						dst_font.ranges = cfg.range;
-						dst_font.height = (float) (cfg.size);
+						dst_font.Height = (float) (cfg.size);
 						dst_font.ascent = (float) ((float) (unscaled_ascent)*font_scale);
 						dst_font.descent = (float) ((float) (unscaled_descent)*font_scale);
 						dst_font.glyph_offset = (uint) (glyph_n);
@@ -1537,10 +1538,10 @@ namespace NuklearSharp
 								&dummy_y, &q, (int) (0));
 							glyph = &glyphs[dst_font.glyph_offset + dst_font.glyph_count + glyph_count];
 							glyph->codepoint = codepoint;
-							glyph->x0 = (float) (q.x0);
-							glyph->y0 = (float) (q.y0);
-							glyph->x1 = (float) (q.x1);
-							glyph->y1 = (float) (q.y1);
+							glyph->x0 = (float) (q.X0);
+							glyph->y0 = (float) (q.Y0);
+							glyph->x1 = (float) (q.X1);
+							glyph->y1 = (float) (q.Y1);
 							glyph->y0 += (float) (dst_font.ascent + 0.5f);
 							glyph->y1 += (float) (dst_font.ascent + 0.5f);
 							glyph->w = (float) (glyph->x1 - glyph->x0 + 0.5f);
@@ -1559,7 +1560,7 @@ namespace NuklearSharp
 								glyph->u1 = (float) (q.s1);
 								glyph->v1 = (float) (q.t1);
 							}
-							glyph->xadvance = (float) (pc->xadvance + cfg.spacing.x);
+							glyph->xadvance = (float) (pc->xadvance + cfg.spacing.X);
 							if ((cfg.pixel_snap) != 0) glyph->xadvance = ((float) ((int) (glyph->xadvance + 0.5f)));
 							glyph_count++;
 						}
@@ -1603,13 +1604,13 @@ namespace NuklearSharp
 			baked = (nk_baked_font) (baked_font);
 			font.fallback = null;
 			font.info = (nk_baked_font) (baked);
-			font.scale = (float) (pixel_height/font.info.height);
+			font.scale = (float) (pixel_height/font.info.Height);
 			font.glyphs = &glyphs[baked_font.glyph_offset];
 			font.texture = (nk_handle) (atlas);
 			font.fallback_codepoint = fallback_codepoint;
 			font.fallback = nk_font_find_glyph(font, fallback_codepoint);
-			font.handle.height = (float) (font.info.height*font.scale);
-			font.handle.width = font.text_width;
+			font.handle.Height = (float) (font.info.Height*font.scale);
+			font.handle.Widthidth = font.text_width;
 
 			font.handle.query = font.query_font_glyph;
 			font.handle.texture = (nk_handle) (font.texture);
@@ -1773,8 +1774,8 @@ namespace NuklearSharp
 			atlas.glyphs =
 				(nk_font_glyph*) (CRuntime.malloc((ulong) ((ulong) sizeof (nk_font_glyph)*(ulong) (atlas.glyph_count))));
 			if (atlas.glyphs == null) goto failed;
-			atlas.custom.w = (short) ((90*2) + 1);
-			atlas.custom.h = (short) (27 + 1);
+			atlas.custom.Width = (short) ((90*2) + 1);
+			atlas.custom.Height = (short) (27 + 1);
 			if (
 				nk_font_bake_pack(baker, &img_size, ref width, ref height, ref atlas.custom, atlas.config, (int) (atlas.font_num)) ==
 				0) goto failed;
@@ -1784,7 +1785,7 @@ namespace NuklearSharp
 				(int) (atlas.font_num));
 			fixed (byte* ptr = nk_custom_cursor_data)
 			{
-				nk_font_bake_custom_data(atlas.pixel, (int) (width), (int) (height), (Rectanglei) (atlas.custom), ptr, (int) (90),
+				nk_font_bake_custom_data(atlas.pixel, (int) (width), (int) (height), (RectangleFi) (atlas.custom), ptr, (int) (90),
 					(int) (27), ('.'), ('X'));
 			}
 			if ((fmt) == (NK_FONT_ATLAS_RGBA32))
@@ -1808,12 +1809,12 @@ namespace NuklearSharp
 			for (i = (int) (0); (i) < (NK_CURSOR_COUNT); ++i)
 			{
 				nk_cursor cursor = atlas.cursors[i];
-				cursor.img.w = ((ushort) (width));
-				cursor.img.h = ((ushort) (height));
-				cursor.img.region[0] = ((ushort) (atlas.custom.x + nk_cursor_data[i, 0].x));
-				cursor.img.region[1] = ((ushort) (atlas.custom.y + nk_cursor_data[i, 0].y));
-				cursor.img.region[2] = ((ushort) (nk_cursor_data[i, 1].x));
-				cursor.img.region[3] = ((ushort) (nk_cursor_data[i, 1].y));
+				cursor.img.Width = ((ushort) (width));
+				cursor.img.Height = ((ushort) (height));
+				cursor.img.region[0] = ((ushort) (atlas.custom.X + nk_cursor_data[i, 0].X));
+				cursor.img.region[1] = ((ushort) (atlas.custom.Y + nk_cursor_data[i, 0].Y));
+				cursor.img.region[2] = ((ushort) (nk_cursor_data[i, 1].X));
+				cursor.img.region[3] = ((ushort) (nk_cursor_data[i, 1].Y));
 				cursor.size = (Vector2) (nk_cursor_data[i, 1]);
 				cursor.offset = (Vector2) (nk_cursor_data[i, 2]);
 			}
@@ -1845,14 +1846,14 @@ namespace NuklearSharp
 			{
 				if (_null_ == null) return;
 				_null_->texture = (nk_handle) (texture);
-				_null_->uv = (Vector2) (Vector2_((float) (0.5f), (float) (0.5f)));
+				_null_->uv = (Vector2) (new Vector2((float) (0.5f), (float) (0.5f)));
 			}
 
 			if ((_null_) != null)
 			{
 				_null_->texture = (nk_handle) (texture);
-				_null_->uv.x = (float) ((atlas.custom.x + 0.5f)/(float) (atlas.tex_width));
-				_null_->uv.y = (float) ((atlas.custom.y + 0.5f)/(float) (atlas.tex_height));
+				_null_->uv.X = (float) ((atlas.custom.X + 0.5f)/(float) (atlas.tex_width));
+				_null_->uv.Y = (float) ((atlas.custom.Y + 0.5f)/(float) (atlas.tex_height));
 			}
 
 			for (font_iter = atlas.fonts; font_iter != null; font_iter = font_iter.next)
@@ -1868,10 +1869,10 @@ namespace NuklearSharp
 			atlas.pixel = null;
 			atlas.tex_width = (int) (0);
 			atlas.tex_height = (int) (0);
-			atlas.custom.x = (short) (0);
-			atlas.custom.y = (short) (0);
-			atlas.custom.w = (short) (0);
-			atlas.custom.h = (short) (0);
+			atlas.custom.X = (short) (0);
+			atlas.custom.Y = (short) (0);
+			atlas.custom.Width = (short) (0);
+			atlas.custom.Height = (short) (0);
 		}
 
 		public static void nk_font_atlas_cleanup(nk_font_atlas atlas)

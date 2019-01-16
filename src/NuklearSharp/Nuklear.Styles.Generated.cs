@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework;
 
 namespace NuklearSharp
 {
@@ -312,19 +313,19 @@ namespace NuklearSharp
 			{
 				default:
 				case NK_PANEL_WINDOW:
-					return (Vector2) (style.window.padding);
+					return (Vector2) (style.Widthindow.padding);
 				case NK_PANEL_GROUP:
-					return (Vector2) (style.window.group_padding);
+					return (Vector2) (style.Widthindow.group_padding);
 				case NK_PANEL_POPUP:
-					return (Vector2) (style.window.popup_padding);
+					return (Vector2) (style.Widthindow.popup_padding);
 				case NK_PANEL_CONTEXTUAL:
-					return (Vector2) (style.window.contextual_padding);
+					return (Vector2) (style.Widthindow.contextual_padding);
 				case NK_PANEL_COMBO:
-					return (Vector2) (style.window.combo_padding);
+					return (Vector2) (style.Widthindow.combo_padding);
 				case NK_PANEL_MENU:
-					return (Vector2) (style.window.menu_padding);
+					return (Vector2) (style.Widthindow.menu_padding);
 				case NK_PANEL_TOOLTIP:
-					return (Vector2) (style.window.menu_padding);
+					return (Vector2) (style.Widthindow.menu_padding);
 			}
 
 		}
@@ -337,19 +338,19 @@ namespace NuklearSharp
 				{
 					default:
 					case NK_PANEL_WINDOW:
-						return (float) (style.window.border);
+						return (float) (style.Widthindow.border);
 					case NK_PANEL_GROUP:
-						return (float) (style.window.group_border);
+						return (float) (style.Widthindow.group_border);
 					case NK_PANEL_POPUP:
-						return (float) (style.window.popup_border);
+						return (float) (style.Widthindow.popup_border);
 					case NK_PANEL_CONTEXTUAL:
-						return (float) (style.window.contextual_border);
+						return (float) (style.Widthindow.contextual_border);
 					case NK_PANEL_COMBO:
-						return (float) (style.window.combo_border);
+						return (float) (style.Widthindow.combo_border);
 					case NK_PANEL_MENU:
-						return (float) (style.window.menu_border);
+						return (float) (style.Widthindow.menu_border);
 					case NK_PANEL_TOOLTIP:
-						return (float) (style.window.menu_border);
+						return (float) (style.Widthindow.menu_border);
 				}
 			}
 			else return (float) (0);
@@ -361,19 +362,19 @@ namespace NuklearSharp
 			{
 				default:
 				case NK_PANEL_WINDOW:
-					return (Color) (style.window.border_color);
+					return (Color) (style.Widthindow.border_color);
 				case NK_PANEL_GROUP:
-					return (Color) (style.window.group_border_color);
+					return (Color) (style.Widthindow.group_border_color);
 				case NK_PANEL_POPUP:
-					return (Color) (style.window.popup_border_color);
+					return (Color) (style.Widthindow.popup_border_color);
 				case NK_PANEL_CONTEXTUAL:
-					return (Color) (style.window.contextual_border_color);
+					return (Color) (style.Widthindow.contextual_border_color);
 				case NK_PANEL_COMBO:
-					return (Color) (style.window.combo_border_color);
+					return (Color) (style.Widthindow.combo_border_color);
 				case NK_PANEL_MENU:
-					return (Color) (style.window.menu_border_color);
+					return (Color) (style.Widthindow.menu_border_color);
 				case NK_PANEL_TOOLTIP:
-					return (Color) (style.window.menu_border_color);
+					return (Color) (style.Widthindow.menu_border_color);
 			}
 
 		}
@@ -385,10 +386,10 @@ namespace NuklearSharp
 			float panel_space;
 			Vector2 spacing = new Vector2();
 			Vector2 padding = new Vector2();
-			spacing = (Vector2) (style.window.spacing);
+			spacing = (Vector2) (style.Widthindow.spacing);
 			padding = (Vector2) (nk_panel_get_padding(style, (int) (type)));
-			panel_padding = (float) (2*padding.x);
-			panel_spacing = (float) ((float) ((columns - 1) < (0) ? (0) : (columns - 1))*spacing.x);
+			panel_padding = (float) (2*padding.X);
+			panel_spacing = (float) ((float) ((columns - 1) < (0) ? (0) : (columns - 1))*spacing.X);
 			panel_space = (float) (total_space - panel_padding - panel_spacing);
 			return (float) (panel_space);
 		}

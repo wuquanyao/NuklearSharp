@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework;
 
 namespace NuklearSharp
 {
@@ -35,10 +36,10 @@ namespace NuklearSharp
 		public class nk_user_font
 		{
 			public nk_handle userdata;
-			public float height;
+			public float Height;
 			public nk_handle texture;
 
-			public NkTextWidthDelegate width;
+			public NkTextWidthDelegate Width;
 			public NkQueryFontGlyphDelegate query;
 		}
 
@@ -46,13 +47,13 @@ namespace NuklearSharp
 		{
 			public nk_font next;
 			public nk_user_font handle = new nk_user_font();
-			public nk_baked_font info = new nk_baked_font();
+			public Utility.nk_baked_font info = new Utility.nk_baked_font();
 			public float scale;
-			public nk_font_glyph* glyphs;
-			public nk_font_glyph* fallback;
+			public StbTrueType.nk_font_glyph* glyphs;
+			public StbTrueType.nk_font_glyph* fallback;
 			public char fallback_codepoint;
 			public nk_handle texture = new nk_handle();
-			public nk_font_config config;
+			public StbTrueType.nk_font_config config;
 
 			public float text_width(nk_handle h, float height, char* s, int length)
 			{
@@ -75,7 +76,7 @@ namespace NuklearSharp
 
 		public class nk_keyboard
 		{
-			public nk_key[] keys = new nk_key[NK_KEY_MAX];
+			public Utility.nk_key[] keys = new Utility.nk_key[NK_KEY_MAX];
 			public char[] text = new char[16];
 			public int text_len;
 		}
@@ -116,7 +117,7 @@ namespace NuklearSharp
 		{
 			public int type;
 			public uint flags;
-			public Rectangle bounds = new Rectangle();
+			public RectangleF bounds = new RectangleF();
 			public nk_scroll offset;
 			public float at_x;
 			public float at_y;
@@ -125,7 +126,7 @@ namespace NuklearSharp
 			public float header_height;
 			public float border;
 			public uint has_scrolling;
-			public Rectangle clip = new Rectangle();
+			public RectangleF clip = new RectangleF();
 			public nk_menu_state menu = new nk_menu_state();
 			public nk_row_layout row = new nk_row_layout();
 			public nk_chart chart = new nk_chart();
@@ -139,7 +140,7 @@ namespace NuklearSharp
 			public uint name;
 			public string name_string;
 			public uint flags;
-			public Rectangle bounds = new Rectangle();
+			public RectangleF bounds = new RectangleF();
 			public nk_scroll scrollbar = new nk_scroll();
 			public nk_command_buffer buffer = new nk_command_buffer();
 			public nk_panel layout;
@@ -186,13 +187,13 @@ namespace NuklearSharp
 			public void* pixel;
 			public int tex_width;
 			public int tex_height;
-			public Rectanglei custom;
+			public RectangleFi custom;
 			public nk_cursor[] cursors = new nk_cursor[NK_CURSOR_COUNT];
 			public int glyph_count;
-			public nk_font_glyph* glyphs;
+			public StbTrueType.nk_font_glyph* glyphs;
 			public nk_font default_font;
 			public nk_font fonts;
-			public nk_font_config config;
+			public StbTrueType.nk_font_config config;
 			public int font_num;
 
 			public nk_font_atlas()
@@ -294,7 +295,7 @@ namespace NuklearSharp
 
 		public class nk_command_buffer
 		{
-			public Rectangle clip;
+			public RectangleF clip;
 			public int use_clipping;
 		}
 
@@ -354,14 +355,14 @@ namespace NuklearSharp
 			if (ctx.style.cursor_active == null) ctx.style.cursor_active = ctx.style.cursors[NK_CURSOR_ARROW];
 			if ((ctx.style.cursor_active != null) && (ctx.input.mouse.grabbed == 0) && ((ctx.style.cursor_visible) != 0))
 			{
-				var mouse_bounds = new Rectangle();
+				var mouse_bounds = new RectangleF();
 				var cursor = ctx.style.cursor_active;
 				nk_command_buffer_init(ctx.overlay, NK_CLIPPING_OFF);
 				nk_start_buffer(ctx, ctx.overlay);
-				mouse_bounds.x = ctx.input.mouse.pos.x - cursor.offset.x;
-				mouse_bounds.y = ctx.input.mouse.pos.y - cursor.offset.y;
-				mouse_bounds.w = cursor.size.x;
-				mouse_bounds.h = cursor.size.y;
+				mouse_bounds.X = ctx.input.mouse.pos.X - cursor.offset.X;
+				mouse_bounds.Y = ctx.input.mouse.pos.Y - cursor.offset.Y;
+				mouse_bounds.Width = cursor.size.X;
+				mouse_bounds.Height = cursor.size.Y;
 				nk_draw_image(ctx.overlay, mouse_bounds, cursor.img, nk_white);
 			}
 
@@ -406,45 +407,6 @@ namespace NuklearSharp
 			{
 				cmd.next = ctx.overlay.count > 0 ? ctx.overlay.first : null;
 			}
-		}
-
-		public static float nk_inv_sqrt(float number)
-		{
-			var threehalfs = 1.5f;
-			var conv = new nk_inv_sqrt_union
-			{
-				i = 0,
-				f = number,
-			};
-			var x2 = number*0.5f;
-			conv.i = 0x5f375A84 - (conv.i >> 1);
-			conv.f = conv.f*(threehalfs - (x2*conv.f*conv.f));
-
-			return conv.f;
-		}
-
-		public static int nk_utf_decode(char* c, int pos, char* u, int clen)
-		{
-			*u = c[pos];
-
-			return 1;
-		}
-
-		public static int nk_utf_decode(char* c, char* u, int clen)
-		{
-			return nk_utf_decode(c, 0, u, clen);
-		}
-
-		public static int nk_utf_encode(char c, char* u, int clen)
-		{
-			*u = c;
-
-			return 1;
-		}
-
-		public static int nk_utf_len(char* str, int len)
-		{
-			return len;
 		}
 
 		public static void nk_textedit_text(nk_text_edit state, string text, int total_len)
@@ -503,10 +465,10 @@ namespace NuklearSharp
 		public static void nk_free_window(nk_context ctx, nk_window win)
 		{
 			nk_table it = win.tables;
-			if (win.popup.win != null)
+			if (win.popup.Widthin != null)
 			{
-				nk_free_window(ctx, win.popup.win);
-				win.popup.win = null;
+				nk_free_window(ctx, win.popup.Widthin);
+				win.popup.Widthin = null;
 			}
 
 			win.next = null;
@@ -531,7 +493,7 @@ namespace NuklearSharp
 		{
 		}
 
-		public static int nk_popup_begin(nk_context ctx, int type, string title, uint flags, Rectangle rect)
+		public static int nk_popup_begin(nk_context ctx, int type, string title, uint flags, RectangleF rect)
 		{
 			fixed (char* ptr = title)
 			{
@@ -544,7 +506,7 @@ namespace NuklearSharp
 			return nk_init(ctx, font);
 		}
 
-		public static nk_font nk_font_atlas_add_default(nk_font_atlas atlas, float pixel_height, nk_font_config config)
+		public static nk_font nk_font_atlas_add_default(nk_font_atlas atlas, float pixel_height, StbTrueType.nk_font_config config)
 		{
 			fixed (byte* ptr = nk_proggy_clean_ttf_compressed_data_base85)
 			{
@@ -555,7 +517,7 @@ namespace NuklearSharp
 		public static void nk_property_(nk_context ctx, char* name, nk_property_variant* variant, float inc_per_pixel,
 			int filter)
 		{
-			var bounds = new Rectangle();
+			var bounds = new RectangleF();
 			uint hash;
 			string dummy_buffer = null;
 			var dummy_state = NK_PROPERTY_DEFAULT;
@@ -640,9 +602,9 @@ namespace NuklearSharp
 			}
 		}
 
-		public static nk_font_config nk_font_config_clone(nk_font_config src)
+		public static StbTrueType.nk_font_config nk_font_config_clone(StbTrueType.nk_font_config src)
 		{
-			return new nk_font_config
+			return new StbTrueType.nk_font_config
 			{
 				next = src.next,
 				ttf_blob = src.ttf_blob,

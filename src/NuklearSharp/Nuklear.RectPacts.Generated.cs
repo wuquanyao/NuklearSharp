@@ -58,11 +58,11 @@ namespace NuklearSharp
 			context->height = (int) (height);
 			context->num_nodes = (int) (num_nodes);
 			nk_rp_setup_allow_out_of_mem(context, (int) (0));
-			context->extra_0.x = (ushort) (0);
-			context->extra_0.y = (ushort) (0);
+			context->extra_0.X = (ushort) (0);
+			context->extra_0.Y = (ushort) (0);
 			context->extra_0.next = &context->extra_1;
-			context->extra_1.x = ((ushort) (width));
-			context->extra_1.y = (ushort) (65535);
+			context->extra_1.X = ((ushort) (width));
+			context->extra_1.Y = (ushort) (65535);
 			context->extra_1.next = null;
 		}
 
@@ -179,8 +179,8 @@ namespace NuklearSharp
 			}
 
 			fr.prev_link = best;
-			fr.x = (int) (best_x);
-			fr.y = (int) (best_y);
+			fr.X = (int) (best_x);
+			fr.Y = (int) (best_y);
 			return (nk_rp__findresult) (fr);
 		}
 
@@ -189,18 +189,18 @@ namespace NuklearSharp
 			nk_rp__findresult res = (nk_rp__findresult) (nk_rp__skyline_find_best_pos(context, (int) (width), (int) (height)));
 			nk_rp_node* node;
 			nk_rp_node* cur;
-			if ((((res.prev_link) == (null)) || ((res.y + height) > (context->height))) || ((context->free_head) == (null)))
+			if ((((res.prev_link) == (null)) || ((res.Y + height) > (context->height))) || ((context->free_head) == (null)))
 			{
 				res.prev_link = null;
 				return (nk_rp__findresult) (res);
 			}
 
 			node = context->free_head;
-			node->x = ((ushort) (res.x));
-			node->y = ((ushort) (res.y + height));
+			node->x = ((ushort) (res.X));
+			node->y = ((ushort) (res.Y + height));
 			context->free_head = node->next;
 			cur = *res.prev_link;
-			if ((cur->x) < (res.x))
+			if ((cur->x) < (res.X))
 			{
 				nk_rp_node* next = cur->next;
 				cur->next = node;
@@ -211,7 +211,7 @@ namespace NuklearSharp
 				*res.prev_link = node;
 			}
 
-			while (((cur->next) != null) && (cur->next->x <= res.x + width))
+			while (((cur->next) != null) && (cur->next->x <= res.X + width))
 			{
 				nk_rp_node* next = cur->next;
 				cur->next = context->free_head;
@@ -219,7 +219,7 @@ namespace NuklearSharp
 				cur = next;
 			}
 			node->next = cur;
-			if ((cur->x) < (res.x + width)) cur->x = ((ushort) (res.x + width));
+			if ((cur->x) < (res.X + width)) cur->x = ((ushort) (res.X + width));
 			return (nk_rp__findresult) (res);
 		}
 
@@ -265,27 +265,27 @@ namespace NuklearSharp
 			int i;
 			for (i = (int) (0); (i) < (num_rects); ++i)
 			{
-				rects[i].was_packed = (int) (i);
+				rects[i].Widthas_packed = (int) (i);
 			}
-			nk_rp_qsort(rects, (uint) (num_rects), Rectangle_height_compare);
+			nk_rp_qsort(rects, (uint) (num_rects), RectangleF_height_compare);
 			for (i = (int) (0); (i) < (num_rects); ++i)
 			{
 				nk_rp__findresult fr =
-					(nk_rp__findresult) (nk_rp__skyline_pack_rectangle(context, (int) (rects[i].w), (int) (rects[i].h)));
+					(nk_rp__findresult) (nk_rp__skyline_pack_rectangle(context, (int) (rects[i].Width), (int) (rects[i].Height)));
 				if ((fr.prev_link) != null)
 				{
-					rects[i].x = ((ushort) (fr.x));
-					rects[i].y = ((ushort) (fr.y));
+					rects[i].X = ((ushort) (fr.X));
+					rects[i].Y = ((ushort) (fr.Y));
 				}
 				else
 				{
-					rects[i].x = (ushort) (rects[i].y = (ushort) (0xffff));
+					rects[i].X = (ushort) (rects[i].Y = (ushort) (0xffff));
 				}
 			}
-			nk_rp_qsort(rects, (uint) (num_rects), Rectangle_original_order);
+			nk_rp_qsort(rects, (uint) (num_rects), RectangleF_original_order);
 			for (i = (int) (0); (i) < (num_rects); ++i)
 			{
-				rects[i].was_packed = (int) ((((rects[i].x) == (0xffff)) && ((rects[i].y) == (0xffff))) ? 0 : 1);
+				rects[i].Widthas_packed = (int) ((((rects[i].X) == (0xffff)) && ((rects[i].Y) == (0xffff))) ? 0 : 1);
 			}
 		}
 	}

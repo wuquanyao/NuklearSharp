@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using Microsoft.Xna.Framework;
 
 namespace NuklearSharp
 {
@@ -30,7 +31,7 @@ namespace NuklearSharp
 			public float item_height;
 			public float item_offset;
 			public float filled;
-			public Rectangle item = new Rectangle();
+			public RectangleF item = new RectangleF();
 			public int tree_depth;
 			public float[] templates = new float[16];
 		}
@@ -55,7 +56,7 @@ namespace NuklearSharp
 			public uint con_count;
 			public uint con_old;
 			public uint active_con;
-			public Rectangle header = new Rectangle();
+			public RectangleF header = new RectangleF();
 		}
 
 		public unsafe partial class nk_edit_state
@@ -99,99 +100,99 @@ namespace NuklearSharp
 
 
 
-		public static void nk_widget_text(nk_command_buffer o, Rectangle b, char* _string_, int len, nk_text* t, uint a,
+		public static void nk_widget_text(nk_command_buffer o, RectangleF b, char* _string_, int len, nk_text* t, uint a,
 			nk_user_font f)
 		{
-			Rectangle label = new Rectangle();
+			RectangleF label = new RectangleF();
 			float text_width;
 			if ((o == null) || (t == null)) return;
-			b.h = (float) ((b.h) < (2*t->padding.y) ? (2*t->padding.y) : (b.h));
-			label.x = (float) (0);
-			label.w = (float) (0);
-			label.y = (float) (b.y + t->padding.y);
-			label.h = (float) ((f.height) < (b.h - 2*t->padding.y) ? (f.height) : (b.h - 2*t->padding.y));
-			text_width = (float) (f.width((nk_handle) (f.userdata), (float) (f.height), _string_, (int) (len)));
-			text_width += (float) (2.0f*t->padding.x);
+			b.Height = (float) ((b.Height) < (2*t->padding.Y) ? (2*t->padding.Y) : (b.Height));
+			label.X = (float) (0);
+			label.Width = (float) (0);
+			label.Y = (float) (b.Y + t->padding.Y);
+			label.Height = (float) ((f.Height) < (b.Height - 2*t->padding.Y) ? (f.Height) : (b.Height - 2*t->padding.Y));
+			text_width = (float) (f.Width((nk_handle) (f.userdata), (float) (f.Height), _string_, (int) (len)));
+			text_width += (float) (2.0f*t->padding.X);
 			if ((a & NK_TEXT_ALIGN_LEFT) != 0)
 			{
-				label.x = (float) (b.x + t->padding.x);
-				label.w = (float) ((0) < (b.w - 2*t->padding.x) ? (b.w - 2*t->padding.x) : (0));
+				label.X = (float) (b.X + t->padding.X);
+				label.Width = (float) ((0) < (b.Width - 2*t->padding.X) ? (b.Width - 2*t->padding.X) : (0));
 			}
 			else if ((a & NK_TEXT_ALIGN_CENTERED) != 0)
 			{
-				label.w = (float) ((1) < (2*t->padding.x + text_width) ? (2*t->padding.x + text_width) : (1));
-				label.x = (float) (b.x + t->padding.x + ((b.w - 2*t->padding.x) - label.w)/2);
-				label.x = (float) ((b.x + t->padding.x) < (label.x) ? (label.x) : (b.x + t->padding.x));
-				label.w = (float) ((b.x + b.w) < (label.x + label.w) ? (b.x + b.w) : (label.x + label.w));
-				if ((label.w) >= (label.x)) label.w -= (float) (label.x);
+				label.Width = (float) ((1) < (2*t->padding.X + text_width) ? (2*t->padding.X + text_width) : (1));
+				label.X = (float) (b.X + t->padding.X + ((b.Width - 2*t->padding.X) - label.Width)/2);
+				label.X = (float) ((b.X + t->padding.X) < (label.X) ? (label.X) : (b.X + t->padding.X));
+				label.Width = (float) ((b.X + b.Width) < (label.X + label.Width) ? (b.X + b.Width) : (label.X + label.Width));
+				if ((label.Width) >= (label.X)) label.Width -= (float) (label.X);
 			}
 			else if ((a & NK_TEXT_ALIGN_RIGHT) != 0)
 			{
-				label.x =
+				label.X =
 					(float)
-						((b.x + t->padding.x) < ((b.x + b.w) - (2*t->padding.x + text_width))
-							? ((b.x + b.w) - (2*t->padding.x + text_width))
-							: (b.x + t->padding.x));
-				label.w = (float) (text_width + 2*t->padding.x);
+						((b.X + t->padding.X) < ((b.X + b.Width) - (2*t->padding.X + text_width))
+							? ((b.X + b.Width) - (2*t->padding.X + text_width))
+							: (b.X + t->padding.X));
+				label.Width = (float) (text_width + 2*t->padding.X);
 			}
 			else return;
 			if ((a & NK_TEXT_ALIGN_MIDDLE) != 0)
 			{
-				label.y = (float) (b.y + b.h/2.0f - f.height/2.0f);
-				label.h =
+				label.Y = (float) (b.Y + b.Height/2.0f - f.Height/2.0f);
+				label.Height =
 					(float)
-						((b.h/2.0f) < (b.h - (b.h/2.0f + f.height/2.0f))
-							? (b.h - (b.h/2.0f + f.height/2.0f))
-							: (b.h/2.0f));
+						((b.Height/2.0f) < (b.Height - (b.Height/2.0f + f.Height/2.0f))
+							? (b.Height - (b.Height/2.0f + f.Height/2.0f))
+							: (b.Height/2.0f));
 			}
 			else if ((a & NK_TEXT_ALIGN_BOTTOM) != 0)
 			{
-				label.y = (float) (b.y + b.h - f.height);
-				label.h = (float) (f.height);
+				label.Y = (float) (b.Y + b.Height - f.Height);
+				label.Height = (float) (f.Height);
 			}
 
-			nk_draw_text(o, (Rectangle) (label), _string_, (int) (len), f, (Color) (t->background),
+			nk_draw_text(o, (RectangleF) (label), _string_, (int) (len), f, (Color) (t->background),
 				(Color) (t->text));
 		}
 
-		public static void nk_widget_text_wrap(nk_command_buffer o, Rectangle b, char* _string_, int len, nk_text* t,
+		public static void nk_widget_text_wrap(nk_command_buffer o, RectangleF b, char* _string_, int len, nk_text* t,
 			nk_user_font f)
 		{
 			float width;
 			int glyphs = (int) (0);
 			int fitting = (int) (0);
 			int done = (int) (0);
-			Rectangle line = new Rectangle();
+			RectangleF line = new RectangleF();
 			nk_text text = new nk_text();
 			uint* seperator = stackalloc uint[1];
 			seperator[0] = (uint) (' ');
 
 			if ((o == null) || (t == null)) return;
-			text.padding = (Vector2) (Vector2_((float) (0), (float) (0)));
+			text.padding = (Vector2) (new Vector2((float) (0), (float) (0)));
 			text.background = (Color) (t->background);
 			text.text = (Color) (t->text);
-			b.w = (float) ((b.w) < (2*t->padding.x) ? (2*t->padding.x) : (b.w));
-			b.h = (float) ((b.h) < (2*t->padding.y) ? (2*t->padding.y) : (b.h));
-			b.h = (float) (b.h - 2*t->padding.y);
-			line.x = (float) (b.x + t->padding.x);
-			line.y = (float) (b.y + t->padding.y);
-			line.w = (float) (b.w - 2*t->padding.x);
-			line.h = (float) (2*t->padding.y + f.height);
-			fitting = (int) (nk_text_clamp(f, _string_, (int) (len), (float) (line.w), &glyphs, &width, seperator, 1));
+			b.Width = (float) ((b.Width) < (2*t->padding.X) ? (2*t->padding.X) : (b.Width));
+			b.Height = (float) ((b.Height) < (2*t->padding.Y) ? (2*t->padding.Y) : (b.Height));
+			b.Height = (float) (b.Height - 2*t->padding.Y);
+			line.X = (float) (b.X + t->padding.X);
+			line.Y = (float) (b.Y + t->padding.Y);
+			line.Width = (float) (b.Width - 2*t->padding.X);
+			line.Height = (float) (2*t->padding.Y + f.Height);
+			fitting = (int) (nk_text_clamp(f, _string_, (int) (len), (float) (line.Width), &glyphs, &width, seperator, 1));
 			while ((done) < (len))
 			{
-				if ((fitting == 0) || ((line.y + line.h) >= (b.y + b.h))) break;
-				nk_widget_text(o, (Rectangle) (line), &_string_[done], (int) (fitting), &text, (uint) (NK_TEXT_LEFT), f);
+				if ((fitting == 0) || ((line.Y + line.Height) >= (b.Y + b.Height))) break;
+				nk_widget_text(o, (RectangleF) (line), &_string_[done], (int) (fitting), &text, (uint) (NK_TEXT_LEFT), f);
 				done += (int) (fitting);
-				line.y += (float) (f.height + 2*t->padding.y);
+				line.Y += (float) (f.Height + 2*t->padding.Y);
 				fitting =
 					(int)
-						(nk_text_clamp(f, &_string_[done], (int) (len - done), (float) (line.w), &glyphs, &width,
+						(nk_text_clamp(f, &_string_[done], (int) (len - done), (float) (line.Width), &glyphs, &width,
 							seperator, 1));
 			}
 		}
 
-		public static void nk_draw_symbol(nk_command_buffer _out_, int type, Rectangle content, Color background,
+		public static void nk_draw_symbol(nk_command_buffer _out_, int type, RectangleF content, Color background,
 			Color foreground, float border_width, nk_user_font font)
 		{
 			switch (type)
@@ -205,10 +206,10 @@ namespace NuklearSharp
 						? 'x'
 						: ((type) == (NK_SYMBOL_UNDERSCORE)) ? '_' : ((type) == (NK_SYMBOL_PLUS)) ? '+' : '-';
 					nk_text text = new nk_text();
-					text.padding = (Vector2) (Vector2_((float) (0), (float) (0)));
+					text.padding = (Vector2) (new Vector2((float) (0), (float) (0)));
 					text.background = (Color) (background);
 					text.text = (Color) (foreground);
-					nk_widget_text(_out_, (Rectangle) (content), &X, (int) (1), &text, (uint) (NK_TEXT_CENTERED), font);
+					nk_widget_text(_out_, (RectangleF) (content), &X, (int) (1), &text, (uint) (NK_TEXT_CENTERED), font);
 				}
 					break;
 				case NK_SYMBOL_CIRCLE_SOLID:
@@ -218,16 +219,16 @@ namespace NuklearSharp
 				{
 					if (((type) == (NK_SYMBOL_RECT_SOLID)) || ((type) == (NK_SYMBOL_RECT_OUTLINE)))
 					{
-						nk_fill_rect(_out_, (Rectangle) (content), (float) (0), (Color) (foreground));
+						nk_fill_rect(_out_, (RectangleF) (content), (float) (0), (Color) (foreground));
 						if ((type) == (NK_SYMBOL_RECT_OUTLINE))
-							nk_fill_rect(_out_, (Rectangle) (nk_shriRectangle_((Rectangle) (content), (float) (border_width))),
+							nk_fill_rect(_out_, (RectangleF) (nk_shriRectangleF_((RectangleF) (content), (float) (border_width))),
 								(float) (0), (Color) (background));
 					}
 					else
 					{
-						nk_fill_circle(_out_, (Rectangle) (content), (Color) (foreground));
+						nk_fill_circle(_out_, (RectangleF) (content), (Color) (foreground));
 						if ((type) == (NK_SYMBOL_CIRCLE_OUTLINE))
-							nk_fill_circle(_out_, (Rectangle) (nk_shriRectangle_((Rectangle) (content), (float) (1))),
+							nk_fill_circle(_out_, (RectangleF) (nk_shriRectangleF_((RectangleF) (content), (float) (1))),
 								(Color) (background));
 					}
 				}
@@ -246,9 +247,9 @@ namespace NuklearSharp
 								: ((type) == (NK_SYMBOL_TRIANGLE_LEFT))
 									? NK_LEFT
 									: ((type) == (NK_SYMBOL_TRIANGLE_UP)) ? NK_UP : NK_DOWN);
-					nk_triangle_from_direction(points, (Rectangle) (content), (float) (0), (float) (0), (int) (heading));
-					nk_fill_triangle(_out_, (float) (points[0].x), (float) (points[0].y), (float) (points[1].x),
-						(float) (points[1].y), (float) (points[2].x), (float) (points[2].y), (Color) (foreground));
+					nk_triangle_from_direction(points, (RectangleF) (content), (float) (0), (float) (0), (int) (heading));
+					nk_fill_triangle(_out_, (float) (points[0].X), (float) (points[0].Y), (float) (points[1].X),
+						(float) (points[1].Y), (float) (points[2].X), (float) (points[2].Y), (Color) (foreground));
 				}
 					break;
 				default:
@@ -259,7 +260,7 @@ namespace NuklearSharp
 
 		}
 
-		public static nk_style_item nk_draw_button(nk_command_buffer _out_, Rectangle* bounds, uint state,
+		public static nk_style_item nk_draw_button(nk_command_buffer _out_, RectangleF* bounds, uint state,
 			nk_style_button style)
 		{
 			nk_style_item background;
@@ -268,19 +269,19 @@ namespace NuklearSharp
 			else background = style.normal;
 			if ((background.type) == (NK_STYLE_ITEM_IMAGE))
 			{
-				nk_draw_image(_out_, (Rectangle) (*bounds), background.data.image, (Color) (nk_white));
+				nk_draw_image(_out_, (RectangleF) (*bounds), background.data.image, (Color) (nk_white));
 			}
 			else
 			{
-				nk_fill_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (Color) (background.data.color));
-				nk_stroke_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (float) (style.border),
+				nk_fill_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (Color) (background.data.color));
+				nk_stroke_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (float) (style.border),
 					(Color) (style.border_color));
 			}
 
 			return background;
 		}
 
-		public static void nk_draw_button_text(nk_command_buffer _out_, Rectangle* bounds, Rectangle* content, uint state,
+		public static void nk_draw_button_text(nk_command_buffer _out_, RectangleF* bounds, RectangleF* content, uint state,
 			nk_style_button style, char* txt, int len, uint text_alignment, nk_user_font font)
 		{
 			nk_text text = new nk_text();
@@ -291,11 +292,11 @@ namespace NuklearSharp
 			if ((state & NK_WIDGET_STATE_HOVER) != 0) text.text = (Color) (style.text_hover);
 			else if ((state & NK_WIDGET_STATE_ACTIVED) != 0) text.text = (Color) (style.text_active);
 			else text.text = (Color) (style.text_normal);
-			text.padding = (Vector2) (Vector2_((float) (0), (float) (0)));
-			nk_widget_text(_out_, (Rectangle) (*content), txt, (int) (len), &text, (uint) (text_alignment), font);
+			text.padding = (Vector2) (new Vector2((float) (0), (float) (0)));
+			nk_widget_text(_out_, (RectangleF) (*content), txt, (int) (len), &text, (uint) (text_alignment), font);
 		}
 
-		public static void nk_draw_button_symbol(nk_command_buffer _out_, Rectangle* bounds, Rectangle* content, uint state,
+		public static void nk_draw_button_symbol(nk_command_buffer _out_, RectangleF* bounds, RectangleF* content, uint state,
 			nk_style_button style, int type, nk_user_font font)
 		{
 			Color sym = new Color();
@@ -307,19 +308,19 @@ namespace NuklearSharp
 			if ((state & NK_WIDGET_STATE_HOVER) != 0) sym = (Color) (style.text_hover);
 			else if ((state & NK_WIDGET_STATE_ACTIVED) != 0) sym = (Color) (style.text_active);
 			else sym = (Color) (style.text_normal);
-			nk_draw_symbol(_out_, (int) (type), (Rectangle) (*content), (Color) (bg), (Color) (sym), (float) (1),
+			nk_draw_symbol(_out_, (int) (type), (RectangleF) (*content), (Color) (bg), (Color) (sym), (float) (1),
 				font);
 		}
 
-		public static void nk_draw_button_image(nk_command_buffer _out_, Rectangle* bounds, Rectangle* content, uint state,
+		public static void nk_draw_button_image(nk_command_buffer _out_, RectangleF* bounds, RectangleF* content, uint state,
 			nk_style_button style, nk_image img)
 		{
 			nk_draw_button(_out_, bounds, (uint) (state), style);
-			nk_draw_image(_out_, (Rectangle) (*content), img, (Color) (nk_white));
+			nk_draw_image(_out_, (RectangleF) (*content), img, (Color) (nk_white));
 		}
 
-		public static void nk_draw_button_text_symbol(nk_command_buffer _out_, Rectangle* bounds, Rectangle* label,
-			Rectangle* symbol, uint state, nk_style_button style, char* str, int len, int type, nk_user_font font)
+		public static void nk_draw_button_text_symbol(nk_command_buffer _out_, RectangleF* bounds, RectangleF* label,
+			RectangleF* symbol, uint state, nk_style_button style, char* str, int len, int type, nk_user_font font)
 		{
 			Color sym = new Color();
 			nk_text text = new nk_text();
@@ -343,14 +344,14 @@ namespace NuklearSharp
 				text.text = (Color) (style.text_normal);
 			}
 
-			text.padding = (Vector2) (Vector2_((float) (0), (float) (0)));
-			nk_draw_symbol(_out_, (int) (type), (Rectangle) (*symbol), (Color) (style.text_background),
+			text.padding = (Vector2) (new Vector2((float) (0), (float) (0)));
+			nk_draw_symbol(_out_, (int) (type), (RectangleF) (*symbol), (Color) (style.text_background),
 				(Color) (sym), (float) (0), font);
-			nk_widget_text(_out_, (Rectangle) (*label), str, (int) (len), &text, (uint) (NK_TEXT_CENTERED), font);
+			nk_widget_text(_out_, (RectangleF) (*label), str, (int) (len), &text, (uint) (NK_TEXT_CENTERED), font);
 		}
 
-		public static void nk_draw_button_text_image(nk_command_buffer _out_, Rectangle* bounds, Rectangle* label,
-			Rectangle* image, uint state, nk_style_button style, char* str, int len, nk_user_font font, nk_image img)
+		public static void nk_draw_button_text_image(nk_command_buffer _out_, RectangleF* bounds, RectangleF* label,
+			RectangleF* image, uint state, nk_style_button style, char* str, int len, nk_user_font font, nk_image img)
 		{
 			nk_text text = new nk_text();
 			nk_style_item background;
@@ -360,13 +361,13 @@ namespace NuklearSharp
 			if ((state & NK_WIDGET_STATE_HOVER) != 0) text.text = (Color) (style.text_hover);
 			else if ((state & NK_WIDGET_STATE_ACTIVED) != 0) text.text = (Color) (style.text_active);
 			else text.text = (Color) (style.text_normal);
-			text.padding = (Vector2) (Vector2_((float) (0), (float) (0)));
-			nk_widget_text(_out_, (Rectangle) (*label), str, (int) (len), &text, (uint) (NK_TEXT_CENTERED), font);
-			nk_draw_image(_out_, (Rectangle) (*image), img, (Color) (nk_white));
+			text.padding = (Vector2) (new Vector2((float) (0), (float) (0)));
+			nk_widget_text(_out_, (RectangleF) (*label), str, (int) (len), &text, (uint) (NK_TEXT_CENTERED), font);
+			nk_draw_image(_out_, (RectangleF) (*image), img, (Color) (nk_white));
 		}
 
 		public static void nk_draw_checkbox(nk_command_buffer _out_, uint state, nk_style_toggle style, int active,
-			Rectangle* label, Rectangle* selector, Rectangle* cursors, char* _string_, int len, nk_user_font font)
+			RectangleF* label, RectangleF* selector, RectangleF* cursors, char* _string_, int len, nk_user_font font)
 		{
 			nk_style_item background;
 			nk_style_item cursor;
@@ -392,26 +393,26 @@ namespace NuklearSharp
 
 			if ((background.type) == (NK_STYLE_ITEM_COLOR))
 			{
-				nk_fill_rect(_out_, (Rectangle) (*selector), (float) (0), (Color) (style.border_color));
-				nk_fill_rect(_out_, (Rectangle) (nk_shriRectangle_((Rectangle) (*selector), (float) (style.border))),
+				nk_fill_rect(_out_, (RectangleF) (*selector), (float) (0), (Color) (style.border_color));
+				nk_fill_rect(_out_, (RectangleF) (nk_shriRectangleF_((RectangleF) (*selector), (float) (style.border))),
 					(float) (0), (Color) (background.data.color));
 			}
-			else nk_draw_image(_out_, (Rectangle) (*selector), background.data.image, (Color) (nk_white));
+			else nk_draw_image(_out_, (RectangleF) (*selector), background.data.image, (Color) (nk_white));
 			if ((active) != 0)
 			{
 				if ((cursor.type) == (NK_STYLE_ITEM_IMAGE))
-					nk_draw_image(_out_, (Rectangle) (*cursors), cursor.data.image, (Color) (nk_white));
-				else nk_fill_rect(_out_, (Rectangle) (*cursors), (float) (0), (Color) (cursor.data.color));
+					nk_draw_image(_out_, (RectangleF) (*cursors), cursor.data.image, (Color) (nk_white));
+				else nk_fill_rect(_out_, (RectangleF) (*cursors), (float) (0), (Color) (cursor.data.color));
 			}
 
-			text.padding.x = (float) (0);
-			text.padding.y = (float) (0);
+			text.padding.X = (float) (0);
+			text.padding.Y = (float) (0);
 			text.background = (Color) (style.text_background);
-			nk_widget_text(_out_, (Rectangle) (*label), _string_, (int) (len), &text, (uint) (NK_TEXT_LEFT), font);
+			nk_widget_text(_out_, (RectangleF) (*label), _string_, (int) (len), &text, (uint) (NK_TEXT_LEFT), font);
 		}
 
 		public static void nk_draw_option(nk_command_buffer _out_, uint state, nk_style_toggle style, int active,
-			Rectangle* label, Rectangle* selector, Rectangle* cursors, char* _string_, int len, nk_user_font font)
+			RectangleF* label, RectangleF* selector, RectangleF* cursors, char* _string_, int len, nk_user_font font)
 		{
 			nk_style_item background;
 			nk_style_item cursor;
@@ -437,26 +438,26 @@ namespace NuklearSharp
 
 			if ((background.type) == (NK_STYLE_ITEM_COLOR))
 			{
-				nk_fill_circle(_out_, (Rectangle) (*selector), (Color) (style.border_color));
-				nk_fill_circle(_out_, (Rectangle) (nk_shriRectangle_((Rectangle) (*selector), (float) (style.border))),
+				nk_fill_circle(_out_, (RectangleF) (*selector), (Color) (style.border_color));
+				nk_fill_circle(_out_, (RectangleF) (nk_shriRectangleF_((RectangleF) (*selector), (float) (style.border))),
 					(Color) (background.data.color));
 			}
-			else nk_draw_image(_out_, (Rectangle) (*selector), background.data.image, (Color) (nk_white));
+			else nk_draw_image(_out_, (RectangleF) (*selector), background.data.image, (Color) (nk_white));
 			if ((active) != 0)
 			{
 				if ((cursor.type) == (NK_STYLE_ITEM_IMAGE))
-					nk_draw_image(_out_, (Rectangle) (*cursors), cursor.data.image, (Color) (nk_white));
-				else nk_fill_circle(_out_, (Rectangle) (*cursors), (Color) (cursor.data.color));
+					nk_draw_image(_out_, (RectangleF) (*cursors), cursor.data.image, (Color) (nk_white));
+				else nk_fill_circle(_out_, (RectangleF) (*cursors), (Color) (cursor.data.color));
 			}
 
-			text.padding.x = (float) (0);
-			text.padding.y = (float) (0);
+			text.padding.X = (float) (0);
+			text.padding.Y = (float) (0);
 			text.background = (Color) (style.text_background);
-			nk_widget_text(_out_, (Rectangle) (*label), _string_, (int) (len), &text, (uint) (NK_TEXT_LEFT), font);
+			nk_widget_text(_out_, (RectangleF) (*label), _string_, (int) (len), &text, (uint) (NK_TEXT_LEFT), font);
 		}
 
 		public static void nk_draw_selectable(nk_command_buffer _out_, uint state, nk_style_selectable style, int active,
-			Rectangle* bounds, Rectangle* icon, nk_image img, char* _string_, int len, uint align, nk_user_font font)
+			RectangleF* bounds, RectangleF* icon, nk_image img, char* _string_, int len, uint align, nk_user_font font)
 		{
 			nk_style_item background;
 			nk_text text = new nk_text();
@@ -500,25 +501,25 @@ namespace NuklearSharp
 
 			if ((background.type) == (NK_STYLE_ITEM_IMAGE))
 			{
-				nk_draw_image(_out_, (Rectangle) (*bounds), background.data.image, (Color) (nk_white));
+				nk_draw_image(_out_, (RectangleF) (*bounds), background.data.image, (Color) (nk_white));
 				text.background = (Color) (nk_rgba((int) (0), (int) (0), (int) (0), (int) (0)));
 			}
 			else
 			{
-				nk_fill_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (Color) (background.data.color));
+				nk_fill_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (Color) (background.data.color));
 				text.background = (Color) (background.data.color);
 			}
 
 			if (((img) != null) && ((icon) != null))
-				nk_draw_image(_out_, (Rectangle) (*icon), img, (Color) (nk_white));
-			nk_widget_text(_out_, (Rectangle) (*bounds), _string_, (int) (len), &text, (uint) (align), font);
+				nk_draw_image(_out_, (RectangleF) (*icon), img, (Color) (nk_white));
+			nk_widget_text(_out_, (RectangleF) (*bounds), _string_, (int) (len), &text, (uint) (align), font);
 		}
 
-		public static void nk_draw_slider(nk_command_buffer _out_, uint state, nk_style_slider style, Rectangle* bounds,
-			Rectangle* visual_cursor, float min, float value, float max)
+		public static void nk_draw_slider(nk_command_buffer _out_, uint state, nk_style_slider style, RectangleF* bounds,
+			RectangleF* visual_cursor, float min, float value, float max)
 		{
-			Rectangle fill = new Rectangle();
-			Rectangle bar = new Rectangle();
+			RectangleF fill = new RectangleF();
+			RectangleF bar = new RectangleF();
 			nk_style_item background;
 			Color bar_color = new Color();
 			nk_style_item cursor;
@@ -541,34 +542,34 @@ namespace NuklearSharp
 				cursor = style.cursor_normal;
 			}
 
-			bar.x = (float) (bounds->x);
-			bar.y = (float) ((visual_cursor->y + visual_cursor->h/2) - bounds->h/12);
-			bar.w = (float) (bounds->w);
-			bar.h = (float) (bounds->h/6);
-			fill.w = (float) ((visual_cursor->x + (visual_cursor->w/2.0f)) - bar.x);
-			fill.x = (float) (bar.x);
-			fill.y = (float) (bar.y);
-			fill.h = (float) (bar.h);
+			bar.X = (float) (bounds->x);
+			bar.Y = (float) ((visual_cursor->y + visual_cursor->h/2) - bounds->h/12);
+			bar.Width = (float) (bounds->w);
+			bar.Height = (float) (bounds->h/6);
+			fill.Width = (float) ((visual_cursor->x + (visual_cursor->w/2.0f)) - bar.X);
+			fill.X = (float) (bar.X);
+			fill.Y = (float) (bar.Y);
+			fill.Height = (float) (bar.Height);
 			if ((background.type) == (NK_STYLE_ITEM_IMAGE))
 			{
-				nk_draw_image(_out_, (Rectangle) (*bounds), background.data.image, (Color) (nk_white));
+				nk_draw_image(_out_, (RectangleF) (*bounds), background.data.image, (Color) (nk_white));
 			}
 			else
 			{
-				nk_fill_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (Color) (background.data.color));
-				nk_stroke_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (float) (style.border),
+				nk_fill_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (Color) (background.data.color));
+				nk_stroke_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (float) (style.border),
 					(Color) (style.border_color));
 			}
 
-			nk_fill_rect(_out_, (Rectangle) (bar), (float) (style.rounding), (Color) (bar_color));
-			nk_fill_rect(_out_, (Rectangle) (fill), (float) (style.rounding), (Color) (style.bar_filled));
+			nk_fill_rect(_out_, (RectangleF) (bar), (float) (style.rounding), (Color) (bar_color));
+			nk_fill_rect(_out_, (RectangleF) (fill), (float) (style.rounding), (Color) (style.bar_filled));
 			if ((cursor.type) == (NK_STYLE_ITEM_IMAGE))
-				nk_draw_image(_out_, (Rectangle) (*visual_cursor), cursor.data.image, (Color) (nk_white));
-			else nk_fill_circle(_out_, (Rectangle) (*visual_cursor), (Color) (cursor.data.color));
+				nk_draw_image(_out_, (RectangleF) (*visual_cursor), cursor.data.image, (Color) (nk_white));
+			else nk_fill_circle(_out_, (RectangleF) (*visual_cursor), (Color) (cursor.data.color));
 		}
 
 		public static void nk_draw_progress(nk_command_buffer _out_, uint state, nk_style_progress style,
-			Rectangle* bounds, Rectangle* scursor, ulong value, ulong max)
+			RectangleF* bounds, RectangleF* scursor, ulong value, ulong max)
 		{
 			nk_style_item background;
 			nk_style_item cursor;
@@ -590,22 +591,22 @@ namespace NuklearSharp
 
 			if ((background.type) == (NK_STYLE_ITEM_COLOR))
 			{
-				nk_fill_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (Color) (background.data.color));
-				nk_stroke_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (float) (style.border),
+				nk_fill_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (Color) (background.data.color));
+				nk_stroke_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (float) (style.border),
 					(Color) (style.border_color));
 			}
-			else nk_draw_image(_out_, (Rectangle) (*bounds), background.data.image, (Color) (nk_white));
+			else nk_draw_image(_out_, (RectangleF) (*bounds), background.data.image, (Color) (nk_white));
 			if ((cursor.type) == (NK_STYLE_ITEM_COLOR))
 			{
-				nk_fill_rect(_out_, (Rectangle) (*scursor), (float) (style.rounding), (Color) (cursor.data.color));
-				nk_stroke_rect(_out_, (Rectangle) (*scursor), (float) (style.rounding), (float) (style.border),
+				nk_fill_rect(_out_, (RectangleF) (*scursor), (float) (style.rounding), (Color) (cursor.data.color));
+				nk_stroke_rect(_out_, (RectangleF) (*scursor), (float) (style.rounding), (float) (style.border),
 					(Color) (style.border_color));
 			}
-			else nk_draw_image(_out_, (Rectangle) (*scursor), cursor.data.image, (Color) (nk_white));
+			else nk_draw_image(_out_, (RectangleF) (*scursor), cursor.data.image, (Color) (nk_white));
 		}
 
 		public static void nk_draw_scrollbar(nk_command_buffer _out_, uint state, nk_style_scrollbar style,
-			Rectangle* bounds, Rectangle* scroll)
+			RectangleF* bounds, RectangleF* scroll)
 		{
 			nk_style_item background;
 			nk_style_item cursor;
@@ -627,22 +628,22 @@ namespace NuklearSharp
 
 			if ((background.type) == (NK_STYLE_ITEM_COLOR))
 			{
-				nk_fill_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (Color) (background.data.color));
-				nk_stroke_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (float) (style.border),
+				nk_fill_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (Color) (background.data.color));
+				nk_stroke_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (float) (style.border),
 					(Color) (style.border_color));
 			}
 			else
 			{
-				nk_draw_image(_out_, (Rectangle) (*bounds), background.data.image, (Color) (nk_white));
+				nk_draw_image(_out_, (RectangleF) (*bounds), background.data.image, (Color) (nk_white));
 			}
 
 			if ((background.type) == (NK_STYLE_ITEM_COLOR))
 			{
-				nk_fill_rect(_out_, (Rectangle) (*scroll), (float) (style.rounding_cursor), (Color) (cursor.data.color));
-				nk_stroke_rect(_out_, (Rectangle) (*scroll), (float) (style.rounding_cursor),
+				nk_fill_rect(_out_, (RectangleF) (*scroll), (float) (style.rounding_cursor), (Color) (cursor.data.color));
+				nk_stroke_rect(_out_, (RectangleF) (*scroll), (float) (style.rounding_cursor),
 					(float) (style.border_cursor), (Color) (style.cursor_border_color));
 			}
-			else nk_draw_image(_out_, (Rectangle) (*scroll), cursor.data.image, (Color) (nk_white));
+			else nk_draw_image(_out_, (RectangleF) (*scroll), cursor.data.image, (Color) (nk_white));
 		}
 
 		public static void nk_edit_draw_text(nk_command_buffer _out_, nk_style_edit style, float pos_x, float pos_y,
@@ -660,7 +661,7 @@ namespace NuklearSharp
 				float line_offset = (float) (0);
 				int line_count = (int) (0);
 				nk_text txt = new nk_text();
-				txt.padding = (Vector2) (Vector2_((float) (0), (float) (0)));
+				txt.padding = (Vector2) (new Vector2((float) (0), (float) (0)));
 				txt.background = (Color) (background);
 				txt.text = (Color) (foreground);
 				glyph_len = (int) (nk_utf_decode(text + text_len, &unicode, (int) (byte_len - text_len)));
@@ -669,15 +670,15 @@ namespace NuklearSharp
 				{
 					if ((unicode) == ('\n'))
 					{
-						Rectangle label = new Rectangle();
-						label.y = (float) (pos_y + line_offset);
-						label.h = (float) (row_height);
-						label.w = (float) (line_width);
-						label.x = (float) (pos_x);
-						if (line_count == 0) label.x += (float) (x_offset);
+						RectangleF label = new RectangleF();
+						label.Y = (float) (pos_y + line_offset);
+						label.Height = (float) (row_height);
+						label.Width = (float) (line_width);
+						label.X = (float) (pos_x);
+						if (line_count == 0) label.X += (float) (x_offset);
 						if ((is_selected) != 0)
-							nk_fill_rect(_out_, (Rectangle) (label), (float) (0), (Color) (background));
-						nk_widget_text(_out_, (Rectangle) (label), line, (int) ((text + text_len) - line), &txt,
+							nk_fill_rect(_out_, (RectangleF) (label), (float) (0), (Color) (background));
+						nk_widget_text(_out_, (RectangleF) (label), line, (int) ((text + text_len) - line), &txt,
 							(uint) (NK_TEXT_CENTERED), font);
 						text_len++;
 						line_count++;
@@ -695,7 +696,7 @@ namespace NuklearSharp
 					}
 					glyph_width =
 						(float)
-							(font.width((nk_handle) (font.userdata), (float) (font.height), text + text_len,
+							(font.Width((nk_handle) (font.userdata), (float) (font.Height), text + text_len,
 								(int) (glyph_len)));
 					line_width += (float) (glyph_width);
 					text_len += (int) (glyph_len);
@@ -704,23 +705,23 @@ namespace NuklearSharp
 				}
 				if ((line_width) > (0))
 				{
-					Rectangle label = new Rectangle();
-					label.y = (float) (pos_y + line_offset);
-					label.h = (float) (row_height);
-					label.w = (float) (line_width);
-					label.x = (float) (pos_x);
-					if (line_count == 0) label.x += (float) (x_offset);
+					RectangleF label = new RectangleF();
+					label.Y = (float) (pos_y + line_offset);
+					label.Height = (float) (row_height);
+					label.Width = (float) (line_width);
+					label.X = (float) (pos_x);
+					if (line_count == 0) label.X += (float) (x_offset);
 					if ((is_selected) != 0)
-						nk_fill_rect(_out_, (Rectangle) (label), (float) (0), (Color) (background));
-					nk_widget_text(_out_, (Rectangle) (label), line, (int) ((text + text_len) - line), &txt,
+						nk_fill_rect(_out_, (RectangleF) (label), (float) (0), (Color) (background));
+					nk_widget_text(_out_, (RectangleF) (label), line, (int) ((text + text_len) - line), &txt,
 						(uint) (NK_TEXT_LEFT), font);
 				}
 			}
 
 		}
 
-		public static void nk_draw_property(nk_command_buffer _out_, nk_style_property style, Rectangle* bounds,
-			Rectangle* label, uint state, char* name, int len, nk_user_font font)
+		public static void nk_draw_property(nk_command_buffer _out_, nk_style_property style, RectangleF* bounds,
+			RectangleF* label, uint state, char* name, int len, nk_user_font font)
 		{
 			nk_text text = new nk_text();
 			nk_style_item background;
@@ -742,23 +743,23 @@ namespace NuklearSharp
 
 			if ((background.type) == (NK_STYLE_ITEM_IMAGE))
 			{
-				nk_draw_image(_out_, (Rectangle) (*bounds), background.data.image, (Color) (nk_white));
+				nk_draw_image(_out_, (RectangleF) (*bounds), background.data.image, (Color) (nk_white));
 				text.background = (Color) (nk_rgba((int) (0), (int) (0), (int) (0), (int) (0)));
 			}
 			else
 			{
 				text.background = (Color) (background.data.color);
-				nk_fill_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (Color) (background.data.color));
-				nk_stroke_rect(_out_, (Rectangle) (*bounds), (float) (style.rounding), (float) (style.border),
+				nk_fill_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (Color) (background.data.color));
+				nk_stroke_rect(_out_, (RectangleF) (*bounds), (float) (style.rounding), (float) (style.border),
 					(Color) (background.data.color));
 			}
 
-			text.padding = (Vector2) (Vector2_((float) (0), (float) (0)));
-			nk_widget_text(_out_, (Rectangle) (*label), name, (int) (len), &text, (uint) (NK_TEXT_CENTERED), font);
+			text.padding = (Vector2) (new Vector2((float) (0), (float) (0)));
+			nk_widget_text(_out_, (RectangleF) (*label), name, (int) (len), &text, (uint) (NK_TEXT_CENTERED), font);
 		}
 
-		public static void nk_draw_color_picker(nk_command_buffer o, Rectangle* matrix, Rectangle* hue_bar,
-			Rectangle* alpha_bar, Colorf col)
+		public static void nk_draw_color_picker(nk_command_buffer o, RectangleF* matrix, RectangleF* hue_bar,
+			RectangleF* alpha_bar, Colorf col)
 		{
 			Color black = (Color) (nk_black);
 			Color white = (Color) (nk_white);
@@ -772,8 +773,8 @@ namespace NuklearSharp
 			for (i = (int) (0); (i) < (6); ++i)
 			{
 				nk_fill_rect_multi_color(o,
-					(Rectangle)
-						(Rectangle_((float) (hue_bar->x), (float) (hue_bar->y + (float) (i)*(hue_bar->h/6.0f) + 0.5f),
+					(RectangleF)
+						(RectangleF_((float) (hue_bar->x), (float) (hue_bar->y + (float) (i)*(hue_bar->h/6.0f) + 0.5f),
 							(float) (hue_bar->w), (float) ((hue_bar->h/6.0f) + 0.5f))), (Color) (hue_colors[i]),
 					(Color) (hue_colors[i]), (Color) (hue_colors[i + 1]), (Color) (hue_colors[i + 1]));
 			}
@@ -785,7 +786,7 @@ namespace NuklearSharp
 				float alpha =
 					(float) ((0) < ((1.0f) < (col.a) ? (1.0f) : (col.a)) ? ((1.0f) < (col.a) ? (1.0f) : (col.a)) : (0));
 				line_y = ((float) ((int) (alpha_bar->y + (1.0f - alpha)*matrix->h + 0.5f)));
-				nk_fill_rect_multi_color(o, (Rectangle) (*alpha_bar), (Color) (white), (Color) (white),
+				nk_fill_rect_multi_color(o, (RectangleF) (*alpha_bar), (Color) (white), (Color) (white),
 					(Color) (black), (Color) (black));
 				nk_stroke_line(o, (float) (alpha_bar->x - 1), (float) (line_y),
 					(float) (alpha_bar->x + alpha_bar->w + 2), (float) (line_y), (float) (1),
@@ -793,23 +794,23 @@ namespace NuklearSharp
 			}
 
 			temp = (Color) (nk_hsv_f((float) (hsva[0]), (float) (1.0f), (float) (1.0f)));
-			nk_fill_rect_multi_color(o, (Rectangle) (*matrix), (Color) (white), (Color) (temp), (Color) (temp),
+			nk_fill_rect_multi_color(o, (RectangleF) (*matrix), (Color) (white), (Color) (temp), (Color) (temp),
 				(Color) (white));
-			nk_fill_rect_multi_color(o, (Rectangle) (*matrix), (Color) (black_trans), (Color) (black_trans),
+			nk_fill_rect_multi_color(o, (RectangleF) (*matrix), (Color) (black_trans), (Color) (black_trans),
 				(Color) (black), (Color) (black));
 			{
 				Vector2 p = new Vector2();
 				float S = (float) (hsva[1]);
 				float V = (float) (hsva[2]);
-				p.x = ((float) ((int) (matrix->x + S*matrix->w)));
-				p.y = ((float) ((int) (matrix->y + (1.0f - V)*matrix->h)));
-				nk_stroke_line(o, (float) (p.x - crosshair_size), (float) (p.y), (float) (p.x - 2), (float) (p.y),
+				p.X = ((float) ((int) (matrix->x + S*matrix->w)));
+				p.Y = ((float) ((int) (matrix->y + (1.0f - V)*matrix->h)));
+				nk_stroke_line(o, (float) (p.X - crosshair_size), (float) (p.Y), (float) (p.X - 2), (float) (p.Y),
 					(float) (1.0f), (Color) (white));
-				nk_stroke_line(o, (float) (p.x + crosshair_size + 1), (float) (p.y), (float) (p.x + 3), (float) (p.y),
+				nk_stroke_line(o, (float) (p.X + crosshair_size + 1), (float) (p.Y), (float) (p.X + 3), (float) (p.Y),
 					(float) (1.0f), (Color) (white));
-				nk_stroke_line(o, (float) (p.x), (float) (p.y + crosshair_size + 1), (float) (p.x), (float) (p.y + 3),
+				nk_stroke_line(o, (float) (p.X), (float) (p.Y + crosshair_size + 1), (float) (p.X), (float) (p.Y + 3),
 					(float) (1.0f), (Color) (white));
-				nk_stroke_line(o, (float) (p.x), (float) (p.y - crosshair_size), (float) (p.x), (float) (p.y - 2),
+				nk_stroke_line(o, (float) (p.X), (float) (p.Y - crosshair_size), (float) (p.X), (float) (p.Y - 2),
 					(float) (1.0f), (Color) (white));
 			}
 

@@ -62,7 +62,7 @@ namespace NuklearSharp
 					continue;
 				}
 
-				Draw((int) cmd.clip_rect.x, (int) cmd.clip_rect.y, (int) cmd.clip_rect.w, (int) cmd.clip_rect.h,
+				Draw((int) cmd.clip_rect.X, (int) cmd.clip_rect.Y, (int) cmd.clip_rect.Width, (int) cmd.clip_rect.Height,
 					cmd.texture.id, (int) offset, (int)(cmd.elem_count / 3));
 				offset += cmd.elem_count;
 			}
